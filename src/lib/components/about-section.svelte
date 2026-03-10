@@ -27,17 +27,17 @@
 		<div class="about-grid">
 			<div class="about-text" use:reveal={{ direction: 'up', delay: 60, once: false }}>
 				<p>
-					Hi, I'm <strong>{personalInfo.name}</strong> — a full-stack developer based in
-					{personalInfo.location}. I go by
-					<span class="handle">@{personalInfo.handle}</span> online.
+					Hi, I'm <strong>{personalInfo.name}</strong> — full-stack developer based in {personalInfo.location}.
+					You can find me as <span class="handle">@{personalInfo.handle}</span> online.
 				</p>
 				<p>
-					I care about clean, maintainable code and developer experience. My stack leans heavily on
-					TypeScript, Svelte, and the modern web platform — but I'm comfortable wherever the problem
-					lives, from REST APIs to desktop apps built with Tauri.
+					I write clean, maintainable code and care about good developer experience. My daily stack
+					is TypeScript + Svelte + modern web, but I also have strong Java knowledge (not currently
+					used at work, will pursue this more) and I'm comfortable across the stack — REST APIs,
+					desktop apps (Tauri), you name it.
 				</p>
 				<p>
-					Currently building
+					Right now building
 					<a
 						href="https://github.com/pitzzahh/powertrackr"
 						target="_blank"
@@ -46,11 +46,7 @@
 					>
 						{personalInfo.currentProject}
 					</a>
-					— an electricity usage and payment tracker. When I'm not coding I write about what I'm learning
-					on
-					<a href={personalInfo.devTo} target="_blank" rel="noopener noreferrer" class="text-link">
-						dev.to
-					</a>.
+					— an electricity usage & payment tracker.
 				</p>
 			</div>
 

@@ -13,14 +13,10 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{site.title}</title>
-	<meta name="description" content={site.description} />
-	<meta name="author" content="Peter John Arao" />
-	<meta property="og:title" content={site.title} />
-	<meta property="og:description" content={site.description} />
-	<meta property="og:type" content="website" />
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:creator" content="@araopjcode" />
+	<meta name="author" content={site.author} />
+	<meta name="keywords" content={site.keywords.join(', ')} />
+	<meta property="og:site_name" content={site.name} />
+	<meta property="og:locale" content={site.locale} />
 </svelte:head>
 
 <Nav scrollY={scrollY.current ?? 0} />

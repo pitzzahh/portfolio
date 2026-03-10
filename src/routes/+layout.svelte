@@ -4,6 +4,7 @@
 	import Nav from '$lib/components/nav.svelte';
 	import { useLenis } from '$lib/lenis.svelte.js';
 	import { scrollY } from 'svelte/reactivity/window';
+	import site from '$lib/site';
 
 	let { children } = $props();
 
@@ -12,17 +13,11 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>Peter John Arao — Full-Stack Developer</title>
-	<meta
-		name="description"
-		content="Full-stack developer from Bicol, Philippines. Building clean, efficient software with SvelteKit, TypeScript, and modern web technologies."
-	/>
+	<title>{site.title}</title>
+	<meta name="description" content={site.description} />
 	<meta name="author" content="Peter John Arao" />
-	<meta property="og:title" content="Peter John Arao — Full-Stack Developer" />
-	<meta
-		property="og:description"
-		content="Full-stack developer from Bicol, Philippines. Building clean, efficient software with SvelteKit, TypeScript, and modern web technologies."
-	/>
+	<meta property="og:title" content={site.title} />
+	<meta property="og:description" content={site.description} />
 	<meta property="og:type" content="website" />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:creator" content="@araopjcode" />

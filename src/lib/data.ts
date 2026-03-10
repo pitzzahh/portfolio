@@ -17,32 +17,25 @@ export const projects: Project[] = [
 	{
 		title: 'powertrackr',
 		description: 'Track and reconcile electricity usage and payments.',
-		tech: ['TypeScript', 'SvelteKit', 'Tauri'],
-		url: 'https://github.com/pitzzahh/powertrackr',
+		tech: ['SvelteKit', 'TypeScript', 'Cloudflare Workers', 'Cloudflare D1', 'Drizzle ORM'],
+		url: 'https://powertrackr.peterjohnarao.com',
 		stars: 2,
-		language: 'TypeScript'
+		language: 'Svelte'
 	},
 	{
 		title: 'heda',
 		description:
 			'Load scheduling, voltage drop analysis, and short circuit calculations for electrical tasks.',
-		tech: ['Svelte', 'TypeScript'],
+		tech: ['SvelteKit', 'TypeScript', 'Tauri'],
 		url: 'https://github.com/pitzzahh/heda',
 		stars: 6,
 		language: 'Svelte'
 	},
-	{
-		title: 'lrnr',
-		description: 'Learning Management System API — fast, type-safe, built on Hono and Bun.',
-		tech: ['TypeScript', 'Hono', 'Bun', 'OpenAPI'],
-		url: 'https://github.com/pitzzahh/lrnr',
-		stars: 4,
-		language: 'TypeScript'
-	},
+
 	{
 		title: 'evently',
 		description: 'Event attendance management with QR scanning and reporting.',
-		tech: ['Svelte', 'TypeScript'],
+		tech: ['SvelteKit', 'TypeScript', 'Tauri'],
 		url: 'https://github.com/pitzzahh/evently',
 		stars: 1,
 		language: 'Svelte'
@@ -53,6 +46,14 @@ export const projects: Project[] = [
 		tech: ['TypeScript', 'Tauri', 'SignalDB'],
 		url: 'https://github.com/pitzzahh/signaldb-adapter-tauri',
 		stars: 2,
+		language: 'TypeScript'
+	},
+	{
+		title: 'lrnr',
+		description: 'Learning Management System API — fast, type-safe, built on Hono and Bun.',
+		tech: ['TypeScript', 'Hono', 'Bun', 'OpenAPI'],
+		url: 'https://github.com/pitzzahh/lrnr',
+		stars: 4,
 		language: 'TypeScript'
 	},
 	{
@@ -67,13 +68,15 @@ export const projects: Project[] = [
 ];
 
 export const skills: Skill[] = [
-	{ name: 'TypeScript', category: 'language' },
-	{ name: 'Python', category: 'language' },
 	{ name: 'Java', category: 'language' },
 	{ name: 'Svelte / SvelteKit', category: 'framework' },
-	{ name: 'Hono', category: 'framework' },
-	{ name: 'FastAPI', category: 'framework' },
+	{ name: 'JS/TS', category: 'language' },
+	{ name: 'Cloudflare Workers', category: 'tool' },
+	{ name: 'Cloudflare Pages', category: 'tool' },
+	{ name: 'Cloudflare D1', category: 'database' },
 	{ name: 'Tauri', category: 'framework' },
+	{ name: 'Hono', category: 'framework' },
+	{ name: 'Drizzle ORM', category: 'tool' },
 	{ name: 'Bun', category: 'tool' },
 	{ name: 'Node.js', category: 'tool' },
 	{ name: 'Vite', category: 'tool' },
@@ -81,7 +84,8 @@ export const skills: Skill[] = [
 	{ name: 'Docker', category: 'tool' },
 	{ name: 'PostgreSQL', category: 'database' },
 	{ name: 'SQLite', category: 'database' },
-	{ name: 'Drizzle ORM', category: 'database' }
+	{ name: 'C#', category: 'language' },
+	{ name: 'Python', category: 'language' }
 ];
 
 export const socialLinks: SocialLink[] = [

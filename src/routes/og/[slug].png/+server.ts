@@ -13,7 +13,6 @@ export const entries: EntryGenerator = () =>
 
 export const GET: RequestHandler = async ({ params }) => {
 	const entry = ogEntriesBySlug[params.slug];
-	console.log({ entry: entry });
 
 	if (!entry) {
 		return new Response(null, { status: 404 });

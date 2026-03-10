@@ -13,16 +13,16 @@
 
 <section class="contact" id="contact">
 	<div class="contact-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0 }}>
+		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<h2 class="section-title">Contact</h2>
 		</header>
 
 		<div class="contact-body">
-			<p class="cta" use:reveal={{ direction: 'up', delay: 60 }}>
+			<p class="cta" use:reveal={{ direction: 'up', delay: 60, once: false }}>
 				Have a project in mind or just want to say hi? I'm always open to a conversation.
 			</p>
 
-			<ul class="link-list" use:reveal={{ direction: 'up', delay: 120 }}>
+			<ul class="link-list" use:reveal={{ direction: 'up', delay: 120, once: false }}>
 				{#each links as link (link.label)}
 					<li>
 						<a href={link.href} target="_blank" rel="noopener noreferrer" class="contact-link">

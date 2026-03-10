@@ -20,12 +20,12 @@
 
 <section class="about" id="about">
 	<div class="about-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0 }}>
+		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<h2 class="section-title">About</h2>
 		</header>
 
 		<div class="about-grid">
-			<div class="about-text" use:reveal={{ direction: 'up', delay: 60 }}>
+			<div class="about-text" use:reveal={{ direction: 'up', delay: 60, once: false }}>
 				<p>
 					Hi, I'm <strong>{personalInfo.name}</strong> — a full-stack developer based in
 					{personalInfo.location}. I go by
@@ -54,7 +54,7 @@
 				</p>
 			</div>
 
-			<div class="about-skills" use:reveal={{ direction: 'up', delay: 120 }}>
+			<div class="about-skills" use:reveal={{ direction: 'up', delay: 120, once: false }}>
 				{#each categories as cat (cat.key)}
 					<div class="skill-group">
 						<span class="skill-group-label">{cat.label}</span>

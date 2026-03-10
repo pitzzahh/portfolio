@@ -1,18 +1,21 @@
 <script lang="ts">
 	import { projects } from '$lib/data.js';
-	import { reveal } from '$lib/actions.js';
+	import { reveal, stagger } from '$lib/actions.js';
 </script>
 
 <section class="work" id="work">
 	<div class="work-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0 }}>
+		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<span class="section-index">( {projects.length} )</span>
 			<h2 class="section-title">Selected work</h2>
 		</header>
 
-		<ol class="project-list">
+		<ol
+			class="project-list"
+			use:stagger={{ direction: 'up', initialDelay: 80, step: 60, once: false }}
+		>
 			{#each projects as project, i (project.title)}
-				<li class="project-row" use:reveal={{ direction: 'up', delay: i * 60 + 80 }}>
+				<li class="project-row">
 					<a
 						href={project.url}
 						target="_blank"
@@ -38,7 +41,7 @@
 			{/each}
 		</ol>
 
-		<div class="work-footer" use:reveal={{ direction: 'up', delay: 80 }}>
+		<div class="work-footer" use:reveal={{ direction: 'up', delay: 80, once: false }}>
 			<a
 				href="https://github.com/pitzzahh?tab=repositories"
 				target="_blank"

@@ -56,14 +56,13 @@
 		font-size: 0.8rem;
 		font-weight: 600;
 		letter-spacing: 0.12em;
-		color: var(--fg);
+		color: var(--fg-muted);
 		text-decoration: none;
-		opacity: 0.5;
-		transition: opacity 0.2s;
+		transition: color 0.2s;
 	}
 
 	.monogram:hover {
-		opacity: 1;
+		color: var(--fg);
 	}
 
 	ul {
@@ -80,14 +79,13 @@
 		font-weight: 500;
 		letter-spacing: 0.08em;
 		text-transform: uppercase;
-		color: var(--fg);
+		color: var(--fg-muted);
 		text-decoration: none;
-		opacity: 0.45;
-		transition: opacity 0.2s;
+		transition: color 0.2s;
 	}
 
 	li a:hover {
-		opacity: 1;
+		color: var(--fg);
 	}
 
 	@media (max-width: 600px) {

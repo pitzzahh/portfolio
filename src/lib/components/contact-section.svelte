@@ -5,9 +5,7 @@
 	const links = [
 		{ label: 'Email', href: personalInfo.email },
 		{ label: 'GitHub', href: personalInfo.github },
-		{ label: 'X / Twitter', href: personalInfo.twitter },
-		{ label: 'dev.to', href: personalInfo.devTo },
-		{ label: 'GitRoll', href: personalInfo.gitroll }
+		{ label: 'X / Twitter', href: personalInfo.twitter }
 	];
 </script>
 

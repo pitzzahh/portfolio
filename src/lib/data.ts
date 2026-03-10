@@ -10,7 +10,8 @@ export const personalInfo = {
 	devTo: 'https://dev.to/pitzzahh',
 	twitter: 'https://x.com/araopjcode',
 	github: 'https://github.com/pitzzahh',
-	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1'
+	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
+	email: 'hello@peterjohnarao.com'
 };
 
 export const projects: Project[] = [

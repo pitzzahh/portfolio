@@ -11,7 +11,7 @@ export const personalInfo = {
 	twitter: 'https://x.com/araopjcode',
 	github: 'https://github.com/pitzzahh',
 	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
-	email: 'hello@peterjohnarao.com'
+	email: 'mailto:hello@peterjohnarao.com'
 };
 
 export const projects: Project[] = [

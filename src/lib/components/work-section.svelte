@@ -68,7 +68,8 @@
 	/* ── Section header ── */
 	.section-header {
 		display: flex;
-		align-items: baseline;
+		justify-content: right;
+		align-items: center;
 		gap: 1rem;
 		margin-bottom: 4rem;
 	}

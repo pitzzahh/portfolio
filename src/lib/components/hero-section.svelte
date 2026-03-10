@@ -130,7 +130,6 @@
 
 	.scroll-cue:hover {
 		color: var(--fg);
-		gap: 1rem;
 	}
 
 	.arrow {

@@ -4,6 +4,31 @@ import adapter from '@sveltejs/adapter-cloudflare';
 const config = {
 	kit: {
 		adapter: adapter(),
+		prerender: {
+			handleHttpError: ({ path, message }) => {
+				console.warn('[prerender] handleHttpError:', path, message);
+
+				if (/^https?:\/\//i.test(path)) {
+					console.warn('[prerender] Skipping absolute external URL:', path);
+					return;
+				}
+
+				const trimmed = String(path).replace(/^\/|\/$/g, '');
+				const firstSegment = trimmed.split('/')[0] || '';
+
+				if (firstSegment.includes('.') && !firstSegment.includes(' ')) {
+					console.warn('[prerender] Skipping domain-like link (external reference):', firstSegment);
+					return;
+				}
+
+				if (/^og\/.+\.(png|jpg|jpeg|webp|gif)$/i.test(trimmed) || path.startsWith('/og/')) {
+					console.warn('[prerender] Skipping OG image path:', path);
+					return;
+				}
+
+				throw new Error(message || `Prerender failed for path: ${path}`);
+			}
+		},
 		csp: {
 			mode: 'auto',
 			directives: {

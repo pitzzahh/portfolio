@@ -10,6 +10,17 @@
 	--border-strong: rgba(255, 255, 255, 0.18);
 }
 
+@media (prefers-color-scheme: light) {
+	:root {
+		--bg: #ffffff;
+		--fg: #0c0c0c;
+		--fg-muted: #666;
+		--fg-subtle: #4f4f4f;
+		--border: rgba(0, 0, 0, 0.08);
+		--border-strong: rgba(0, 0, 0, 0.18);
+	}
+}
+
 /* ── Reset ───────────────────────────────────────────────────────── */
 *,
 *::before,
@@ -65,7 +76,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(255, 255, 255, 0.12);
+	background: var(--border-strong);
 	border-radius: 100px;
 }
 

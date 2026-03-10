@@ -1,13 +1,8 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { personalInfo } from '$lib/data.js';
 	import { scrollTo } from '$lib/lenis.svelte.js';
 
 	let mounted = $state(false);
-
-	onMount(() => {
-		mounted = true;
-	});
 
 	function goToWork(e: MouseEvent) {
 		e.preventDefault();
@@ -15,7 +10,13 @@
 	}
 </script>
 
-<section class="hero" id="top">
+<section
+	class="hero"
+	id="top"
+	{@attach () => {
+		mounted = true;
+	}}
+>
 	<div class="hero-inner" class:visible={mounted}>
 		<p class="availability">
 			<span class="dot" aria-hidden="true"></span>

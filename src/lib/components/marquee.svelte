@@ -2,13 +2,16 @@
 	import { onMount } from 'svelte';
 
 	const items = [
-		'TypeScript',
 		'SvelteKit',
+		'Java',
+		'Cloudflare D1',
+		'Cloudflare Workers',
+		'TypeScript',
 		'Tauri',
 		'Hono',
 		'Bun',
-		'FastAPI',
 		'Python',
+		'SpringBoot',
 		'Drizzle ORM',
 		'PostgreSQL',
 		'SQLite',

@@ -15,7 +15,7 @@
 	<link rel="icon" href={favicon} />
 	<meta name="author" content={site.author} />
 	<meta name="keywords" content={site.keywords.join(', ')} />
-	<meta property="og:site_name" content={site.name} />
+	<meta property="og:site_name" content={site.title} />
 	<meta property="og:locale" content={site.locale} />
 </svelte:head>
 

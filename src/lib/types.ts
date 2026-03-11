@@ -17,3 +17,15 @@ export interface SocialLink {
 	href: string;
 	icon: string;
 }
+
+export type Experience = {
+	company: string;
+	role: string;
+	type: string;
+	start: string;
+	end?: string | null;
+	location?: string;
+	skills?: string[];
+	url?: string;
+	thumbnail?: string;
+};

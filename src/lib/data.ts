@@ -1,4 +1,4 @@
-import type { Project, Skill, SocialLink } from './types.js';
+import type { Experience, Project, Skill, SocialLink } from './types.js';
 
 export const personalInfo = {
 	name: 'Peter John Arao',
@@ -131,5 +131,67 @@ export const socialLinks: SocialLink[] = [
 		label: 'GitRoll',
 		href: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
 		icon: 'gitroll'
+	}
+];
+
+export const experiencesRaw = [
+	{
+		company: 'HSJ Technologies OPC',
+		role: 'Full Stack Developer',
+		type: 'Part-time',
+		start: { y: 2025, m: 1, d: 1 },
+		end: null,
+		location: 'Legaspi, Bicol Region, Philippines',
+		skills: ['Desktop Development', 'Web Application Development', '+2 skills']
+	},
+	{
+		company: 'BICOLIT.ORG INC.',
+		role: 'Student Tech Lead',
+		type: 'Apprenticeship',
+		start: { y: 2024, m: 8, d: 1 },
+		end: null,
+		location: 'Legaspi, Bicol Region, Philippines · Hybrid',
+		skills: ['Java Development', 'Web Development', '+1 skill']
+	},
+	{
+		company: 'DepED - SDO Legazpi',
+		role: 'Full Stack Developer',
+		type: 'Internship',
+		start: { y: 2025, m: 2, d: 1 },
+		end: { y: 2025, m: 6, d: 30 },
+		location: 'Legaspi, Bicol Region, Philippines',
+		skills: []
+	}
+];
+
+export const experiences: Experience[] = [
+	{
+		company: 'HSJ Technologies OPC',
+		role: 'Full Stack Developer',
+		type: 'Part-time',
+		start: '2025-01-01',
+		end: null,
+		location: 'Legaspi, Bicol Region, Philippines',
+		skills: ['Desktop Development', 'Web Application Development', '+2 skills'],
+		url: 'https://hsjtechnologies.com'
+	},
+	{
+		company: 'BICOLIT.ORG INC.',
+		role: 'Student Tech Lead',
+		type: 'Apprenticeship',
+		start: '2024-08-01',
+		end: null,
+		location: 'Legaspi, Bicol Region, Philippines · Hybrid',
+		skills: ['Java Development', 'Web Development', '+1 skill'],
+		url: 'https://bicolit.org'
+	},
+	{
+		company: 'DepED - SDO Legazpi',
+		role: 'Full Stack Developer',
+		type: 'Internship',
+		start: '2025-02-01',
+		end: '2025-06-30',
+		location: 'Legaspi, Bicol Region, Philippines',
+		skills: []
 	}
 ];

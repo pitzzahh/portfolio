@@ -32,7 +32,7 @@
 	});
 </script>
 
-<div class="marquee" aria-hidden="true" class:visible={mounted}>
+<div class="marquee" id="marquee" aria-hidden="true" class:visible={mounted}>
 	<div class="marquee-track">
 		{#each track as item, i (i)}
 			<span class="marquee-item">

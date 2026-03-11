@@ -6,7 +6,7 @@
 
 	function goToWork(e: MouseEvent) {
 		e.preventDefault();
-		scrollTo('#work', { offset: -40, duration: 1.6 });
+		scrollTo('#marquee', { offset: -40, duration: 1.6 });
 	}
 </script>
 

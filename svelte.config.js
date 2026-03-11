@@ -13,15 +13,10 @@ const config = {
 					return;
 				}
 
-				const trimmed = String(path).replace(/^\/|\/$/g, '');
-				const firstSegment = trimmed.split('/')[0] || '';
-
-				if (firstSegment.includes('.') && !firstSegment.includes(' ')) {
-					console.warn('[prerender] Skipping domain-like link (external reference):', firstSegment);
-					return;
-				}
-
-				if (/^og\/.+\.(png|jpg|jpeg|webp|gif)$/i.test(trimmed) || path.startsWith('/og/')) {
+				if (
+					/^og\/.+\.(png|jpg|jpeg|webp|gif)$/i.test(String(path).replace(/^\/|\/$/g, '')) ||
+					path.startsWith('/og/')
+				) {
 					console.warn('[prerender] Skipping OG image path:', path);
 					return;
 				}
@@ -37,7 +32,9 @@ const config = {
 					'self',
 					'https://static.cloudflareinsights.com',
 					'sha256-/gBTEVH1xM958r1ilWt31OXGa+2nXq/ZjlfAritTxFw=',
-					'sha256-kPSWMyT8srPWczKu2bUAYuDg5//aU6krNZENCc4Q1qE='
+					'sha256-kPSWMyT8srPWczKu2bUAYuDg5//aU6krNZENCc4Q1qE=',
+					'sha256-hMZoJpYB5YIKjNJrBKWNOwa6S8c8R+iB6yT6zEVuxAw=',
+					'sha256-568I+Ac5Tkn7gNuBB/lguXUJ+/KJOoZmZyp4oBdK5s0='
 				],
 				'worker-src': ['self', 'blob:'],
 				'style-src': ['self', 'unsafe-inline', 'https://fonts.googleapis.com'],

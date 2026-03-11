@@ -6,8 +6,8 @@
 	const isScrolled = $derived(scrollY > 60);
 
 	const links = [
-		{ label: 'Experience', href: '#exp' },
-		{ label: 'Projects', href: '#project' },
+		{ label: 'Exp', href: '#exp' },
+		{ label: 'Projects', href: '#marquee' },
 		{ label: 'About', href: '#about' },
 		{ label: 'Contact', href: '#contact' }
 	];

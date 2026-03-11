@@ -29,8 +29,8 @@
 
 		<p class="bio">{personalInfo.bio}</p>
 
-		<a href="#work" class="scroll-cue" onclick={goToWork} aria-label="View selected work">
-			Selected work
+		<a href="#marquee" class="scroll-cue" onclick={goToWork} aria-label="View selected projects">
+			View projects
 			<span class="arrow" aria-hidden="true">↓</span>
 		</a>
 	</div>

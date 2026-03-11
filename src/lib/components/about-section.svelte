@@ -32,9 +32,9 @@
 				</p>
 				<p>
 					I write clean, maintainable code and care about good developer experience. My daily stack
-					is TypeScript + Svelte + modern web, but I also have strong Java knowledge (not currently
-					used at work, will pursue this more) and I'm comfortable across the stack — REST APIs,
-					desktop apps (Tauri), you name it.
+					is TypeScript + SvelteKit + modern web, but I also have strong Java knowledge (not
+					currently used at work, will pursue this more) and I'm comfortable across the stack — REST
+					APIs, desktop apps (Tauri), you name it.
 				</p>
 				<p>
 					Right now building

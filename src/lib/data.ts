@@ -61,7 +61,7 @@ export const projects: Project[] = [
 	{
 		title: 'evently',
 		description: 'Event attendance management with QR scanning and reporting.',
-		tech: ['SvelteKit', 'TypeScript', 'Tauri'],
+		tech: ['SvelteKit', 'TypeScript', 'Tauri', 'TailwindCSS', 'shadcn-svelte'],
 		url: 'https://github.com/pitzzahh/evently',
 		stars: 1,
 		language: 'Svelte'

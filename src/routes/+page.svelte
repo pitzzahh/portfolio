@@ -11,9 +11,13 @@
 
 <svelte:head>
 	<title>{site.title}</title>
+	<meta property="og:locale" content={site.locale} />
 	<meta name="description" content={site.description} />
 	<link rel="canonical" href="{site.url}/" />
+	<meta name="theme-color" content="#0c0c0c" />
 	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content={site.title} />
+	<meta property="og:locale" content={site.locale} />
 	<meta property="og:url" content="{site.url}/" />
 	<meta property="og:title" content={site.title} />
 	<meta property="og:description" content={site.description} />

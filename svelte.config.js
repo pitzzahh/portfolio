@@ -25,25 +25,7 @@ const config = {
 			}
 		},
 		csp: {
-			mode: 'auto',
-			directives: {
-				'default-src': ['self'],
-				'script-src': [
-					'self',
-					'https://static.cloudflareinsights.com',
-					'sha256-/gBTEVH1xM958r1ilWt31OXGa+2nXq/ZjlfAritTxFw=',
-					'sha256-kPSWMyT8srPWczKu2bUAYuDg5//aU6krNZENCc4Q1qE=',
-					'sha256-hMZoJpYB5YIKjNJrBKWNOwa6S8c8R+iB6yT6zEVuxAw=',
-					'sha256-568I+Ac5Tkn7gNuBB/lguXUJ+/KJOoZmZyp4oBdK5s0=',
-					'sha256-j0NOzTlmmB41yoMGzQGK3ckVG7BP+Vywv0wQ/+V2b0U=',
-					'sha256-K3NhF44yfVjkSmBo71LYj0M+saKbyU9EFvjkZiWdIFw='
-				],
-				'worker-src': ['self', 'blob:'],
-				'style-src': ['self', 'unsafe-inline', 'https://fonts.googleapis.com'],
-				'img-src': ['self', 'data:'],
-				'font-src': ['self', 'https://fonts.gstatic.com'],
-				'connect-src': ['self']
-			}
+			mode: 'auto'
 		}
 	}
 };

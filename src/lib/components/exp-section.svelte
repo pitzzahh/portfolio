@@ -50,20 +50,24 @@
 
 <script>
 	import { experiences } from '$lib/data';
+	import { reveal, stagger } from '$lib/actions.js';
 </script>
 
 <section class="experience" id="exp">
 	<div class="experience-inner">
-		<header class="section-header">
+		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<span class="section-index">({experiences.length})</span>
 			<h2 class="section-title">Experience</h2>
 		</header>
 
-		<ol class="experience-list">
+		<ol
+			class="experience-list"
+			use:stagger={{ direction: 'up', initialDelay: 80, step: 60, once: false }}
+		>
 			{#each experiences as exp (exp.company + exp.start)}
 				<li class="experience-row">
 					<div class="exp-main">
-						<div class="exp-meta">
+						<div class="exp-meta" use:reveal={{ direction: 'up', delay: 40, once: false }}>
 							<h3 class="exp-role">{exp.role}</h3>
 							<p class="exp-company">
 								{#if getHref(exp.url)}
@@ -76,7 +80,7 @@
 							</p>
 						</div>
 
-						<div class="exp-side">
+						<div class="exp-side" use:reveal={{ direction: 'up', delay: 80, once: false }}>
 							<p class="exp-type">{exp.type}</p>
 							<p class="exp-dates">
 								{formatDate(exp.start)} – {formatDate(exp.end)} · {formatElapsedTime(
@@ -97,7 +101,7 @@
 			{/each}
 		</ol>
 
-		<div class="experience-footer">
+		<div class="experience-footer" use:reveal={{ direction: 'up', delay: 120, once: false }}>
 			<p class="disclaimer">Dates and durations are calculated based on provided ISO dates.</p>
 		</div>
 	</div>

@@ -30,9 +30,9 @@
 </svelte:head>
 
 <HeroSection />
+<ExperienceSection />
 <Marquee />
 <ProjectSection />
-<ExperienceSection />
 <AboutSection />
 <ContactSection />
 <Footer />

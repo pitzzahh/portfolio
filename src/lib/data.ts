@@ -18,16 +18,41 @@ export const projects: Project[] = [
 	{
 		title: 'powertrackr',
 		description: 'Track and reconcile electricity usage and payments.',
-		tech: ['SvelteKit', 'TypeScript', 'Cloudflare Workers', 'Cloudflare D1', 'Drizzle ORM'],
+		tech: [
+			'SvelteKit',
+			'TypeScript',
+			'Cloudflare Workers',
+			'Cloudflare D1',
+			'Drizzle ORM',
+			'shadcn-svelte'
+		],
 		url: 'https://powertrackr.peterjohnarao.com',
 		stars: 2,
 		language: 'Svelte'
 	},
 	{
+		title: 'hrms',
+		description:
+			'Our capstone project developed as an internal Human Capital Management System for the HR team of an organization to manage employees, employment history and semi-automate PDF generation of HR-related documents.',
+		tech: ['SvelteKit', 'TypeScript', 'Drizzle ORM', 'PostgreSQL', 'TailwindCSS', 'shadcn-svelte'],
+		url: 'https://github.com/pitzzahh/hrms',
+		stars: 2,
+		language: 'Svelte'
+	},
+	{
+		title: 'hris',
+		description:
+			'Our final project: a Java-based application for managing human resources, built with Maven for the Java NCIII final project.',
+		tech: ['Java', 'Maven', 'MySQL', 'Lombok', 'JUnit', 'Mockito'],
+		url: 'https://github.com/pitzzahh/hris',
+		stars: 2,
+		language: 'Java'
+	},
+	{
 		title: 'heda',
 		description:
 			'Load scheduling, voltage drop analysis, and short circuit calculations for electrical tasks.',
-		tech: ['SvelteKit', 'TypeScript', 'Tauri'],
+		tech: ['SvelteKit', 'TypeScript', 'Tauri', 'shadcn-svelte'],
 		url: 'https://github.com/pitzzahh/heda',
 		stars: 6,
 		language: 'Svelte'
@@ -65,6 +90,15 @@ export const projects: Project[] = [
 		url: 'https://github.com/pitzzahh/pdf-to-md-api',
 		stars: 2,
 		language: 'Python'
+	},
+	{
+		title: 'agora-token-server',
+		description:
+			'This is a Spring Boot application that provides a REST API for generating Agora RTC tokens.',
+		tech: ['Java', 'Spring Boot', 'Gradle', 'REST API'],
+		url: 'https://github.com/pitzzahh/agora-token-server',
+		stars: 2,
+		language: 'Java'
 	}
 ];
 

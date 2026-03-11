@@ -3,11 +3,11 @@
 	import { reveal, stagger } from '$lib/actions.js';
 </script>
 
-<section class="work" id="work">
-	<div class="work-inner">
+<section class="project" id="project">
+	<div class="project-inner">
 		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<span class="section-index">( {projects.length} )</span>
-			<h2 class="section-title">Selected work</h2>
+			<h2 class="section-title">Selected projects</h2>
 		</header>
 
 		<ol
@@ -41,14 +41,14 @@
 			{/each}
 		</ol>
 
-		<div class="work-footer" use:reveal={{ direction: 'up', delay: 80, once: false }}>
+		<div class="project-footer" use:reveal={{ direction: 'up', delay: 80, once: false }}>
 			<a
 				href="https://github.com/pitzzahh?tab=repositories"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="see-all"
 			>
-				See all repositories
+				See all projects
 				<span aria-hidden="true">↗</span>
 			</a>
 		</div>
@@ -56,11 +56,11 @@
 </section>
 
 <style>
-	.work {
+	.project {
 		padding: 8rem 3rem;
 	}
 
-	.work-inner {
+	.project-inner {
 		max-width: 960px;
 		margin: 0 auto;
 	}
@@ -166,7 +166,7 @@
 	}
 
 	/* ── Footer ── */
-	.work-footer {
+	.project-footer {
 		margin-top: 3rem;
 		display: flex;
 		justify-content: flex-end;
@@ -193,7 +193,7 @@
 	}
 
 	@media (max-width: 768px) {
-		.work {
+		.project {
 			padding: 6rem 1.5rem;
 		}
 

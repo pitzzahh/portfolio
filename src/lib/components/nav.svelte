@@ -80,10 +80,17 @@
 		align-items: center;
 		justify-content: space-between;
 		padding: 2rem 3rem;
-		transition: padding 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+		transition:
+			padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+			background 0.5s ease,
+			border-color 0.5s ease;
 	}
 	.nav.scrolled {
 		padding: 1.25rem 3rem;
+		background: color-mix(in srgb, var(--bg) 55%, transparent);
+		backdrop-filter: blur(14px) saturate(150%);
+		-webkit-backdrop-filter: blur(14px) saturate(150%);
+		border-bottom: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
 	}
 
 	.monogram {

@@ -4,9 +4,9 @@
 
 	let mounted = $state(false);
 
-	function goToWork(e: MouseEvent) {
+	function gotoContact(e: MouseEvent) {
 		e.preventDefault();
-		scrollTo('#marquee', { offset: -40, duration: 1.6 });
+		scrollTo('#contact', { offset: -40, duration: 1.6 });
 	}
 </script>
 
@@ -29,8 +29,8 @@
 
 		<p class="bio">{personalInfo.bio}</p>
 
-		<a href="#marquee" class="scroll-cue" onclick={goToWork} aria-label="View selected projects">
-			View projects
+		<a href="#contact" class="scroll-cue" onclick={gotoContact} aria-label="Contact me">
+			Contact
 			<span class="arrow" aria-hidden="true">↓</span>
 		</a>
 	</div>

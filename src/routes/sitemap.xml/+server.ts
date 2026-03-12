@@ -2,6 +2,8 @@ import type { AppTypes } from '$app/types';
 import site from '$lib/site';
 import type { RequestHandler } from './$types';
 
+export const prerender = true;
+
 export const GET: RequestHandler = async () => {
 	const pages: Array<{
 		url: ReturnType<AppTypes['RouteId']>;

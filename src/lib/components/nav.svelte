@@ -87,9 +87,10 @@
 	}
 	.nav.scrolled {
 		padding: 1.25rem 3rem;
-		background: color-mix(in srgb, var(--bg) 55%, transparent);
-		backdrop-filter: blur(14px) saturate(150%);
-		-webkit-backdrop-filter: blur(14px) saturate(150%);
+		/* slightly more opaque and less aggressive blur by default to reduce the dark smear */
+		background: color-mix(in srgb, var(--bg) 65%, transparent);
+		backdrop-filter: blur(8px) saturate(120%);
+		-webkit-backdrop-filter: blur(8px) saturate(120%);
 		border-bottom: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
 	}
 
@@ -179,10 +180,10 @@
 		transform: translateY(100%);
 		transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
 
-		/* Subtle noise/grain texture via box-shadow layering */
+		/* Subtle noise/grain texture via box-shadow layering (tuned for dark mode) */
 		box-shadow:
 			0 -1px 0 rgba(255, 255, 255, 0.04),
-			0 -40px 80px rgba(0, 0, 0, 0.6);
+			0 -40px 80px rgba(0, 0, 0, 0.45);
 	}
 	.sheet.open {
 		transform: translateY(0);
@@ -278,6 +279,30 @@
 		.sheet {
 			display: flex;
 			flex-direction: column;
+		}
+	}
+
+	/* Reduce the dark cast in light mode: make the scrolled header less blurred and the sheet shadow lighter */
+	@media (prefers-color-scheme: light) {
+		.nav.scrolled {
+			/* more opaque background so it reads as lighter on bright UIs */
+			background: color-mix(in srgb, var(--bg) 82%, transparent);
+			backdrop-filter: blur(4px) saturate(105%);
+			-webkit-backdrop-filter: blur(4px) saturate(105%);
+			border-bottom: 1px solid color-mix(in srgb, var(--fg) 6%, transparent);
+		}
+
+		.sheet {
+			/* light-mode sheet should feel airy — lighter shadow and subtle border */
+			background: var(--bg, #ffffff);
+			border-top: 1px solid rgba(0, 0, 0, 0.06);
+			box-shadow:
+				0 -1px 0 rgba(0, 0, 0, 0.04),
+				0 -20px 40px rgba(0, 0, 0, 0.18);
+		}
+
+		.sheet nav li {
+			border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 		}
 	}
 </style>

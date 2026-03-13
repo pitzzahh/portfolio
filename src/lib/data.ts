@@ -119,7 +119,7 @@ export const projects: Project[] = [
 	{
 		title: 'agora-token-server',
 		description:
-			'This is a Spring Boot application that provides a REST API for generating Agora RTC tokens.',
+			'Spring Boot application that provides a REST API for generating Agora RTC tokens.',
 		tech: ['Java', 'Spring Boot', 'Gradle', 'REST API'],
 		url: 'https://github.com/pitzzahh/agora-token-server',
 		stars: 2,

@@ -255,7 +255,7 @@
 
 	@media (max-width: 480px) {
 		.experience {
-			padding: 4rem 1rem;
+			padding: 4rem 1.4rem;
 		}
 
 		.exp-meta {

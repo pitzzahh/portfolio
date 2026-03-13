@@ -39,7 +39,7 @@
 		min-height: 100svh;
 		display: flex;
 		align-items: flex-end;
-		padding: 0 3rem 5rem;
+		padding: 8rem 3rem;
 	}
 
 	.hero-inner {
@@ -104,6 +104,7 @@
 		line-height: 1.75;
 		max-width: 540px;
 		margin: 0 0 3.5rem;
+		word-break: break-word;
 	}
 
 	.scroll-cue {
@@ -136,7 +137,28 @@
 
 	@media (max-width: 600px) {
 		.hero {
-			padding: 0 1.5rem 4rem;
+			padding: 0 1.3rem 2.5rem;
+			/* start content near the top so longer bios don't push everything down */
+			align-items: flex-end;
+			/* constrain the hero to the viewport height and allow internal scrolling when needed */
+			max-height: 100svh;
+			overflow: auto;
+		}
+		.hero-inner {
+			max-width: 100%;
+			text-align: left;
+			padding-top: 1.25rem;
+		}
+		.bio {
+			max-width: 100%;
+			margin: 0 0 1.25rem;
+			/* slightly smaller, tighter type for mobile to reduce vertical space */
+			font-size: 0.92rem;
+			line-height: 1.4;
+			/* allow the full bio to appear (no truncation) */
+			display: block;
+			overflow: visible;
+			-webkit-box-orient: initial;
 		}
 	}
 </style>

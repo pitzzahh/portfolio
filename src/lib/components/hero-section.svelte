@@ -39,11 +39,15 @@
 		min-height: 100svh;
 		display: flex;
 		align-items: flex-end;
+		/* match project-section horizontal padding (desktop) */
 		padding: 8rem 3rem;
 	}
 
 	.hero-inner {
-		max-width: 820px;
+		/* match other sections' inner container so content is horizontally centered and aligned */
+		max-width: 960px;
+		margin: 0 auto;
+		padding-left: 0; /* ensure inner content aligns with other section inners (left edge) */
 		opacity: 0;
 		transform: translateY(24px);
 		transition:
@@ -102,9 +106,10 @@
 		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 		color: var(--fg-subtle);
 		line-height: 1.75;
-		max-width: 540px;
+		/* removed max-width so bio aligns to the section inner edge like other sections */
 		margin: 0 0 3.5rem;
 		word-break: break-word;
+		width: 100%;
 	}
 
 	.scroll-cue {
@@ -135,9 +140,10 @@
 		transform: translateY(4px);
 	}
 
-	@media (max-width: 600px) {
+	@media (max-width: 768px) {
 		.hero {
-			padding: 0 1.3rem 2.5rem;
+			/* match project-section breakpoint and horizontal padding */
+			padding: 6rem 1.5rem;
 			/* start content near the top so longer bios don't push everything down */
 			align-items: flex-end;
 			/* constrain the hero to the viewport height and allow internal scrolling when needed */
@@ -146,6 +152,7 @@
 		}
 		.hero-inner {
 			max-width: 100%;
+			margin: 0 auto;
 			text-align: left;
 			padding-top: 1.25rem;
 		}

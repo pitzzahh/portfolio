@@ -25,21 +25,23 @@
 	// Duplicate for seamless loop
 	const track = [...items, ...items];
 
-	let mounted = $state(false);
+	let mounted = false;
 
 	onMount(() => {
 		mounted = true;
 	});
 </script>
 
-<div class="marquee" id="marquee" aria-hidden="true" class:visible={mounted}>
-	<div class="marquee-track">
-		{#each track as item, i (i)}
-			<span class="marquee-item">
-				{item}
-				<span class="sep">·</span>
-			</span>
-		{/each}
+<div class="marquee" id="marquee" aria-hidden={!mounted} class:visible={mounted}>
+	<div class="marquee-inner">
+		<div class="marquee-track">
+			{#each track as item, i (i)}
+				<span class="marquee-item">
+					{item}
+					<span class="sep">·</span>
+				</span>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -47,12 +49,20 @@
 	.marquee {
 		overflow: hidden;
 		width: 100%;
-		padding: 1.5rem 0;
+		/* horizontal padding matches project-section (3rem desktop) while keeping a slim vertical gutter */
+		padding: 1.5rem 3rem;
 		border-top: 1px solid var(--border);
 		border-bottom: 1px solid var(--border);
 		opacity: 0;
 		transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 		user-select: none;
+	}
+
+	.marquee-inner {
+		/* align the track with other sections' inner containers */
+		max-width: 960px;
+		margin: 0 auto;
+		width: 100%;
 	}
 
 	.marquee.visible {
@@ -95,6 +105,17 @@
 	.sep {
 		color: var(--border-strong);
 		font-size: 0.6rem;
+	}
+
+	@media (max-width: 768px) {
+		/* match project-section breakpoint and make inner sit flush with the section padding */
+		.marquee {
+			padding: 1.5rem 1.5rem;
+		}
+		.marquee-inner {
+			/* ensure inner content sits flush at the left edge inside the section padding */
+			padding-left: 0;
+		}
 	}
 
 	@media (prefers-reduced-motion: reduce) {

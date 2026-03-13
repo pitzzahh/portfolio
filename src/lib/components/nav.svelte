@@ -21,32 +21,34 @@
 </script>
 
 <header class="nav" class:scrolled={isScrolled}>
-	<a href="#top" class="monogram" onclick={(e) => go(e, '#top')} aria-label="Back to top">
-		P.J.A.
-	</a>
+	<div class="nav-inner">
+		<a href="#top" class="monogram" onclick={(e) => go(e, '#top')} aria-label="Back to top">
+			P.J.A.
+		</a>
 
-	<!-- Desktop nav -->
-	<nav class="desktop-nav" aria-label="Main navigation">
-		<ul>
-			{#each links as link (link.href)}
-				<li>
-					<a href={link.href} onclick={(e) => go(e, link.href)}>{link.label}</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
+		<!-- Desktop nav -->
+		<nav class="desktop-nav" aria-label="Main navigation">
+			<ul>
+				{#each links as link (link.href)}
+					<li>
+						<a href={link.href} onclick={(e) => go(e, link.href)}>{link.label}</a>
+					</li>
+				{/each}
+			</ul>
+		</nav>
 
-	<!-- Mobile hamburger -->
-	<button
-		class="hamburger"
-		class:open={menuOpen}
-		onclick={() => (menuOpen = !menuOpen)}
-		aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-		aria-expanded={menuOpen}
-	>
-		<span></span>
-		<span></span>
-	</button>
+		<!-- Mobile hamburger -->
+		<button
+			class="hamburger"
+			class:open={menuOpen}
+			onclick={() => (menuOpen = !menuOpen)}
+			aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+			aria-expanded={menuOpen}
+		>
+			<span></span>
+			<span></span>
+		</button>
+	</div>
 </header>
 
 <div class="sheet" class:open={menuOpen} role="dialog" aria-modal="true" aria-label="Navigation">
@@ -76,21 +78,27 @@
 		left: 0;
 		right: 0;
 		z-index: 10;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 2rem 3rem;
+		padding: 1rem 0;
 		transition:
 			padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
 			background 0.5s ease,
 			border-color 0.5s ease;
 	}
 	.nav.scrolled {
-		padding: 1.25rem 3rem;
+		padding: 1.25rem 0;
 		/* slightly more opaque and less aggressive blur by default to reduce the dark smear */
 		background: color-mix(in srgb, var(--bg) 65%, transparent);
 		backdrop-filter: blur(8px) saturate(120%);
 		-webkit-backdrop-filter: blur(8px) saturate(120%);
+	}
+
+	/* Centered inner container to match section horizontal padding and keep content aligned */
+	.nav-inner {
+		max-width: 960px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
 	}
 
 	.monogram {
@@ -187,7 +195,6 @@
 	.sheet.open {
 		transform: translateY(0);
 	}
-
 	.sheet nav ul {
 		list-style: none;
 		margin: 0;
@@ -260,14 +267,18 @@
 		transform: translateY(0);
 	}
 
-	/* ── Mobile breakpoint ──────────────────────────── */
-	@media (max-width: 600px) {
+	/* ── Tablet & Mobile breakpoints ─────────────────── */
+	/* Tablet: collapse desktop nav into hamburger and reduce horizontal padding */
+	@media (max-width: 900px) {
 		.nav {
-			padding: 1.5rem 1.5rem;
+			/* reduce the large desktop horizontal padding so the header fits on tablets */
+			padding: 1.5rem;
 		}
 		.nav.scrolled {
-			padding: 1rem 1.5rem;
+			padding: 1.5rem;
 		}
+
+		/* Switch to mobile-style navigation on tablets */
 		.desktop-nav {
 			display: none;
 		}
@@ -275,10 +286,23 @@
 			display: flex;
 		}
 
+		/* make the sheet usable at tablet widths as well */
 		.sheet {
 			display: flex;
 			flex-direction: column;
 		}
+	}
+
+	/* Mobile: tighten padding further for small phones */
+	@media (max-width: 600px) {
+		.nav {
+			padding: 1rem 1.5rem;
+		}
+		.nav.scrolled {
+			padding: 1rem 1.5rem;
+		}
+
+		/* desktop-nav/hamburger/sheet rules are inherited from tablet */
 	}
 
 	/* Reduce the dark cast in light mode: make the scrolled header less blurred and the sheet shadow lighter */

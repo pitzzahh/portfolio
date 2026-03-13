@@ -129,6 +129,7 @@ export const projects: Project[] = [
 
 export const skills: Skill[] = [
 	{ name: 'Java', category: 'language' },
+	{ name: 'Spring', category: 'framework' },
 	{ name: 'Svelte / SvelteKit', category: 'framework' },
 	{ name: 'JS/TS', category: 'language' },
 	{ name: 'Cloudflare Workers', category: 'tool' },

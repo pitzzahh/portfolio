@@ -5,7 +5,7 @@ export const personalInfo = {
 	handle: 'pitzzahh',
 	role: 'Full-Stack Developer',
 	location: 'Bicol, Philippines',
-	bio: 'I build things for the web — and sometimes the desktop. Focused on clean architecture, great developer experience, and software that actually solves problems.',
+	bio: 'I build full stack web applications that emphasize clarity and consistent behavior. Hands-on experience from an internship, work, and personal projects has helped me solve real problems and collaborate with others. I also have strong Java skills and experience building Java applications. I continue to learn and build projects to expand my expertise, and I am seeking roles as a frontend, backend, or full-stack developer where I can contribute and grow.',
 	currentProject: 'powertrackr',
 	devTo: 'https://dev.to/pitzzahh',
 	twitter: 'https://x.com/araopjcode',
@@ -172,7 +172,12 @@ export const experiences: Experience[] = [
 		start: '2025-01-01',
 		end: null,
 		location: 'Legaspi, Bicol Region, Philippines',
-		skills: ['Desktop Development', 'Web Application Development', '+2 skills'],
+		skills: [
+			'Desktop Development',
+			'Web Application Development',
+			'SpringBoot Development',
+			'Flutter Development'
+		],
 		url: 'https://hsjtechnologies.com'
 	},
 	{

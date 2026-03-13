@@ -2,22 +2,20 @@
 	import { personalInfo } from '$lib/data.js';
 	import { scrollTo } from '$lib/lenis.svelte.js';
 
-	let mounted = $state(false);
-
 	function gotoContact(e: MouseEvent) {
 		e.preventDefault();
 		scrollTo('#contact', { offset: -40, duration: 1.6 });
 	}
 </script>
 
-<section
-	class="hero"
-	id="top"
-	{@attach () => {
-		mounted = true;
-	}}
->
-	<div class="hero-inner" class:visible={mounted}>
+<section class="hero" id="top">
+	<div
+		class="hero-inner"
+		{@attach (e) => {
+			e.style.opacity = '1';
+			e.style.transform = 'translateY(0)';
+		}}
+	>
 		<p class="availability">
 			<span class="dot" aria-hidden="true"></span>
 			Available for work
@@ -51,11 +49,6 @@
 		transition:
 			opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
 			transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
-	}
-
-	.hero-inner.visible {
-		opacity: 1;
-		transform: translateY(0);
 	}
 
 	.availability {

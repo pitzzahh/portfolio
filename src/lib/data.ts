@@ -49,6 +49,31 @@ export const projects: Project[] = [
 		language: 'Java'
 	},
 	{
+		title: 'Mayon Golf Course',
+		description:
+			'Part-time front-end work on the public site: implemented layouts, integrated content, and improved performance and cross-device behavior.',
+		tech: ['SvelteKit', 'TypeScript', 'TailwindCSS'],
+		url: 'https://mayongolfcourse.com',
+		stars: 0,
+		language: 'Svelte'
+	},
+	{
+		title: 'SparkPoint',
+		description: 'Front-end/UX work on the public marketing site and landing pages.',
+		tech: ['NextJS', 'TailwindCSS'],
+		url: 'https://sparkpoint.io',
+		stars: 0,
+		language: 'NextJS'
+	},
+	{
+		title: 'IgniteTax AI',
+		description: 'Front-end development and UI implementation for the product marketing site.',
+		tech: ['NextJS', 'TailwindCSS'],
+		url: 'https://www.ignitetax.ai',
+		stars: 0,
+		language: 'NextJS'
+	},
+	{
 		title: 'heda',
 		description:
 			'Load scheduling, voltage drop analysis, and short circuit calculations for electrical tasks.',

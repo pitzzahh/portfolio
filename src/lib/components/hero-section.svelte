@@ -58,6 +58,7 @@
 	.availability {
 		display: inline-flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.5rem;
 		font-size: 0.75rem;
 		font-weight: 500;
@@ -70,6 +71,7 @@
 	.dot {
 		width: 6px;
 		height: 6px;
+		margin-bottom: 0.2rem;
 		border-radius: 50%;
 		background: #4ade80;
 		flex-shrink: 0;

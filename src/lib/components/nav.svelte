@@ -91,7 +91,6 @@
 		background: color-mix(in srgb, var(--bg) 65%, transparent);
 		backdrop-filter: blur(8px) saturate(120%);
 		-webkit-backdrop-filter: blur(8px) saturate(120%);
-		border-bottom: 1px solid color-mix(in srgb, var(--fg) 8%, transparent);
 	}
 
 	.monogram {
@@ -289,7 +288,6 @@
 			background: color-mix(in srgb, var(--bg) 82%, transparent);
 			backdrop-filter: blur(4px) saturate(105%);
 			-webkit-backdrop-filter: blur(4px) saturate(105%);
-			border-bottom: 1px solid color-mix(in srgb, var(--fg) 6%, transparent);
 		}
 
 		.sheet {

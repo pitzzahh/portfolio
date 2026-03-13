@@ -31,6 +31,8 @@
 	<meta name="twitter:description" content={site.description} />
 	<meta name="twitter:image" content="{site.url}/og/home.png" />
 	<meta name="twitter:image:alt" content="{site.title} backdrop" />
+	<link rel="preconnect" href="https://fonts.googleapis.com" />
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 </svelte:head>
 
 <HeroSection />

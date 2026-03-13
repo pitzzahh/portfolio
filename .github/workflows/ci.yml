@@ -57,6 +57,9 @@ jobs:
           node-version: 24.x
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
+      - name: Install Playwright browsers
+        # Ensure Playwright downloads required browser binaries on the runner
+        run: pnpm exec playwright install --with-deps
       - run: pnpm run test
 
   build:

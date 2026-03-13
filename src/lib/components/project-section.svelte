@@ -3,7 +3,7 @@
 	import { reveal, stagger } from '$lib/actions.js';
 </script>
 
-<section class="project" id="project">
+<section class="project" id="projects">
 	<div class="project-inner">
 		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
 			<span class="section-index">( {projects.length} )</span>

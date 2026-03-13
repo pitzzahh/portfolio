@@ -38,7 +38,9 @@ export const reveal: Action<HTMLElement, RevealOptions | undefined> = (node, opt
 	function hide() {
 		Object.assign(node.style, {
 			opacity: '0',
-			transform: initialTransform !== 'none' ? initialTransform : '',
+			...(initialTransform !== 'none' && {
+				transform: initialTransform
+			}),
 			transition: `opacity ${duration}ms ${easing} ${delay}ms, transform ${duration}ms ${easing} ${delay}ms`,
 			willChange: 'opacity, transform'
 		});

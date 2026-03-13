@@ -146,7 +146,8 @@ export const skills: Skill[] = [
 	{ name: 'PostgreSQL', category: 'database' },
 	{ name: 'SQLite', category: 'database' },
 	{ name: 'C#', category: 'language' },
-	{ name: 'Python', category: 'language' }
+	{ name: 'Vitest', category: 'tool' },
+	{ name: 'TestingLibrary', category: 'tool' }
 ];
 
 export const socialLinks: SocialLink[] = [

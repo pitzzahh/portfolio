@@ -8,7 +8,6 @@
 </script>
 
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
 	import { personalInfo } from '$lib/data';
 	let { title, subtitle }: OgCardType = $props();
 </script>
@@ -18,7 +17,13 @@
 	<div class="content">
 		<header class="header">
 			<div class="brand">
-				<img src={favicon} width="64" height="64" alt="{personalInfo.name} logo" class="logo" />
+				<img
+					src="https://github.com/pitzzahh.png"
+					width="64"
+					height="64"
+					alt="{personalInfo.name} logo"
+					class="logo"
+				/>
 				<div class="brand-text" role="heading" aria-level="1">
 					<span class="brand-title">Contact 👋</span>
 					<span class="brand-subtitle">{personalInfo.email.replace('mailto:', '')}</span>

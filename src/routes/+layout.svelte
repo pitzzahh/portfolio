@@ -1,6 +1,5 @@
 <script lang="ts">
 	import './layout.css';
-	import favicon from '$lib/assets/favicon.svg';
 	import Nav from '$lib/components/nav.svelte';
 	import { useLenis } from '$lib/lenis.svelte.js';
 	import { scrollY } from 'svelte/reactivity/window';
@@ -12,7 +11,7 @@
 </script>
 
 <svelte:head>
-	<link rel="icon" href={favicon} />
+	<link rel="icon" href="/favicon.ico" />
 	<meta name="author" content={site.author} />
 	<meta name="keywords" content={site.keywords.join(', ')} />
 	<meta property="og:site_name" content={site.title} />

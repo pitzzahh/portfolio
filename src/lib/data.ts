@@ -5,7 +5,7 @@ export const personalInfo = {
 	handle: 'pitzzahh',
 	role: 'Full-Stack Developer',
 	location: 'Bicol, Philippines',
-	bio: "I'm a full‑stack developer (since 2020) with experience across Java, modern frontend stacks, and desktop tooling. I design and implement responsive, high‑performance user interfaces and server APIs, and I’ve contributed to HR systems, utility apps (powertrackr), and several marketing sites. My priorities are maintainability, clear APIs, and shipping value — from database design and ORM integration to deployable Cloudflare Worker and Tauri-based solutions. I contribute to open-source and enjoy solving production problems end‑to‑end",
+	bio: 'Since 2020 I’ve worked across Java, modern frontend stacks, and desktop tooling. I design and implement responsive, high‑performance user interfaces and server APIs, and I’ve contributed to HR systems, utility apps (powertrackr), and several marketing sites. My priorities are security, maintainability, clear APIs, and shipping value — from database design and ORM integration to selecting the right deployment and delivery approach based on project requirements. I contribute to open‑source and enjoy solving production problems end‑to‑end.',
 	currentProject: 'powertrackr',
 	devTo: 'https://dev.to/pitzzahh',
 	twitter: 'https://x.com/araopjcode',

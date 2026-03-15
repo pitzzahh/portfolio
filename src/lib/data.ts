@@ -5,13 +5,13 @@ export const personalInfo = {
 	handle: 'pitzzahh',
 	role: 'Full-Stack Developer',
 	location: 'Bicol, Philippines',
-	bio: 'I build full stack web applications that emphasize clarity and consistent behavior. Hands-on experience from an internship, work, and personal projects has helped me solve real problems and collaborate with others. I also have strong Java skills and experience building Java applications. I continue to learn and build projects to expand my expertise, and I am seeking roles as a frontend, backend, or full-stack developer where I can contribute and grow.',
+	bio: "I'm a full‑stack developer (since 2020) with experience across Java, modern frontend stacks, and desktop tooling. I design and implement responsive, high‑performance user interfaces and server APIs, and I’ve contributed to HR systems, utility apps (powertrackr), and several marketing sites. My priorities are maintainability, clear APIs, and shipping value — from database design and ORM integration to deployable Cloudflare Worker and Tauri-based solutions. I contribute to open-source and enjoy solving production problems end‑to‑end",
 	currentProject: 'powertrackr',
 	devTo: 'https://dev.to/pitzzahh',
 	twitter: 'https://x.com/araopjcode',
 	github: 'https://github.com/pitzzahh',
 	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
-	email: 'mailto:hello@peterjohnarao.com'
+	email: 'hello@peterjohnarao.com'
 };
 
 export const projects: Project[] = [
@@ -151,43 +151,12 @@ export const skills: Skill[] = [
 ];
 
 export const socialLinks: SocialLink[] = [
+	{ label: 'Email', href: `mailto:${personalInfo.email}`, icon: 'email' },
 	{ label: 'GitHub', href: 'https://github.com/pitzzahh', icon: 'github' },
-	{ label: 'dev.to', href: 'https://dev.to/pitzzahh', icon: 'devto' },
-	{ label: 'X / Twitter', href: 'https://x.com/araopjcode', icon: 'twitter' },
 	{
 		label: 'GitRoll',
 		href: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
 		icon: 'gitroll'
-	}
-];
-
-export const experiencesRaw = [
-	{
-		company: 'HSJ Technologies OPC',
-		role: 'Full Stack Developer',
-		type: 'Part-time',
-		start: { y: 2025, m: 1, d: 1 },
-		end: null,
-		location: 'Legaspi, Bicol Region, Philippines',
-		skills: ['Desktop Development', 'Web Application Development', '+2 skills']
-	},
-	{
-		company: 'BICOLIT.ORG INC.',
-		role: 'Student Tech Lead',
-		type: 'Apprenticeship',
-		start: { y: 2024, m: 8, d: 1 },
-		end: null,
-		location: 'Legaspi, Bicol Region, Philippines · Hybrid',
-		skills: ['Java Development', 'Web Development', '+1 skill']
-	},
-	{
-		company: 'DepED - SDO Legazpi',
-		role: 'Full Stack Developer',
-		type: 'Internship',
-		start: { y: 2025, m: 2, d: 1 },
-		end: { y: 2025, m: 6, d: 30 },
-		location: 'Legaspi, Bicol Region, Philippines',
-		skills: []
 	}
 ];
 
@@ -216,6 +185,15 @@ export const experiences: Experience[] = [
 		location: 'Legaspi, Bicol Region, Philippines · Hybrid',
 		skills: ['Java Development', 'Web Development', '+1 skill'],
 		url: 'https://bicolit.org'
+	},
+	{
+		company: 'ALPHA CENTAURI GARMENTS CORPORATION',
+		role: 'Web Developer',
+		type: 'Internship',
+		start: '2026-01-20',
+		end: '2026-02-09',
+		location: '117 Mo Ignacia Ave. Quezon City',
+		skills: ['NextJS', 'Redux', 'TailwindCSS', 'Neon DB']
 	},
 	{
 		company: 'DepED - SDO Legazpi',

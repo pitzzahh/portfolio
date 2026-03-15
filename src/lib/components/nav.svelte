@@ -23,7 +23,7 @@
 <header class="nav" class:scrolled={isScrolled}>
 	<div class="nav-inner">
 		<a href="#top" class="monogram" onclick={(e) => go(e, '#top')} aria-label="Back to top">
-			P.J.A.
+			P.J.A
 		</a>
 
 		<!-- Desktop nav -->

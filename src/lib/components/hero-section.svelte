@@ -71,7 +71,7 @@
 	.dot {
 		width: 6px;
 		height: 6px;
-		margin-bottom: 0.2rem;
+		margin-bottom: 0.1rem;
 		border-radius: 50%;
 		background: #4ade80;
 		flex-shrink: 0;

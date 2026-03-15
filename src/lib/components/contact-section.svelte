@@ -1,12 +1,6 @@
-<script lang="ts">
-	import { personalInfo } from '$lib/data.js';
+<script>
+	import { socialLinks } from '$lib/data.js';
 	import { reveal } from '$lib/actions.js';
-
-	const links = [
-		{ label: 'Email', href: personalInfo.email },
-		{ label: 'GitHub', href: personalInfo.github },
-		{ label: 'X / Twitter', href: personalInfo.twitter }
-	];
 </script>
 
 <section class="contact" id="contact">
@@ -21,7 +15,7 @@
 			</p>
 
 			<ul class="link-list" use:reveal={{ direction: 'up', delay: 120, once: false }}>
-				{#each links as link (link.label)}
+				{#each socialLinks as link (link.label)}
 					<li>
 						<a href={link.href} target="_blank" rel="noopener noreferrer" class="contact-link">
 							<span class="link-label">{link.label}</span>

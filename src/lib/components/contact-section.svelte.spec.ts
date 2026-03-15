@@ -9,9 +9,7 @@ describe('ContactSection.svelte', () => {
 		render(ContactSection);
 
 		// Heading
-		await expect
-			.element(page.getByRole('heading', { level: 2 }))
-			.toHaveTextContent('Contact');
+		await expect.element(page.getByRole('heading', { level: 2 })).toHaveTextContent('Contact');
 
 		// CTA paragraph (full text from the component)
 		await expect
@@ -25,7 +23,7 @@ describe('ContactSection.svelte', () => {
 		// Static link labels present
 		await expect.element(page.getByText('Email')).toBeInTheDocument();
 		await expect.element(page.getByText('GitHub')).toBeInTheDocument();
-		await expect.element(page.getByText('X / Twitter')).toBeInTheDocument();
+		await expect.element(page.getByText('GitRoll')).toBeInTheDocument();
 
 		// Ensure the contact links open in a new tab (component sets target="_blank")
 		await expect
@@ -35,7 +33,7 @@ describe('ContactSection.svelte', () => {
 			.element(page.getByRole('link', { name: /GitHub/i }))
 			.toHaveAttribute('target', '_blank');
 		await expect
-			.element(page.getByRole('link', { name: /X \/ Twitter/i }))
+			.element(page.getByRole('link', { name: /GitRoll/i }))
 			.toHaveAttribute('target', '_blank');
 	});
 });

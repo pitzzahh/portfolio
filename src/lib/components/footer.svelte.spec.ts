@@ -17,8 +17,8 @@ vi.mock('$lib/data.js', () => {
 vi.mock('$lib/lenis.svelte.js', () => {
 	const scrollToMock = vi.fn();
 	// expose the mock for test assertions
-	// @ts-ignore
-	globalThis.__scrollToMock = scrollToMock;
+	(globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> }).__scrollToMock =
+		scrollToMock;
 	return {
 		scrollTo: scrollToMock
 	};
@@ -27,7 +27,8 @@ vi.mock('$lib/lenis.svelte.js', () => {
 describe('Footer.svelte', () => {
 	beforeEach(() => {
 		// retrieve the mock exposed by the vi.mock factory
-		const scrollToMock = (globalThis as any).__scrollToMock;
+		const scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
+			.__scrollToMock;
 		if (scrollToMock && scrollToMock.mockReset) scrollToMock.mockReset();
 	});
 
@@ -49,7 +50,8 @@ describe('Footer.svelte', () => {
 		await page.getByRole('link', { name: 'Back to top' }).click();
 
 		// Ensure the mocked scrollTo was called correctly
-		const scrollToMock = (globalThis as any).__scrollToMock;
+		const scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
+			.__scrollToMock;
 		expect(scrollToMock).toHaveBeenCalledTimes(1);
 		expect(scrollToMock).toHaveBeenCalledWith('#top', { duration: 1.6 });
 	});

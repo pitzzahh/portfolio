@@ -7,19 +7,20 @@ import Nav from './nav.svelte';
 vi.mock('$lib/lenis.svelte.js', () => {
 	const scrollToMock = vi.fn();
 	// expose the mock to tests via globalThis so tests can assert calls
-	// @ts-ignore
-	globalThis.__scrollToMock = scrollToMock;
+	(globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> }).__scrollToMock =
+		scrollToMock;
 	return {
 		scrollTo: scrollToMock
 	};
 });
 
 describe('Nav.svelte', () => {
-	let scrollToMock: any;
+	let scrollToMock: ReturnType<typeof vi.fn> | undefined;
 
 	beforeEach(() => {
 		// retrieve the mock at runtime to avoid reading globals during module initialization
-		scrollToMock = (globalThis as any).__scrollToMock;
+		scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
+			.__scrollToMock;
 		if (scrollToMock && scrollToMock.mockClear) scrollToMock.mockClear();
 	});
 
@@ -72,11 +73,11 @@ describe('Nav.svelte', () => {
 		// Component's go() should call scrollTo with the href and expected options
 		expect(scrollToMock).toHaveBeenCalled();
 		// Check the last call's first argument is the about anchor
-		expect(scrollToMock.mock.calls.slice(-1)[0][0]).toBe('#about');
+		expect(scrollToMock?.mock.calls.slice(-1)[0][0]).toBe('#about');
 		// Check an options object (with offset and duration) was passed as second argument
-		expect(typeof scrollToMock.mock.calls.slice(-1)[0][1]).toBe('object');
-		expect(scrollToMock.mock.calls.slice(-1)[0][1]).toHaveProperty('duration');
-		expect(scrollToMock.mock.calls.slice(-1)[0][1]).toHaveProperty('offset');
+		expect(typeof scrollToMock?.mock.calls.slice(-1)[0][1]).toBe('object');
+		expect(scrollToMock?.mock.calls.slice(-1)[0][1]).toHaveProperty('duration');
+		expect(scrollToMock?.mock.calls.slice(-1)[0][1]).toHaveProperty('offset');
 	});
 
 	it('mobile sheet contains navigation items when opened', async () => {
@@ -95,6 +96,6 @@ describe('Nav.svelte', () => {
 		// Clicking a mobile link should also call scrollTo
 		await page.getByRole('link', { name: 'About' }).click();
 		expect(scrollToMock).toHaveBeenCalled();
-		expect(scrollToMock.mock.calls.slice(-1)[0][0]).toBe('#about');
+		expect(scrollToMock?.mock.calls.slice(-1)[0][0]).toBe('#about');
 	});
 });

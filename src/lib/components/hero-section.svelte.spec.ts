@@ -8,8 +8,8 @@ import Hero from './hero-section.svelte';
 vi.mock('$lib/lenis.svelte.js', () => {
 	const scrollToMock = vi.fn();
 	// expose the mock for test assertions
-	// @ts-ignore
-	globalThis.__scrollToMock = scrollToMock;
+	(globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> }).__scrollToMock =
+		scrollToMock;
 	return { scrollTo: scrollToMock };
 });
 
@@ -23,10 +23,11 @@ vi.mock('$lib/data.js', () => ({
 }));
 
 describe('Hero section', () => {
-	let scrollToMock: any;
+	let scrollToMock: ReturnType<typeof vi.fn> | undefined;
 	beforeEach(() => {
 		// Grab the mock exposed by the vi.mock factory above
-		scrollToMock = (globalThis as any).__scrollToMock;
+		scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
+			.__scrollToMock;
 		if (scrollToMock?.mockClear) scrollToMock.mockClear();
 	});
 

@@ -3,13 +3,27 @@ import { describe, expect, it } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import OgCard from './og-card.svelte';
 
+/**
+ * @typedef {Object} OgCardProps
+ * @property {string} title
+ * @property {string} subtitle
+ */
+
+/**
+ * Render the OgCard component with typed props (via JSDoc).
+ *
+ * Using JSDoc typedefs gives us rich editor and tooling hints without using TypeScript.
+ */
+
 describe('OgCard.svelte', () => {
 	it('renders title and subtitle and exposes an accessible aria-label on the image container', async () => {
+		/** @type {OgCardProps} */
 		const props = {
 			title: 'My Title',
 			subtitle: 'Sub text'
 		};
 
+		// Render the component with props
 		render(OgCard, props);
 
 		// The root card exposes role="img" with aria-label="{title} — {subtitle}"

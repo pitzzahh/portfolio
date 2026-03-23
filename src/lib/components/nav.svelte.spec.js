@@ -3,28 +3,56 @@ import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import Nav from './nav.svelte';
 
-// Create a mock before importing the component so the component uses the mocked implementation
+/**
+ * Minimal mock shape for typing in these specs.
+ * We only declare the methods used by the tests so the JSDoc types are precise.
+ * @typedef {{ mockClear?: () => void; mockReset?: () => void; mock?: unknown[] }} VitestMockLike
+ */
+
+/**
+ * Create a mock before importing or rendering the component so the component uses the mocked implementation.
+ * The mock factory exposes the mock function via `globalThis.__scrollToMock` for assertions in tests.
+ */
 vi.mock('$lib/lenis.svelte.js', () => {
+	// Create the mock function using vitest's vi.fn()
 	const scrollToMock = vi.fn();
-	// expose the mock to tests via globalThis so tests can assert calls
-	(globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> }).__scrollToMock =
-		scrollToMock;
+
+	// Expose the mock to tests via globalThis in a hoist-safe manner.
+	// Define the property explicitly so svelte-check can reason about typed access.
+	Object.defineProperty(globalThis, '__scrollToMock', {
+		value: scrollToMock,
+		writable: true,
+		configurable: true
+	});
+
+	// Return the mocked module shape the component expects.
 	return {
 		scrollTo: scrollToMock
 	};
 });
 
 describe('Nav.svelte', () => {
-	let scrollToMock: ReturnType<typeof vi.fn> | undefined;
+	/**
+	 * @type {any} scrollToMock - the mock function exposed by the vi.mock factory above.
+	 * We use `any` here because JSDoc's finer-grained types for vitest mocks are not required.
+	 */
+	let scrollToMock;
 
 	beforeEach(() => {
 		// retrieve the mock at runtime to avoid reading globals during module initialization
-		scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
-			.__scrollToMock;
-		if (scrollToMock && scrollToMock.mockClear) scrollToMock.mockClear();
+		// (this prevents reading a possibly undefined value during module load)
+		// Use a small wrapper so linters don't complain about unknown global properties.
+		// @ts-expect-error - globalThis.__scrollToMock is intentionally set by the mock factory
+		scrollToMock = globalThis.__scrollToMock;
+
+		// Reset/clear the mock between tests if the mock supports it
+		if (scrollToMock && typeof scrollToMock.mockClear === 'function') {
+			scrollToMock.mockClear();
+		}
 	});
 
 	it('renders monogram and desktop links', async () => {
+		// Render the component with props; Nav expects a `scrollY` prop in the original tests
 		render(Nav, { scrollY: 0 });
 
 		// Monogram link (use label to avoid ambiguity with footer text)
@@ -71,13 +99,17 @@ describe('Nav.svelte', () => {
 		await page.getByRole('link', { name: 'About' }).click();
 
 		// Component's go() should call scrollTo with the href and expected options
+		// We assert that the mock was called and inspect the last call arguments.
 		expect(scrollToMock).toHaveBeenCalled();
+
 		// Check the last call's first argument is the about anchor
-		expect(scrollToMock?.mock.calls.slice(-1)[0][0]).toBe('#about');
+		const lastCall = scrollToMock.mock.calls.slice(-1)[0];
+		expect(lastCall[0]).toBe('#about');
+
 		// Check an options object (with offset and duration) was passed as second argument
-		expect(typeof scrollToMock?.mock.calls.slice(-1)[0][1]).toBe('object');
-		expect(scrollToMock?.mock.calls.slice(-1)[0][1]).toHaveProperty('duration');
-		expect(scrollToMock?.mock.calls.slice(-1)[0][1]).toHaveProperty('offset');
+		expect(typeof lastCall[1]).toBe('object');
+		expect(lastCall[1]).toHaveProperty('duration');
+		expect(lastCall[1]).toHaveProperty('offset');
 	});
 
 	it('mobile sheet contains navigation items when opened', async () => {
@@ -96,6 +128,9 @@ describe('Nav.svelte', () => {
 		// Clicking a mobile link should also call scrollTo
 		await page.getByRole('link', { name: 'About' }).click();
 		expect(scrollToMock).toHaveBeenCalled();
-		expect(scrollToMock?.mock.calls.slice(-1)[0][0]).toBe('#about');
+
+		// Verify the call target anchor
+		const lastCall = scrollToMock.mock.calls.slice(-1)[0];
+		expect(lastCall[0]).toBe('#about');
 	});
 });

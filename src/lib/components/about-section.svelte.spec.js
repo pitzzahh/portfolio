@@ -1,9 +1,25 @@
+/**
+ * @typedef {Object} PersonalInfo
+ * @property {string} name
+ * @property {string} location
+ * @property {string} handle
+ * @property {string} currentProject
+ * @property {string} email
+ */
+
+/**
+ * @typedef {Object} Skill
+ * @property {string} name
+ * @property {string} category
+ */
+
 import { page } from 'vitest/browser';
 import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import About from './about-section.svelte';
 
 // Mock the data and actions modules the component imports so the tests are deterministic
+// Provide a hoist-safe factory for vi.mock.
 vi.mock('$lib/data.js', () => {
 	return {
 		personalInfo: {

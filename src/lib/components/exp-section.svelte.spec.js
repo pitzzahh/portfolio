@@ -1,10 +1,27 @@
 import { describe, it, expect, vi } from 'vitest';
 import { page } from 'vitest/browser';
 import { render } from 'vitest-browser-svelte';
-import ExpSection from './exp-section.svelte';
 
-// Mock data module BEFORE importing the Svelte component so the component
-// picks up our deterministic test data at import-time.
+/**
+ * Experience model used by the component.
+ * @typedef {Object} Experience
+ * @property {string} company
+ * @property {string} role
+ * @property {string} start
+ * @property {string} end
+ * @property {string} type
+ * @property {string} location
+ * @property {string} url
+ * @property {string[]} skills
+ */
+
+/*
+ * Mock the data module BEFORE importing the Svelte component so the component
+ * picks up deterministic test data at import-time.
+ *
+ * Inlined the mock data into the factory to avoid top-level variables that
+ * cause issues when `vi.mock` is hoisted.
+ */
 vi.mock('$lib/data.js', () => {
 	return {
 		experiences: [
@@ -21,6 +38,8 @@ vi.mock('$lib/data.js', () => {
 		]
 	};
 });
+
+import ExpSection from './exp-section.svelte';
 
 describe('exp-section.svelte', () => {
 	it('renders the section header and the provided experience', async () => {

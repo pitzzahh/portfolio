@@ -1,3 +1,10 @@
+/**
+ * Minimal mock shape used in tests.
+ * Only the methods we use are declared so svelte-check can validate usages
+ * without importing vitest generic types.
+ * @typedef {{ mockClear?: () => void; mockReset?: () => void; mock?: unknown[] }} VitestMockLike
+ */
+
 import { page } from 'vitest/browser';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-svelte';
@@ -7,9 +14,12 @@ import Hero from './hero-section.svelte';
 // Create the mock inside the factory (hoist-safe) and expose it via globalThis so tests can access it.
 vi.mock('$lib/lenis.svelte.js', () => {
 	const scrollToMock = vi.fn();
-	// expose the mock for test assertions
-	(globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> }).__scrollToMock =
-		scrollToMock;
+	// Expose the mock for test assertions in a hoist-safe manner by defining the property on globalThis
+	Object.defineProperty(globalThis, '__scrollToMock', {
+		value: scrollToMock,
+		writable: true,
+		configurable: true
+	});
 	return { scrollTo: scrollToMock };
 });
 
@@ -23,11 +33,14 @@ vi.mock('$lib/data.js', () => ({
 }));
 
 describe('Hero section', () => {
-	let scrollToMock: ReturnType<typeof vi.fn> | undefined;
+	/** @type {VitestMockLike | undefined} */
+	let scrollToMock;
+
 	beforeEach(() => {
 		// Grab the mock exposed by the vi.mock factory above
-		scrollToMock = (globalThis as unknown as { __scrollToMock?: ReturnType<typeof vi.fn> })
-			.__scrollToMock;
+		/** @type {{ __scrollToMock?: VitestMockLike }} */
+		const g = /** @type {{ __scrollToMock?: VitestMockLike }} */ (globalThis);
+		scrollToMock = g.__scrollToMock;
 		if (scrollToMock?.mockClear) scrollToMock.mockClear();
 	});
 

@@ -3,6 +3,15 @@ import { describe, expect, it, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import ProjectSection from './project-section.svelte';
 
+/**
+ * @typedef {Object} Project
+ * @property {string} title
+ * @property {string} url
+ * @property {string[]} tech
+ * @property {string} description
+ */
+
+/** @type {Project[]} */
 const mockProjects = [
 	{
 		title: 'Project Alpha',
@@ -20,6 +29,7 @@ const mockProjects = [
 
 // Mock the data module the component imports so tests are deterministic
 vi.mock('$lib/data.js', () => {
+	/** @type {{ projects: Project[] }} */
 	return {
 		projects: [
 			{

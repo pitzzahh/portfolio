@@ -4,11 +4,18 @@
  * @type {import('@sveltejs/kit').Handle}
  */
 export const handle = async ({ event, resolve }) => {
-	if (event.platform?.env?.RATE_LIMITER) {
-		const { success } = await event.platform.env.RATE_LIMITER.limit({ key: event.url.pathname });
-		if (!success) {
-			return new Response('429 Rate limit exceeded for ' + event.url.pathname, { status: 429 });
+	try {
+		if (event.platform?.env?.RATE_LIMITER) {
+			const { success } = await event.platform.env.RATE_LIMITER.limit({
+				key: event.getClientAddress()
+			});
+			if (!success) {
+				return new Response('429 Rate limit exceeded', { status: 429 });
+			}
 		}
+	} catch (e) {
+		// Skip rate limiting during prerendering or if bindings are unavailable
+		console.warn(e);
 	}
 
 	event.setHeaders({

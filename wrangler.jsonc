@@ -9,5 +9,15 @@
 		"directory": ".svelte-kit/cloudflare"
 	},
 	"workers_dev": true,
-	"preview_urls": true
+	"preview_urls": true,
+	"ratelimits": [
+		{
+			"name": "RATE_LIMITER",
+			"namespace_id": "1001",
+			"simple": {
+				"limit": 20,
+				"period": 10
+			}
+		}
+	]
 }

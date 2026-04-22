@@ -165,7 +165,7 @@ export const experiences: Experience[] = [
 		company: 'HSJ Technologies OPC',
 		role: 'Full Stack Developer',
 		type: 'Part-time',
-		start: '2025-01-01',
+		start: '2022-08-01',
 		end: null,
 		location: 'Legaspi, Bicol Region, Philippines',
 		skills: [

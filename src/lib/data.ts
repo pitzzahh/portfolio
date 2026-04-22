@@ -202,6 +202,7 @@ export const experiences: Experience[] = [
 		start: '2025-02-01',
 		end: '2025-06-30',
 		location: 'Legaspi, Bicol Region, Philippines',
-		skills: []
+		skills: ['Java Development', 'Web Development', '+1 skill'],
+
 	}
 ];

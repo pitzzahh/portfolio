@@ -21,7 +21,7 @@
 		"@eslint/js": "^10.0.1",
 		"@ethercorps/sveltekit-og": "^4.2.1",
 		"@sveltejs/adapter-cloudflare": "^7.2.8",
-		"@sveltejs/kit": "^2.57.1",
+		"@sveltejs/kit": "^2.60.1",
 		"@sveltejs/vite-plugin-svelte": "^7.0.0",
 		"@types/node": "^25",
 		"@vitest/browser-playwright": "^4.1.4",

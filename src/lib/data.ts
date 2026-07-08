@@ -35,7 +35,7 @@ export const projects: Project[] = [
 		description:
 			'Full-featured golf handicap management system following WHS 2024. Manages players, courses, admins, and handicap index computations. A SvelteKit application running on Cloudflare Workers, backed by a Spring Boot API.',
 		tech: ['SvelteKit', 'TypeScript', 'Cloudflare Workers', 'TailwindCSS', 'shadcn-svelte'],
-		url: 'https://github.com/pitzzahh/hics',
+		url: 'https://golf-hics.hsj-technologies-opc.workers.dev',
 		stars: 0,
 		language: 'Svelte'
 	},

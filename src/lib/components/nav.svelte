@@ -79,9 +79,6 @@
 		right: 0;
 		z-index: 10;
 		padding: 1rem 0;
-		transition:
-			background 0.5s ease,
-			border-color 0.5s ease;
 	}
 	.nav.scrolled {
 		background: color-mix(in srgb, var(--bg) 65%, transparent);

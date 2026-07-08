@@ -9,3 +9,6 @@ minimumReleaseAgeExclude:
   - svelte-check@4.7.2
   - vitest-browser-svelte@2.2.1
   - wrangler@4.108.0
+  - cookie@0.7.0
+overrides:
+  cookie@<0.7.0: ^0.7.0

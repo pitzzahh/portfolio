@@ -1,13 +1,13 @@
 <script lang="ts">
 	import './layout.css';
 	import Nav from '$lib/components/nav.svelte';
-	import { useLenis } from '$lib/lenis.svelte.js';
+	import { initLenis } from '$lib/lenis.svelte.js';
 	import { scrollY } from 'svelte/reactivity/window';
 	import site from '$lib/site';
 
 	let { children } = $props();
 
-	useLenis();
+	$effect(() => initLenis());
 </script>
 
 <svelte:head>

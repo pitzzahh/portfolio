@@ -14,7 +14,7 @@ jobs:
     name: 'Lint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Use Node.js 24.x
@@ -29,7 +29,7 @@ jobs:
     needs: lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Use Node.js 24.x
@@ -45,7 +45,7 @@ jobs:
     needs: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Use Node.js 24.x
@@ -67,7 +67,7 @@ jobs:
       matrix:
         node-version: [22.x, '24.x']
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Install pnpm
         uses: pnpm/action-setup@v4
       - name: Use Node.js ${{ matrix.node-version }}

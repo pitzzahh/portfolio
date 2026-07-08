@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { personalInfo, skills } from '$lib/data.js';
-	import { reveal } from '$lib/hooks/actions.js';
+	import { reveal, scrollProgress, stagger } from '$lib/hooks/actions.js';
 
 	const categories = [
 		{ key: 'language', label: 'Languages' },
@@ -24,8 +24,10 @@
 			<h2 class="section-title">About</h2>
 		</header>
 
-		<div class="about-grid">
-			<div class="about-text" use:reveal={60}>
+		<!-- scrollProgress on the grid gives both columns a shared --sp,
+		     text slides in from left, skills from right — like a book opening. -->
+		<div class="about-grid" use:scrollProgress={{ enter: 0.25, exit: 0.05 }}>
+			<div class="about-text">
 				<p>
 					Hi, I'm <strong>{personalInfo.name}</strong> — full-stack developer based in {personalInfo.location}.
 					You can find me as <span class="handle">@{personalInfo.handle}</span> online.
@@ -50,7 +52,8 @@
 				</p>
 			</div>
 
-			<div class="about-skills" use:reveal={120}>
+			<!-- stagger on the skills container cascades each group with its own --sp -->
+			<div class="about-skills" use:stagger>
 				{#each categories as cat (cat.key)}
 					<div class="skill-group">
 						<span class="skill-group-label">{cat.label}</span>
@@ -103,18 +106,13 @@
 		align-items: start;
 	}
 
-	/* ── Text ── */
+	/* ── Text — slides in from left ── */
 	.about-text {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.about-text:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
+		opacity: var(--sp, 1);
+		transform: translateX(calc((1 - var(--sp, 1)) * -40px));
 	}
 
 	.about-text p {
@@ -145,18 +143,13 @@
 		border-color: var(--fg-muted);
 	}
 
-	/* ── Skills ── */
+	/* ── Skills — slides in from right ── */
 	.about-skills {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.about-skills:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
+		opacity: var(--sp, 1);
+		transform: translateX(calc((1 - var(--sp, 1)) * 40px));
 	}
 
 	.skill-group {
@@ -164,6 +157,8 @@
 		grid-template-columns: 6rem 1fr;
 		gap: 0.5rem 1.5rem;
 		align-items: start;
+		opacity: var(--sp, 1);
+		transform: scale(calc(0.93 + 0.07 * var(--sp, 1))) translateY(calc((1 - var(--sp, 1)) * 15px));
 	}
 
 	.skill-group-label {
@@ -199,6 +194,14 @@
 		.about-grid {
 			grid-template-columns: 1fr;
 			gap: 3rem;
+		}
+
+		.about-text {
+			transform: translateY(calc((1 - var(--sp, 1)) * 30px));
+		}
+
+		.about-skills {
+			transform: translateY(calc((1 - var(--sp, 1)) * 30px));
 		}
 	}
 </style>

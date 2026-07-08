@@ -180,12 +180,12 @@ class ScrollController {
 
 	#applyParallax(el: HTMLElement, cfg: ParallaxConfig) {
 		const scroll = this.#state.y;
-		let origin = Number(el.dataset.po);
-		if (!origin) {
-			origin = el.getBoundingClientRect().top + scroll;
-			el.dataset.po = String(origin);
-		}
-		el.style.transform = `translate3d(0, ${((scroll - origin) * cfg.speed).toFixed(1)}px, 0)`;
+		const startScroll = Number(el.dataset.ps);
+		if (!startScroll) return;
+		// Offset relative to mount position: 0 at mount, negative as scroll down.
+		// speed < 1 means the element moves slower than normal scroll.
+		const offset = (startScroll - scroll) * cfg.speed;
+		el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
 		el.style.willChange = 'transform';
 	}
 
@@ -224,21 +224,10 @@ export const sc = new ScrollController();
 
 // ── Convenience wrappers ────────────────────────────────────────────────────────
 
-/**
- * Initialise Lenis smooth scrolling. Call inside `$effect` in the root layout:
- *
- * ```svelte
- * $effect(() => initLenis());
- * ```
- *
- * The returned cleanup is automatically registered by `$effect` and runs on unmount.
- * Safe to call multiple times — only the first call initialises Lenis.
- */
 export function initLenis(options?: { lerp?: number }) {
 	return sc.init(options);
 }
 
-/** Smooth-scroll to a target via the Lenis instance. Safe to call before Lenis is initialised (no-op). */
 export function scrollTo(
 	target: string | number | HTMLElement,
 	options?: Parameters<Lenis['scrollTo']>[1]
@@ -246,7 +235,6 @@ export function scrollTo(
 	sc.scrollTo(target, options);
 }
 
-/** Get the raw Lenis instance, if initialised. */
 export function getLenis(): Lenis | null {
 	return sc.lenis;
 }

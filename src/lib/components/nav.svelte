@@ -80,13 +80,10 @@
 		z-index: 10;
 		padding: 1rem 0;
 		transition:
-			padding 0.5s cubic-bezier(0.16, 1, 0.3, 1),
 			background 0.5s ease,
 			border-color 0.5s ease;
 	}
 	.nav.scrolled {
-		padding: 1.25rem 0;
-		/* slightly more opaque and less aggressive blur by default to reduce the dark smear */
 		background: color-mix(in srgb, var(--bg) 65%, transparent);
 		backdrop-filter: blur(8px) saturate(120%);
 		-webkit-backdrop-filter: blur(8px) saturate(120%);
@@ -186,8 +183,6 @@
 		padding: 2.5rem 2rem 3rem;
 		transform: translateY(100%);
 		transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-
-		/* Subtle noise/grain texture via box-shadow layering (tuned for dark mode) */
 		box-shadow:
 			0 -1px 0 rgba(255, 255, 255, 0.04),
 			0 -40px 80px rgba(0, 0, 0, 0.45);
@@ -207,7 +202,6 @@
 	.sheet nav li {
 		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 		overflow: hidden;
-		/* Staggered slide-up for each item */
 		transform: translateY(20px);
 		opacity: 0;
 		transition:
@@ -237,7 +231,6 @@
 	.sheet nav li a:active {
 		color: var(--fg-muted, #888);
 	}
-	/* Nudge gap on tap for tactile feel */
 	.sheet nav li a:hover {
 		gap: 1.4rem;
 	}
@@ -248,7 +241,7 @@
 		letter-spacing: 0.1em;
 		color: var(--fg-muted, #666);
 		font-variant-numeric: tabular-nums;
-		margin-top: 4px; /* optical alignment with large text */
+		margin-top: 4px;
 	}
 
 	.sheet-footer {
@@ -267,62 +260,42 @@
 		transform: translateY(0);
 	}
 
-	/* ── Tablet & Mobile breakpoints ─────────────────── */
-	/* Tablet: collapse desktop nav into hamburger and reduce horizontal padding */
+	/* ── Tablet & Mobile ──────────────────────────────── */
 	@media (max-width: 900px) {
 		.nav {
-			/* reduce the large desktop horizontal padding so the header fits on tablets */
 			padding: 1.5rem;
 		}
-		.nav.scrolled {
-			padding: 1.5rem;
-		}
-
-		/* Switch to mobile-style navigation on tablets */
 		.desktop-nav {
 			display: none;
 		}
 		.hamburger {
 			display: flex;
 		}
-
-		/* make the sheet usable at tablet widths as well */
 		.sheet {
 			display: flex;
 			flex-direction: column;
 		}
 	}
 
-	/* Mobile: tighten padding further for small phones */
 	@media (max-width: 600px) {
 		.nav {
 			padding: 1rem 1.5rem;
 		}
-		.nav.scrolled {
-			padding: 1rem 1.5rem;
-		}
-
-		/* desktop-nav/hamburger/sheet rules are inherited from tablet */
 	}
 
-	/* Reduce the dark cast in light mode: make the scrolled header less blurred and the sheet shadow lighter */
 	@media (prefers-color-scheme: light) {
 		.nav.scrolled {
-			/* more opaque background so it reads as lighter on bright UIs */
 			background: color-mix(in srgb, var(--bg) 82%, transparent);
 			backdrop-filter: blur(4px) saturate(105%);
 			-webkit-backdrop-filter: blur(4px) saturate(105%);
 		}
-
 		.sheet {
-			/* light-mode sheet should feel airy — lighter shadow and subtle border */
 			background: var(--bg, #ffffff);
 			border-top: 1px solid rgba(0, 0, 0, 0.06);
 			box-shadow:
 				0 -1px 0 rgba(0, 0, 0, 0.04),
 				0 -20px 40px rgba(0, 0, 0, 0.18);
 		}
-
 		.sheet nav li {
 			border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 		}

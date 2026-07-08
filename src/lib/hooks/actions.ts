@@ -7,16 +7,15 @@ export function scrollProgress(node: HTMLElement, config?: Partial<ProgressConfi
 }
 
 export function parallax(node: HTMLElement, config?: Partial<ParallaxConfig>) {
-	const id = sc.bind(node, 'parallax', config ?? {});
-
-	// Initialize transform synchronously to prevent layout shift.
-	// Without this, the first RAF tick applies the parallax offset
-	// *after* paint, causing a visible jump (CLS).
 	const { speed = 0.3 } = config ?? {};
-	const origin = node.getBoundingClientRect().top + window.scrollY;
-	node.dataset.po = String(origin);
-	node.style.transform = `translate3d(0, ${((window.scrollY - origin) * speed).toFixed(1)}px, 0)`;
 
+	// Store the scrollY at mount so the controller can compute
+	// offsets relative to this starting position. This guarantees
+	// the initial transform is 0 — no layout shift on mount.
+	node.dataset.ps = String(window.scrollY);
+	node.style.willChange = 'transform';
+
+	const id = sc.bind(node, 'parallax', { speed });
 	return { destroy: () => sc.unbind(id) };
 }
 

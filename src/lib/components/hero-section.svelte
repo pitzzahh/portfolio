@@ -9,13 +9,7 @@
 </script>
 
 <section class="hero" id="top">
-	<div
-		class="hero-inner"
-		{@attach (e) => {
-			e.style.opacity = '1';
-			e.style.transform = 'translateY(0)';
-		}}
-	>
+	<div class="hero-inner">
 		<p class="availability">
 			<span class="dot" aria-hidden="true"></span>
 			Available for work
@@ -39,20 +33,13 @@
 		min-height: 100svh;
 		display: flex;
 		align-items: flex-end;
-		/* match project-section horizontal padding (desktop) */
 		padding: 8rem 3rem;
 	}
 
 	.hero-inner {
-		/* match other sections' inner container so content is horizontally centered and aligned */
 		max-width: 960px;
 		margin: 0 auto;
-		padding-left: 0; /* ensure inner content aligns with other section inners (left edge) */
-		opacity: 0;
-		transform: translateY(24px);
-		transition:
-			opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s,
-			transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+		padding-left: 0;
 	}
 
 	.availability {
@@ -108,7 +95,6 @@
 		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
 		color: var(--fg-subtle);
 		line-height: 1.75;
-		/* removed max-width so bio aligns to the section inner edge like other sections */
 		margin: 0 0 3.5rem;
 		word-break: break-word;
 		width: 100%;
@@ -144,11 +130,8 @@
 
 	@media (max-width: 768px) {
 		.hero {
-			/* match project-section breakpoint and horizontal padding */
 			padding: 6rem 1.5rem;
-			/* start content near the top so longer bios don't push everything down */
 			align-items: flex-end;
-			/* constrain the hero to the viewport height and allow internal scrolling when needed */
 			max-height: 100svh;
 			overflow: auto;
 		}
@@ -161,10 +144,8 @@
 		.bio {
 			max-width: 100%;
 			margin: 0 0 1.25rem;
-			/* slightly smaller, tighter type for mobile to reduce vertical space */
 			font-size: 0.92rem;
 			line-height: 1.4;
-			/* allow the full bio to appear (no truncation) */
 			display: block;
 			overflow: visible;
 			-webkit-box-orient: initial;

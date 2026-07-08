@@ -31,6 +31,7 @@
 <style>
 	.hero {
 		min-height: 100svh;
+		height: 100svh;
 		display: flex;
 		align-items: flex-end;
 		padding: 8rem 3rem;
@@ -131,15 +132,15 @@
 	@media (max-width: 768px) {
 		.hero {
 			padding: 6rem 1.5rem;
-			align-items: flex-end;
-			max-height: 100svh;
+			min-height: 100svh;
+			height: 100svh;
 			overflow: auto;
 		}
 		.hero-inner {
 			max-width: 100%;
 			margin: 0 auto;
 			text-align: left;
-			padding-top: 1.25rem;
+			padding-top: 0;
 		}
 		.bio {
 			max-width: 100%;

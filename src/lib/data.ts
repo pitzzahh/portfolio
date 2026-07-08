@@ -31,6 +31,15 @@ export const projects: Project[] = [
 		language: 'Svelte'
 	},
 	{
+		title: 'hics',
+		description:
+			'Full-featured golf handicap management system following WHS 2024. Manages players, courses, admins, and handicap index computations. A SvelteKit application running on Cloudflare Workers, backed by a Spring Boot API.',
+		tech: ['SvelteKit', 'TypeScript', 'Cloudflare Workers', 'TailwindCSS', 'shadcn-svelte'],
+		url: 'https://github.com/pitzzahh/hics',
+		stars: 0,
+		language: 'Svelte'
+	},
+	{
 		title: 'hrms',
 		description:
 			'Our capstone project developed as an internal Human Capital Management System for the HR team of an organization to manage employees, employment history and semi-automate PDF generation of HR-related documents.',
@@ -123,6 +132,24 @@ export const projects: Project[] = [
 		tech: ['Java', 'Spring Boot', 'Gradle', 'REST API'],
 		url: 'https://github.com/pitzzahh/agora-token-server',
 		stars: 2,
+		language: 'Java'
+	},
+	{
+		title: 'Golf HICS',
+		description:
+			'Handicap Information & Course System — Spring Boot backend for the Golf HICS app. JWT auth with rotated refresh tokens, TOTP MFA, WebAuthn passkeys, rate limiting, OpenTelemetry.',
+		tech: [
+			'Java',
+			'Spring Boot',
+			'Maven',
+			'PostgreSQL',
+			'Flyway',
+			'Spring Security',
+			'Rate Limiting',
+			'WebAuthn'
+		],
+		url: 'https://github.com/pitzzahh/golf-hics-backend',
+		stars: 0,
 		language: 'Java'
 	}
 ];

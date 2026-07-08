@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { scrollTo } from '$lib/lenis.svelte.js';
+	import { scrollTo } from '$lib/hooks/controller.svelte';
 
 	let { scrollY = 0 }: { scrollY?: number } = $props();
 	const isScrolled = $derived(scrollY > 60);

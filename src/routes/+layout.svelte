@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	import Nav from '$lib/components/nav.svelte';
-	import { initLenis } from '$lib/lenis.svelte.js';
+	import { initLenis } from '$lib/hooks/controller.svelte';
 	import { scrollY } from 'svelte/reactivity/window';
 	import site from '$lib/site';
 

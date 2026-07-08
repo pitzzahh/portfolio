@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { personalInfo } from '$lib/data.js';
-	import { scrollTo } from '$lib/lenis.svelte.js';
+	import { scrollTo } from '$lib/hooks/controller.svelte';
 
 	function gotoContact(e: MouseEvent) {
 		e.preventDefault();

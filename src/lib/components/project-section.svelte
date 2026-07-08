@@ -1,19 +1,16 @@
 <script lang="ts">
 	import { projects } from '$lib/data.js';
-	import { reveal, stagger } from '$lib/actions.js';
+	import { reveal, stagger } from '$lib/hooks/actions.js';
 </script>
 
 <section class="project" id="projects">
 	<div class="project-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
+		<header class="section-header" use:reveal={0}>
 			<span class="section-index">( {projects.length} )</span>
 			<h2 class="section-title">Selected projects</h2>
 		</header>
 
-		<ol
-			class="project-list"
-			use:stagger={{ direction: 'up', initialDelay: 80, step: 60, once: false }}
-		>
+		<ol class="project-list" use:stagger>
 			{#each projects as project, i (project.title)}
 				<li class="project-row">
 					<a
@@ -41,7 +38,7 @@
 			{/each}
 		</ol>
 
-		<div class="project-footer" use:reveal={{ direction: 'up', delay: 80, once: false }}>
+		<div class="project-footer" use:reveal={80}>
 			<a
 				href="https://github.com/pitzzahh?tab=repositories"
 				target="_blank"
@@ -72,6 +69,13 @@
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 4rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.section-header:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.section-index {
@@ -98,6 +102,8 @@
 
 	.project-row {
 		border-top: 1px solid var(--border);
+		opacity: var(--sp, 1);
+		transform: translateY(calc((1 - var(--sp, 1)) * 40px));
 	}
 
 	.project-row:last-child {
@@ -170,6 +176,13 @@
 		margin-top: 3rem;
 		display: flex;
 		justify-content: flex-end;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.project-footer:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.see-all {

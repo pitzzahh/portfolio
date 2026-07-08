@@ -1,20 +1,20 @@
 <script>
 	import { socialLinks } from '$lib/data.js';
-	import { reveal } from '$lib/actions.js';
+	import { reveal } from '$lib/hooks/actions.js';
 </script>
 
 <section class="contact" id="contact">
 	<div class="contact-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
+		<header class="section-header" use:reveal={0}>
 			<h2 class="section-title">Contact</h2>
 		</header>
 
 		<div class="contact-body">
-			<p class="cta" use:reveal={{ direction: 'up', delay: 60, once: false }}>
+			<p class="cta" use:reveal={60}>
 				Have a project in mind or just want to say hi? I'm always open to a conversation.
 			</p>
 
-			<ul class="link-list" use:reveal={{ direction: 'up', delay: 120, once: false }}>
+			<ul class="link-list" use:reveal={120}>
 				{#each socialLinks as link (link.label)}
 					<li>
 						<a href={link.href} target="_blank" rel="noopener noreferrer" class="contact-link">
@@ -40,6 +40,13 @@
 
 	.section-header {
 		margin-bottom: 4rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.section-header:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.section-title {
@@ -63,6 +70,13 @@
 		line-height: 1.8;
 		margin: 0;
 		max-width: 380px;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.cta:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	/* ── Link list ── */
@@ -70,6 +84,13 @@
 		list-style: none;
 		margin: 0;
 		padding: 0;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.link-list:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.link-list li {

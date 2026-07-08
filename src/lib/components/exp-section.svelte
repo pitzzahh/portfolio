@@ -50,24 +50,21 @@
 
 <script>
 	import { experiences } from '$lib/data';
-	import { reveal, stagger } from '$lib/actions.js';
+	import { reveal, stagger } from '$lib/hooks/actions.js';
 </script>
 
 <section class="experience" id="exp">
 	<div class="experience-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
+		<header class="section-header" use:reveal={0}>
 			<span class="section-index">({experiences.length})</span>
 			<h2 class="section-title">Experience</h2>
 		</header>
 
-		<ol
-			class="experience-list"
-			use:stagger={{ direction: 'up', initialDelay: 80, step: 60, once: false }}
-		>
+		<ol class="experience-list" use:stagger>
 			{#each experiences as exp (exp.company + exp.start)}
 				<li class="experience-row">
 					<div class="exp-main">
-						<div class="exp-meta" use:reveal={{ direction: 'up', delay: 40, once: false }}>
+						<div class="exp-meta" use:reveal={40}>
 							<h3 class="exp-role">{exp.role}</h3>
 							<p class="exp-company">
 								{#if getHref(exp.url)}
@@ -80,7 +77,7 @@
 							</p>
 						</div>
 
-						<div class="exp-side" use:reveal={{ direction: 'up', delay: 80, once: false }}>
+						<div class="exp-side" use:reveal={80}>
 							<p class="exp-type">{exp.type}</p>
 							<p class="exp-dates">
 								{formatDate(exp.start)} – {formatDate(exp.end)} · {formatElapsedTime(
@@ -101,7 +98,7 @@
 			{/each}
 		</ol>
 
-		<div class="experience-footer" use:reveal={{ direction: 'up', delay: 120, once: false }}>
+		<div class="experience-footer" use:reveal={120}>
 			<p class="disclaimer">Dates and durations are calculated based on provided ISO dates.</p>
 		</div>
 	</div>
@@ -124,6 +121,13 @@
 		align-items: center;
 		gap: 1rem;
 		margin-bottom: 4rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.section-header:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.section-index {
@@ -151,6 +155,8 @@
 	.experience-row {
 		border-top: 1px solid var(--border);
 		padding: 1.25rem 0;
+		opacity: var(--sp, 1);
+		transform: translateY(calc((1 - var(--sp, 1)) * 30px));
 	}
 
 	.experience-row:last-child {
@@ -166,6 +172,13 @@
 
 	.exp-meta {
 		max-width: 66%;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.exp-meta:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(30px);
 	}
 
 	.exp-role {
@@ -198,6 +211,13 @@
 	.exp-side {
 		text-align: right;
 		min-width: 220px;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.exp-side:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(30px);
 	}
 
 	.exp-type {
@@ -229,6 +249,13 @@
 		margin-top: 2rem;
 		display: flex;
 		justify-content: flex-end;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.experience-footer:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(30px);
 	}
 
 	.disclaimer {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { personalInfo, skills } from '$lib/data.js';
-	import { reveal } from '$lib/actions.js';
+	import { reveal } from '$lib/hooks/actions.js';
 
 	const categories = [
 		{ key: 'language', label: 'Languages' },
@@ -20,12 +20,12 @@
 
 <section class="about" id="about">
 	<div class="about-inner">
-		<header class="section-header" use:reveal={{ direction: 'up', delay: 0, once: false }}>
+		<header class="section-header" use:reveal={0}>
 			<h2 class="section-title">About</h2>
 		</header>
 
 		<div class="about-grid">
-			<div class="about-text" use:reveal={{ direction: 'up', delay: 60, once: false }}>
+			<div class="about-text" use:reveal={60}>
 				<p>
 					Hi, I'm <strong>{personalInfo.name}</strong> — full-stack developer based in {personalInfo.location}.
 					You can find me as <span class="handle">@{personalInfo.handle}</span> online.
@@ -50,7 +50,7 @@
 				</p>
 			</div>
 
-			<div class="about-skills" use:reveal={{ direction: 'up', delay: 120, once: false }}>
+			<div class="about-skills" use:reveal={120}>
 				{#each categories as cat (cat.key)}
 					<div class="skill-group">
 						<span class="skill-group-label">{cat.label}</span>
@@ -78,6 +78,13 @@
 
 	.section-header {
 		margin-bottom: 4rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.section-header:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.section-title {
@@ -101,6 +108,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.about-text:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.about-text p {
@@ -136,6 +150,13 @@
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
+		transition:
+			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
+			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	}
+	.about-skills:not(.is-revealed) {
+		opacity: 0;
+		transform: translateY(48px);
 	}
 
 	.skill-group {

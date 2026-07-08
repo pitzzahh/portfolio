@@ -4,7 +4,37 @@ import { sveltekit } from '@sveltejs/kit/vite';
 import { sveltekitOG } from '@ethercorps/sveltekit-og/plugin';
 
 export default defineConfig({
-	plugins: [sveltekit(), sveltekitOG()],
+	plugins: [
+		sveltekit({
+			kit: {
+				adapter: adapter(),
+				prerender: {
+					handleHttpError: ({ path, message }) => {
+						console.warn('[prerender] handleHttpError:', path, message);
+
+						if (/^https?:\/\//i.test(path)) {
+							console.warn('[prerender] Skipping absolute external URL:', path);
+							return;
+						}
+
+						if (
+							/^og\/.+\.(png|jpg|jpeg|webp|gif)$/i.test(String(path).replace(/^\/|\/$/g, '')) ||
+							path.startsWith('/og/')
+						) {
+							console.warn('[prerender] Skipping OG image path:', path);
+							return;
+						}
+
+						throw new Error(message || `Prerender failed for path: ${path}`);
+					}
+				},
+				csp: {
+					mode: 'auto'
+				}
+			}
+		}),
+		sveltekitOG()
+	],
 	test: {
 		expect: { requireAssertions: true },
 		projects: [

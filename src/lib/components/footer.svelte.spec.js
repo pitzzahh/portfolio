@@ -24,14 +24,12 @@ vi.mock('$lib/data.js', () => {
 });
 
 /*
- * Mock the lenis module. Expose the mock on globalThis safely so tests can access it
+ * Mock the scroll controller module. Expose the mock on globalThis safely so tests can access it
  * at runtime without relying on module-initialization order.
  */
 /** @returns {{ scrollTo: VitestMock }} */
-vi.mock('$lib/lenis.svelte.js', () => {
+vi.mock('$lib/hooks/controller.svelte', () => {
 	const scrollToMock = vi.fn();
-	// Expose the mock for assertions in tests without relying on TypeScript-style casts.
-	// Use Object.defineProperty to set a predictable, writable property on globalThis.
 	Object.defineProperty(globalThis, '__scrollToMock', {
 		value: scrollToMock,
 		writable: true,
@@ -44,7 +42,6 @@ vi.mock('$lib/lenis.svelte.js', () => {
 
 describe('Footer.svelte', () => {
 	beforeEach(() => {
-		// Retrieve the exposed mock and reset it between tests.
 		/** @type {{ __scrollToMock?: VitestMockLike }} */
 		const g = /** @type {{ __scrollToMock?: VitestMockLike }} */ (globalThis);
 		const scrollToMock = g.__scrollToMock;
@@ -54,10 +51,8 @@ describe('Footer.svelte', () => {
 	it('renders monogram and copyright with name and current year', async () => {
 		render(Footer);
 
-		// Monogram should be present
 		await expect.element(page.getByText('P.J.A.')).toBeInTheDocument();
 
-		// Copyright text contains the mocked name and current year
 		const year = new Date().getFullYear();
 		await expect.element(page.getByText(new RegExp(`Test User.*${year}`))).toBeInTheDocument();
 	});
@@ -65,10 +60,8 @@ describe('Footer.svelte', () => {
 	it('calls scrollTo with #top when "Back to top" is clicked', async () => {
 		render(Footer);
 
-		// Click the back-to-top link
 		await page.getByRole('link', { name: 'Back to top' }).click();
 
-		// Ensure the mocked scrollTo was called correctly
 		/** @type {{ __scrollToMock?: VitestMockLike }} */
 		const g2 = /** @type {{ __scrollToMock?: VitestMockLike }} */ (globalThis);
 		const scrollToMock = g2.__scrollToMock;

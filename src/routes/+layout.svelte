@@ -8,22 +8,36 @@
 
 	let { children } = $props();
 
-	$effect(() => initLenis());
-
 	let theme = $state<'light' | 'dark'>('dark');
-
-	onMount(() => {
-		const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-		theme = prefersLight ? 'light' : 'dark';
-		document.documentElement.setAttribute('data-theme', theme);
-	});
+	let manualOverride = $state(false);
 
 	function toggleTheme(e: KeyboardEvent) {
 		if (e.key === 'd' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+			manualOverride = true;
 			theme = theme === 'dark' ? 'light' : 'dark';
 			document.documentElement.setAttribute('data-theme', theme);
 		}
 	}
+
+	$effect(() => initLenis());
+
+	onMount(() => {
+		const mq = window.matchMedia('(prefers-color-scheme: light)');
+
+		function onThemeChange(e: MediaQueryListEvent) {
+			if (manualOverride) return;
+			theme = e.matches ? 'light' : 'dark';
+			document.documentElement.setAttribute('data-theme', theme);
+		}
+
+		// Apply initial system preference
+		onThemeChange({ matches: mq.matches } as MediaQueryListEvent);
+
+		// React to system theme changes (mobile auto-switch, etc.)
+		mq.addEventListener('change', onThemeChange);
+
+		return () => mq.removeEventListener('change', onThemeChange);
+	});
 </script>
 
 <svelte:window onkeydown={toggleTheme} />

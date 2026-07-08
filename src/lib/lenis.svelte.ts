@@ -1,36 +1,56 @@
-import Lenis from 'lenis';
-import { onMount } from 'svelte';
+import type Lenis from 'lenis';
+import { onDestroy, onMount } from 'svelte';
 
 let lenisInstance: Lenis | null = null;
+let isInitialized = false;
 
 export function getLenis(): Lenis | null {
 	return lenisInstance;
 }
 
-export function useLenis() {
+export function useLenis(options?: { lerp?: number }) {
+	let mounted = true;
+	let cleanup: (() => void) | undefined;
+
 	onMount(() => {
-		const lenis = new Lenis({
-			lerp: 0.08,
-			smoothWheel: true,
-			syncTouch: false
-		});
+		if (isInitialized) return;
+		isInitialized = true;
 
-		lenisInstance = lenis;
+		import('lenis').then(({ default: LenisClass }) => {
+			if (!mounted) {
+				isInitialized = false;
+				return;
+			}
 
-		let rafId: number;
+			const lenis = new LenisClass({
+				lerp: options?.lerp ?? 0.08,
+				smoothWheel: true,
+				syncTouch: false
+			});
 
-		function raf(time: number) {
-			lenis.raf(time);
+			lenisInstance = lenis;
+
+			let rafId: number;
+
+			function raf(time: number) {
+				lenis.raf(time);
+				rafId = requestAnimationFrame(raf);
+			}
+
 			rafId = requestAnimationFrame(raf);
-		}
 
-		rafId = requestAnimationFrame(raf);
+			cleanup = () => {
+				cancelAnimationFrame(rafId);
+				lenis.destroy();
+				lenisInstance = null;
+				isInitialized = false;
+			};
+		});
+	});
 
-		return () => {
-			cancelAnimationFrame(rafId);
-			lenis.destroy();
-			lenisInstance = null;
-		};
+	onDestroy(() => {
+		mounted = false;
+		cleanup?.();
 	});
 }
 

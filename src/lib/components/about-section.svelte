@@ -24,10 +24,8 @@
 			<h2 class="section-title">About</h2>
 		</header>
 
-		<!-- scrollProgress on the grid gives both columns a shared --sp,
-		     text slides in from left, skills from right — like a book opening. -->
-		<div class="about-grid" use:scrollProgress={{ enter: 0.25, exit: 0.05 }}>
-			<div class="about-text">
+		<div class="about-grid">
+			<div class="about-text" use:scrollProgress>
 				<p>
 					Hi, I'm <strong>{personalInfo.name}</strong> — full-stack developer based in {personalInfo.location}.
 					You can find me as <span class="handle">@{personalInfo.handle}</span> online.
@@ -52,7 +50,6 @@
 				</p>
 			</div>
 
-			<!-- stagger on the skills container cascades each group with its own --sp -->
 			<div class="about-skills" use:stagger>
 				{#each categories as cat (cat.key)}
 					<div class="skill-group">
@@ -98,7 +95,6 @@
 		margin: 0;
 	}
 
-	/* ── Grid ── */
 	.about-grid {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -106,13 +102,13 @@
 		align-items: start;
 	}
 
-	/* ── Text — slides in from left ── */
+	/* ── Text — slides in from left with its own scroll progress ── */
 	.about-text {
 		display: flex;
 		flex-direction: column;
 		gap: 1.25rem;
 		opacity: var(--sp, 1);
-		transform: translateX(calc((1 - var(--sp, 1)) * -40px));
+		transform: translateY(calc((1 - var(--sp, 1)) * 30px));
 	}
 
 	.about-text p {
@@ -143,13 +139,11 @@
 		border-color: var(--fg-muted);
 	}
 
-	/* ── Skills — slides in from right ── */
+	/* ── Skills — stagger drives each group independently ── */
 	.about-skills {
 		display: flex;
 		flex-direction: column;
 		gap: 2rem;
-		opacity: var(--sp, 1);
-		transform: translateX(calc((1 - var(--sp, 1)) * 40px));
 	}
 
 	.skill-group {
@@ -185,7 +179,6 @@
 		line-height: 1.6;
 	}
 
-	/* ── Responsive ── */
 	@media (max-width: 768px) {
 		.about {
 			padding: 6rem 1.5rem;
@@ -194,14 +187,6 @@
 		.about-grid {
 			grid-template-columns: 1fr;
 			gap: 3rem;
-		}
-
-		.about-text {
-			transform: translateY(calc((1 - var(--sp, 1)) * 30px));
-		}
-
-		.about-skills {
-			transform: translateY(calc((1 - var(--sp, 1)) * 30px));
 		}
 	}
 </style>

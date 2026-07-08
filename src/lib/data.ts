@@ -137,17 +137,8 @@ export const projects: Project[] = [
 	{
 		title: 'Golf HICS',
 		description:
-			'Handicap Information & Course System — Spring Boot backend for the Golf HICS app. JWT auth with rotated refresh tokens, TOTP MFA, WebAuthn passkeys, rate limiting, OpenTelemetry.',
-		tech: [
-			'Java',
-			'Spring Boot',
-			'Maven',
-			'PostgreSQL',
-			'Flyway',
-			'Spring Security',
-			'Rate Limiting',
-			'WebAuthn'
-		],
+			'Spring Boot REST API that powers the Golf HICS app. JWT auth with rotated refresh tokens, TOTP MFA, WebAuthn passkeys, rate limiting, and OpenTelemetry instrumentation.',
+		tech: ['Java', 'Spring Boot', 'Maven', 'PostgreSQL', 'Flyway', 'JWT', 'Spring Security'],
 		url: 'https://github.com/pitzzahh/golf-hics-backend',
 		stars: 0,
 		language: 'Java'

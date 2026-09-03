@@ -1,300 +1,213 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { scrollTo } from '$lib/hooks/controller.svelte';
 
-	let { scrollY = 0 }: { scrollY?: number } = $props();
-	const isScrolled = $derived(scrollY > 60);
-
-	let menuOpen = $state(false);
-
 	const links = [
+		{ label: 'Work', href: '#work' },
+		{ label: 'Stack', href: '#stack' },
 		{ label: 'Exp', href: '#exp' },
-		{ label: 'Projects', href: '#projects' },
-		{ label: 'About', href: '#about' },
-		{ label: 'Contact', href: '#contact' }
+		{ label: 'About', href: '#about' }
 	];
+
+	let progress = $state(0);
+	let active = $state('');
+	let theme = $state<'light' | 'dark'>('dark');
 
 	function go(e: MouseEvent, href: string) {
 		e.preventDefault();
-		menuOpen = false;
-		scrollTo(href, { offset: -40, duration: 1.6 });
+		scrollTo(href, { offset: -70, duration: 1.6 });
+	}
+
+	function toggleTheme() {
+		theme = theme === 'dark' ? 'light' : 'dark';
+		document.documentElement.setAttribute('data-theme', theme);
+		try {
+			localStorage.setItem('pja-theme', theme);
+		} catch {
+			// private mode: theme just won't persist
+		}
+	}
+
+	onMount(() => {
+		try {
+			const saved = localStorage.getItem('pja-theme');
+			if (saved === 'light' || saved === 'dark') theme = saved;
+			else if (window.matchMedia('(prefers-color-scheme: light)').matches) theme = 'light';
+		} catch {
+			// private mode: fall back to default dark
+		}
+		document.documentElement.setAttribute('data-theme', theme);
+		onScroll();
+	});
+
+	const ids = ['work', 'stack', 'exp', 'about'];
+	function onScroll() {
+		const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+		progress = window.scrollY / max;
+		let cur = '';
+		for (const id of ids) {
+			const el = document.getElementById(id);
+			if (el && window.scrollY + window.innerHeight * 0.4 >= el.offsetTop) cur = id;
+		}
+		active = cur;
 	}
 </script>
 
-<header class="nav" class:scrolled={isScrolled}>
-	<div class="nav-inner">
-		<a href="#top" class="monogram" onclick={(e) => go(e, '#top')} aria-label="Back to top">
-			P.J.A
+<svelte:window onscroll={onScroll} />
+
+<div class="progress" aria-hidden="true">
+	<i style:transform={`scaleX(${progress.toFixed(4)})`}></i>
+</div>
+
+<header class="topnav">
+	<div class="container topnav-inner">
+		<a href="#top" class="logo" onclick={(e) => go(e, '#top')} aria-label="Back to top">
+			P.J.A<small>PITZZAHH</small>
 		</a>
-
-		<!-- Desktop nav -->
-		<nav class="desktop-nav" aria-label="Main navigation">
-			<ul>
-				{#each links as link (link.href)}
-					<li>
-						<a href={link.href} onclick={(e) => go(e, link.href)}>{link.label}</a>
-					</li>
-				{/each}
-			</ul>
+		<nav class="navlinks" aria-label="Sections">
+			{#each links as link (link.href)}
+				<a
+					href={link.href}
+					class:active={active === link.href.slice(1)}
+					onclick={(e) => go(e, link.href)}>{link.label}</a
+				>
+			{/each}
 		</nav>
-
-		<!-- Mobile hamburger -->
 		<button
-			class="hamburger"
-			class:open={menuOpen}
-			onclick={() => (menuOpen = !menuOpen)}
-			aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-			aria-expanded={menuOpen}
+			class="themebtn"
+			type="button"
+			onclick={toggleTheme}
+			aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
 		>
-			<span></span>
-			<span></span>
+			<svg
+				class="i-moon"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.6"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" /></svg
+			>
+			<svg
+				class="i-sun"
+				viewBox="0 0 24 24"
+				fill="none"
+				stroke="currentColor"
+				stroke-width="1.6"
+				stroke-linecap="round"
+				aria-hidden="true"
+				><circle cx="12" cy="12" r="4" /><path
+					d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.5 1.5M17.6 17.6l1.5 1.5M19.1 4.9l-1.5 1.5M6.4 17.6l-1.5 1.5"
+				/></svg
+			>
 		</button>
 	</div>
 </header>
 
-<div class="sheet" class:open={menuOpen} role="dialog" aria-modal="true" aria-label="Navigation">
-	<nav aria-label="Mobile navigation">
-		<ul>
-			{#each links as link, i (link.href)}
-				<li style="--i: {i}">
-					<a href={link.href} onclick={(e) => go(e, link.href)}>
-						<span class="link-num">0{i + 1}</span>
-						{link.label}
-					</a>
-				</li>
-			{/each}
-		</ul>
-	</nav>
-
-	<footer class="sheet-footer">
-		<span>P.J.A. — Portfolio {new Date().getFullYear()}</span>
-	</footer>
-</div>
-
 <style>
-	/* ── Base nav ───────────────────────────────────── */
-	.nav {
+	.progress {
 		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		z-index: 10;
-		padding: 1rem 0;
+		inset: 0 0 auto 0;
+		height: 2px;
+		z-index: 60;
 	}
-	.nav.scrolled {
-		background: color-mix(in srgb, var(--bg) 65%, transparent);
-		backdrop-filter: blur(8px) saturate(120%);
-		-webkit-backdrop-filter: blur(8px) saturate(120%);
+	.progress i {
+		display: block;
+		height: 100%;
+		background: var(--fg);
+		transform-origin: 0 50%;
 	}
-
-	/* Centered inner container to match section horizontal padding and keep content aligned */
-	.nav-inner {
-		max-width: 960px;
-		margin: 0 auto;
+	.topnav {
+		position: fixed;
+		inset: 0 0 auto 0;
+		z-index: 50;
+		background: var(--nav-veil);
+		backdrop-filter: blur(14px) saturate(130%);
+		-webkit-backdrop-filter: blur(14px) saturate(130%);
+		border-bottom: 1px solid var(--border);
+	}
+	.topnav-inner {
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
+		padding-block: 13px;
 	}
-
-	.monogram {
-		font-size: 0.8rem;
-		font-weight: 600;
-		letter-spacing: 0.12em;
-		color: var(--fg-muted);
-		text-decoration: none;
-		transition: color 0.2s;
-		position: relative;
-		z-index: 201;
+	.logo {
+		font-family: var(--font-display);
+		font-weight: 700;
+		font-size: 16px;
+		letter-spacing: -0.01em;
 	}
-	.monogram:hover {
-		color: var(--fg);
+	.logo small {
+		font-family: var(--font-mono);
+		font-weight: 400;
+		color: var(--muted);
+		font-size: 11px;
+		margin-left: 8px;
+		letter-spacing: 0.06em;
 	}
-
-	/* ── Desktop nav ────────────────────────────────── */
-	.desktop-nav ul {
+	.navlinks {
 		display: flex;
+		gap: 26px;
 		align-items: center;
-		gap: 2.5rem;
-		list-style: none;
-		margin: 0;
-		padding: 0;
 	}
-	.desktop-nav li a {
-		font-size: 0.8rem;
+	.navlinks a {
+		font-size: 13px;
 		font-weight: 500;
-		letter-spacing: 0.08em;
+		letter-spacing: 0.06em;
 		text-transform: uppercase;
-		color: var(--fg-muted);
-		text-decoration: none;
-		transition: color 0.2s;
+		color: var(--muted);
+		position: relative;
+		padding: 4px 0;
 	}
-	.desktop-nav li a:hover {
+	.navlinks a:hover {
 		color: var(--fg);
 	}
-
-	/* ── Hamburger ──────────────────────────────────── */
-	.hamburger {
-		display: none;
-		flex-direction: column;
-		justify-content: center;
-		gap: 6px;
-		width: 2rem;
-		height: 2rem;
-		background: none;
-		border: none;
-		cursor: pointer;
-		padding: 0;
-		position: relative;
-		z-index: 201;
+	.navlinks a.active {
+		color: var(--fg);
 	}
-	.hamburger span {
-		display: block;
-		height: 1.5px;
-		background: var(--fg-muted);
-		border-radius: 2px;
-		transform-origin: center;
-		transition:
-			transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-			opacity 0.3s ease,
-			width 0.3s ease;
-		width: 100%;
-	}
-	/* Morph into X */
-	.hamburger.open span:nth-child(1) {
-		transform: translateY(3.75px) rotate(45deg);
-	}
-	.hamburger.open span:nth-child(2) {
-		transform: translateY(-3.75px) rotate(-45deg);
-	}
-
-	/* ── Sheet ──────────────────────────────────────── */
-	.sheet {
-		display: none;
-		position: fixed;
-		bottom: 0;
+	.navlinks a.active::after {
+		content: '';
+		position: absolute;
 		left: 0;
 		right: 0;
-		z-index: 160;
-		background: var(--bg, #0a0a0a);
-		border-top: 1px solid rgba(255, 255, 255, 0.06);
-		border-radius: 20px 20px 0 0;
-		padding: 2.5rem 2rem 3rem;
-		transform: translateY(100%);
-		transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
-		box-shadow:
-			0 -1px 0 rgba(255, 255, 255, 0.04),
-			0 -40px 80px rgba(0, 0, 0, 0.45);
+		bottom: -2px;
+		height: 2px;
+		background: var(--accent);
+		border-radius: 2px;
 	}
-	.sheet.open {
-		transform: translateY(0);
-	}
-	.sheet nav ul {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-direction: column;
-		gap: 0;
-	}
-
-	.sheet nav li {
-		border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-		overflow: hidden;
-		transform: translateY(20px);
-		opacity: 0;
-		transition:
-			transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-			opacity 0.4s ease;
-		transition-delay: calc(var(--i) * 60ms + 100ms);
-	}
-	.sheet.open li {
-		transform: translateY(0);
-		opacity: 1;
-	}
-
-	.sheet nav li a {
-		display: flex;
+	.themebtn {
+		display: inline-flex;
 		align-items: center;
-		gap: 1rem;
-		padding: 1.1rem 0;
-		font-size: 1.75rem;
-		font-weight: 600;
-		letter-spacing: -0.02em;
-		color: var(--fg, #f0f0f0);
-		text-decoration: none;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		background: transparent;
+		border: 1px solid var(--border);
+		color: var(--fg);
+		border-radius: var(--radius-pill);
 		transition:
-			color 0.2s,
-			gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+			border-color 0.15s ease,
+			background 0.15s ease;
 	}
-	.sheet nav li a:active {
-		color: var(--fg-muted, #888);
+	.themebtn:hover {
+		border-color: var(--fg);
+		background: var(--fg-soft);
 	}
-	.sheet nav li a:hover {
-		gap: 1.4rem;
+	.themebtn svg {
+		width: 16px;
+		height: 16px;
 	}
-
-	.link-num {
-		font-size: 0.65rem;
-		font-weight: 500;
-		letter-spacing: 0.1em;
-		color: var(--fg-muted, #666);
-		font-variant-numeric: tabular-nums;
-		margin-top: 4px;
+	:global(html[data-theme='dark']) .i-sun {
+		display: none;
 	}
-
-	.sheet-footer {
-		margin-top: 2rem;
-		font-size: 0.7rem;
-		letter-spacing: 0.08em;
-		color: var(--fg-muted, #555);
-		opacity: 0;
-		transform: translateY(8px);
-		transition:
-			opacity 0.4s ease 0.4s,
-			transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.4s;
+	:global(html[data-theme='light']) .i-moon {
+		display: none;
 	}
-	.sheet.open .sheet-footer {
-		opacity: 1;
-		transform: translateY(0);
-	}
-
-	/* ── Tablet & Mobile ──────────────────────────────── */
-	@media (max-width: 900px) {
-		.nav {
-			padding: 1.5rem;
-		}
-		.desktop-nav {
+	@media (max-width: 920px) {
+		.navlinks {
 			display: none;
-		}
-		.hamburger {
-			display: flex;
-		}
-		.sheet {
-			display: flex;
-			flex-direction: column;
-		}
-	}
-
-	@media (max-width: 600px) {
-		.nav {
-			padding: 1rem 1.5rem;
-		}
-	}
-
-	@media (prefers-color-scheme: light) {
-		.nav.scrolled {
-			background: color-mix(in srgb, var(--bg) 82%, transparent);
-			backdrop-filter: blur(4px) saturate(105%);
-			-webkit-backdrop-filter: blur(4px) saturate(105%);
-		}
-		.sheet {
-			background: var(--bg, #ffffff);
-			border-top: 1px solid rgba(0, 0, 0, 0.06);
-			box-shadow:
-				0 -1px 0 rgba(0, 0, 0, 0.04),
-				0 -20px 40px rgba(0, 0, 0, 0.18);
-		}
-		.sheet nav li {
-			border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 		}
 	}
 </style>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import HeroSection from '$lib/components/hero-section.svelte';
 	import ProjectSection from '$lib/components/project-section.svelte';
+	import StackSection from '$lib/components/stack-section.svelte';
 	import ExperienceSection from '$lib/components/exp-section.svelte';
 	import AboutSection from '$lib/components/about-section.svelte';
 	import ContactSection from '$lib/components/contact-section.svelte';
@@ -13,7 +14,7 @@
 	<meta property="og:locale" content={site.locale} />
 	<meta name="description" content={site.description} />
 	<link rel="canonical" href="{site.url}/" />
-	<meta name="theme-color" content="#0c0c0c" />
+	<meta name="theme-color" content="#0d1013" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content={site.title} />
 	<meta property="og:locale" content={site.locale} />
@@ -30,13 +31,12 @@
 	<meta name="twitter:description" content={site.description} />
 	<meta name="twitter:image" content="{site.url}/og/home.png" />
 	<meta name="twitter:image:alt" content="{site.title} backdrop" />
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
 </svelte:head>
 
 <HeroSection />
-<ExperienceSection />
 <ProjectSection />
+<StackSection />
+<ExperienceSection />
 <AboutSection />
 <ContactSection />
 <Footer />

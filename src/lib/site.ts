@@ -13,5 +13,5 @@ export default {
 	locale: 'en_PH',
 	title: 'Peter John Arao',
 	description:
-		'Full-stack developer from Bicol, Philippines. Building clean, efficient software with SvelteKit, TypeScript, and modern web technologies.'
+		'Full-stack developer from Bicol, Philippines. SvelteKit, TypeScript, Java, Tauri, and Cloudflare.'
 };

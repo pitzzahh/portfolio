@@ -3,13 +3,8 @@ import type { Experience, Project, Skill, SocialLink } from './types.js';
 export const personalInfo = {
 	name: 'Peter John Arao',
 	handle: 'pitzzahh',
-	role: 'Full-Stack Developer',
-	location: 'Bicol, Philippines',
-	bio: 'Since 2020 I’ve worked across Java, modern frontend stacks, and desktop tooling. I design and implement responsive, high‑performance user interfaces and server APIs, and I’ve contributed to HR systems, utility apps (powertrackr), and several marketing sites. My priorities are security, maintainability, clear APIs, and shipping value — from database design and ORM integration to selecting the right deployment and delivery approach based on project requirements. I contribute to open‑source and enjoy solving production problems end‑to‑end.',
 	currentProject: 'powertrackr',
 	devTo: 'https://dev.to/pitzzahh',
-	twitter: 'https://x.com/araopjcode',
-	github: 'https://github.com/pitzzahh',
 	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
 	email: 'hello@peterjohnarao.com'
 };
@@ -27,15 +22,15 @@ export const projects: Project[] = [
 			'shadcn-svelte'
 		],
 		url: 'https://powertrackr.peterjohnarao.com',
-		stars: 2,
-		language: 'Svelte'
+		stars: 0,
+		language: 'TypeScript'
 	},
 	{
 		title: 'hics',
 		description:
 			'Full-featured golf handicap management system following WHS 2024. Manages players, courses, admins, and handicap index computations. A SvelteKit application running on Cloudflare Workers, backed by a Spring Boot API.',
 		tech: ['SvelteKit', 'TypeScript', 'Cloudflare Workers', 'TailwindCSS', 'shadcn-svelte'],
-		url: 'https://golf-hics.hsj-technologies-opc.workers.dev',
+		url: 'https://golf-hics.hsjtechnologies.com',
 		stars: 0,
 		language: 'Svelte'
 	},
@@ -51,10 +46,10 @@ export const projects: Project[] = [
 	{
 		title: 'hris',
 		description:
-			'Our final project: a Java-based application for managing human resources, built with Maven for the Java NCIII final project.',
+			'A Java-based application for managing human resources, built with Maven for the Java NCIII final project.',
 		tech: ['Java', 'Maven', 'MySQL', 'Lombok', 'JUnit', 'Mockito'],
 		url: 'https://github.com/pitzzahh/hris',
-		stars: 2,
+		stars: 5,
 		language: 'Java'
 	},
 	{
@@ -102,7 +97,7 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'signaldb-adapter-tauri',
-		description: 'SignalDB persistence adapter for Tauri apps with optional encryption.',
+		description: 'SignalDB persistence adapter for Tauri apps with encryption support.',
 		tech: ['TypeScript', 'Tauri', 'SignalDB'],
 		url: 'https://github.com/pitzzahh/signaldb-adapter-tauri',
 		stars: 2,
@@ -110,7 +105,7 @@ export const projects: Project[] = [
 	},
 	{
 		title: 'lrnr',
-		description: 'Learning Management System API — fast, type-safe, built on Hono and Bun.',
+		description: 'Learning Management System API. Fast, type-safe, built on Hono and Bun.',
 		tech: ['TypeScript', 'Hono', 'Bun', 'OpenAPI'],
 		url: 'https://github.com/pitzzahh/lrnr',
 		stars: 4,
@@ -185,11 +180,11 @@ export const experiences: Experience[] = [
 		type: 'Part-time',
 		start: '2025-01-03',
 		end: null,
-		location: 'Legaspi, Bicol Region, Philippines',
+		location: 'Legazpi, Bicol Region, Philippines',
 		skills: [
 			'Desktop Development',
 			'Web Application Development',
-			'SpringBoot Development',
+			'Spring Boot',
 			'Flutter Development'
 		],
 		url: 'https://hsjtechnologies.com'
@@ -200,8 +195,8 @@ export const experiences: Experience[] = [
 		type: 'Apprenticeship',
 		start: '2024-08-01',
 		end: null,
-		location: 'Legaspi, Bicol Region, Philippines · Hybrid',
-		skills: ['Java Development', 'Web Development', '+1 skill'],
+		location: 'Legazpi, Bicol Region, Philippines · Hybrid',
+		skills: ['Java Development', 'Web Development'],
 		url: 'https://bicolit.org'
 	},
 	{
@@ -219,7 +214,7 @@ export const experiences: Experience[] = [
 		type: 'Internship',
 		start: '2025-02-01',
 		end: '2025-06-30',
-		location: 'Legaspi, Bicol Region, Philippines',
-		skills: ['Java Development', 'Web Development', '+1 skill']
+		location: 'Legazpi, Bicol Region, Philippines',
+		skills: ['Java Development', 'Web Development']
 	}
 ];

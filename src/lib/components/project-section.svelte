@@ -1,244 +1,191 @@
 <script lang="ts">
 	import { projects } from '$lib/data.js';
-	import { reveal, stagger } from '$lib/hooks/actions.js';
+	import { reveal } from '$lib/hooks/actions.js';
+
+	// ponytail: featured slice keeps the DS 6-row index list; hrms stays out (private repo, no public URL).
+	const featured = [0, 7, 10, 1, 3, 8].map((i) => projects[i]).filter(Boolean);
 </script>
 
-<section class="project" id="projects">
-	<div class="project-inner">
-		<header class="section-header" use:reveal={0}>
-			<span class="section-index">( {projects.length} )</span>
-			<h2 class="section-title">Selected projects</h2>
-		</header>
-
-		<ol class="project-list" use:stagger>
-			{#each projects as project, i (project.title)}
-				<li class="project-row">
+<section class="section" id="work">
+	<div class="container">
+		<div class="sec-head" use:reveal>
+			<div>
+				<p class="eyebrow num">01</p>
+				<h2 class="h2">Selected work</h2>
+			</div>
+			<span class="sec-index num">( {String(featured.length).padStart(2, '0')} )</span>
+		</div>
+		<ol class="work-list">
+			{#each featured as project, i (project.title)}
+				<li class="work-row" use:reveal={i * 60}>
 					<a
+						class="work-link"
 						href={project.url}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="project-link"
-						aria-label="View {project.title} on GitHub"
+						aria-label="View {project.title}"
 					>
-						<span class="project-number">0{i + 1}</span>
-
-						<span class="project-title">{project.title}</span>
-
-						<span class="project-tech">
-							{#each project.tech as tag, j (tag)}
-								{tag}{j < project.tech.length - 1 ? ', ' : ''}
-							{/each}
-						</span>
-
-						<span class="project-arrow" aria-hidden="true">↗</span>
+						<span class="wnum num">{String(i + 1).padStart(2, '0')}</span>
+						<span class="wtitle">{project.title} <span class="arr">↗</span></span>
+						<span class="wtech">{project.tech.slice(0, 3).join(' · ')}</span>
+						<span class="wstar num">{project.stars ? `★ ${project.stars}` : project.language}</span>
 					</a>
-
-					<p class="project-desc">{project.description}</p>
+					<div class="wdesc"><div class="wdesc-in"><p>{project.description}</p></div></div>
 				</li>
 			{/each}
 		</ol>
-
-		<div class="project-footer" use:reveal={80}>
+		<div class="seeall" use:reveal>
 			<a
+				class="btn btn-ghost btn-arrow"
 				href="https://github.com/pitzzahh?tab=repositories"
 				target="_blank"
-				rel="noopener noreferrer"
-				class="see-all"
+				rel="noopener noreferrer">More on GitHub</a
 			>
-				See all projects
-				<span aria-hidden="true">↗</span>
-			</a>
 		</div>
 	</div>
 </section>
 
 <style>
-	.project {
-		padding: 8rem 3rem;
-	}
-
-	.project-inner {
-		max-width: 960px;
-		margin: 0 auto;
-	}
-
-	/* ── Section header ── */
-	.section-header {
+	.sec-head {
 		display: flex;
-		justify-content: right;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 4rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+		align-items: baseline;
+		justify-content: space-between;
+		gap: var(--gap-md);
+		margin-bottom: 18px;
 	}
-	.section-header:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	.section-index {
-		font-size: 0.75rem;
-		font-weight: 500;
+	.sec-index {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--muted);
 		letter-spacing: 0.08em;
-		color: var(--fg-muted);
 	}
-
-	.section-title {
-		font-size: clamp(1.1rem, 2vw, 1.3rem);
-		font-weight: 500;
-		letter-spacing: -0.01em;
-		color: var(--fg);
-		margin: 0;
-	}
-
-	/* ── List ── */
-	.project-list {
+	.work-list {
 		list-style: none;
-		margin: 0;
+		margin: 34px 0 0;
 		padding: 0;
 	}
-
-	.project-row {
+	.work-row {
 		border-top: 1px solid var(--border);
-		opacity: var(--sp, 1);
-		transform: translateY(calc((1 - var(--sp, 1)) * 40px));
+		position: relative;
 	}
-
-	.project-row:last-child {
+	.work-row:last-child {
 		border-bottom: 1px solid var(--border);
 	}
-
-	.project-link {
+	.work-row::after {
+		content: '';
+		position: absolute;
+		top: -1px;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: var(--fg);
+		transform: scaleX(0);
+		transform-origin: 0 50%;
+		transition: transform 0.55s var(--ease-line);
+		pointer-events: none;
+	}
+	.work-row:hover::after,
+	.work-row:focus-within::after {
+		transform: scaleX(1);
+	}
+	.work-link {
 		display: grid;
-		grid-template-columns: 2.5rem 1fr auto auto;
-		align-items: center;
-		gap: 1.5rem;
-		padding: 1.5rem 0;
-		text-decoration: none;
-		color: var(--fg);
-		transition: opacity 0.2s;
+		grid-template-columns: 3.2rem 1.4fr 1fr auto;
+		gap: 1.4rem;
+		align-items: baseline;
+		padding: 24px 0;
+		transition: opacity 0.25s ease;
 	}
-
-	.project-list:has(.project-link:hover) .project-link:not(:hover) {
-		opacity: 0.35;
+	.work-list:has(.work-link:hover) .work-link:not(:hover) {
+		opacity: 0.32;
 	}
-
-	.project-number {
-		font-size: 0.7rem;
-		font-weight: 500;
-		letter-spacing: 0.06em;
-		color: var(--fg-muted);
-		font-variant-numeric: tabular-nums;
-		flex-shrink: 0;
+	.wnum {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--muted);
 	}
-
-	.project-title {
-		font-size: clamp(1.1rem, 2.5vw, 1.5rem);
-		font-weight: 500;
-		letter-spacing: -0.02em;
-		color: var(--fg);
+	.wtitle {
+		font-family: var(--font-display);
+		font-size: clamp(23px, 3vw, 33px);
+		font-weight: 600;
+		letter-spacing: -0.015em;
+		line-height: 1.1;
 	}
-
-	.project-tech {
-		font-size: 0.75rem;
+	.wtitle .arr {
 		font-weight: 400;
-		letter-spacing: 0.03em;
-		color: var(--fg-muted);
+		color: var(--muted);
+		display: inline-block;
+		transition:
+			transform 0.3s var(--ease-out),
+			color 0.2s;
+	}
+	.work-link:hover .arr {
+		transform: translate(4px, -4px);
+		color: var(--accent);
+	}
+	.wtech {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--muted);
 		text-align: right;
+		line-height: 1.7;
+	}
+	.wstar {
+		font-family: var(--font-mono);
+		font-size: 12px;
+		color: var(--muted);
+		border: 1px solid var(--border);
+		border-radius: var(--radius-pill);
+		padding: 4px 10px;
 		white-space: nowrap;
 	}
-
-	.project-arrow {
-		font-size: 1rem;
-		color: var(--fg-muted);
-		flex-shrink: 0;
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+	.wdesc {
+		display: grid;
+		grid-template-rows: 0fr;
+		opacity: 0;
+		margin-left: 4.6rem;
+		transition:
+			grid-template-rows 0.45s var(--ease-line),
+			opacity 0.3s ease;
 	}
-
-	.project-link:hover .project-arrow {
-		transform: translate(3px, -3px);
-		color: var(--fg);
+	.wdesc-in {
+		overflow: hidden;
+		min-height: 0;
 	}
-
-	.project-desc {
-		font-size: 0.85rem;
-		color: var(--fg-subtle);
-		line-height: 1.65;
-		padding: 0 0 1.5rem 4rem;
+	.wdesc p {
 		margin: 0;
-		max-width: 520px;
+		padding-bottom: 24px;
+		color: var(--muted);
+		font-size: 15px;
+		line-height: 1.65;
+		max-width: 62ch;
 	}
-
-	/* ── Footer ── */
-	.project-footer {
-		margin-top: 3rem;
+	.work-row:hover .wdesc,
+	.work-row:focus-within .wdesc {
+		grid-template-rows: 1fr;
+		opacity: 1;
+	}
+	.seeall {
 		display: flex;
 		justify-content: flex-end;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+		margin-top: 30px;
 	}
-	.project-footer:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	.see-all {
-		display: inline-flex;
-		align-items: center;
-		gap: 0.5rem;
-		font-size: 0.8rem;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--fg-muted);
-		text-decoration: none;
-		transition:
-			color 0.2s,
-			gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-	}
-
-	.see-all:hover {
-		color: var(--fg);
-		gap: 0.875rem;
-	}
-
-	@media (max-width: 768px) {
-		.project {
-			padding: 6rem 1.5rem;
-		}
-
-		.project-link {
-			grid-template-columns: 2rem 1fr auto;
-			gap: 1rem;
-		}
-
-		.project-tech {
-			display: none;
-		}
-
-		.project-desc {
-			padding-left: 3rem;
+	@media (hover: none) {
+		.wdesc {
+			grid-template-rows: 1fr;
+			opacity: 1;
 		}
 	}
-
-	@media (max-width: 480px) {
-		.project-link {
-			grid-template-columns: 2rem 1fr auto;
-		}
-
-		.project-number {
-			display: none;
-		}
-
-		.project-link {
+	@media (max-width: 920px) {
+		.work-link {
 			grid-template-columns: 1fr auto;
 		}
-
-		.project-desc {
-			padding-left: 0;
+		.wnum,
+		.wtech {
+			display: none;
+		}
+		.wdesc {
+			margin-left: 0;
 		}
 	}
 </style>

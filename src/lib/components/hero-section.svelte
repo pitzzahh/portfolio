@@ -1,155 +1,173 @@
 <script lang="ts">
 	import { personalInfo } from '$lib/data.js';
-	import { scrollTo } from '$lib/hooks/controller.svelte';
+	import { magnetic, reveal } from '$lib/hooks/actions.js';
 
-	function gotoContact(e: MouseEvent) {
-		e.preventDefault();
-		scrollTo('#contact', { offset: -40, duration: 1.6 });
+	let heroInner: HTMLElement | undefined = $state();
+
+	function onScroll() {
+		if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+		const y = window.scrollY;
+		const vh = window.innerHeight;
+		if (heroInner && y < vh * 1.2) {
+			heroInner.style.transform = `translate3d(0,${(y * 0.22).toFixed(1)}px,0)`;
+			heroInner.style.opacity = String(Math.max(0, 1 - y / (vh * 0.92)));
+		}
 	}
 </script>
 
-<section class="hero" id="top">
-	<div class="hero-inner">
-		<p class="availability">
-			<span class="dot" aria-hidden="true"></span>
-			Available for work
-		</p>
+<svelte:window onscroll={onScroll} />
 
-		<h1 class="name">{personalInfo.name}</h1>
-
-		<p class="role">{personalInfo.role} — {personalInfo.location}</p>
-
-		<p class="bio">{personalInfo.bio}</p>
-
-		<a href="#contact" class="scroll-cue" onclick={gotoContact} aria-label="Contact me">
-			Contact
-			<span class="arrow" aria-hidden="true">↓</span>
-		</a>
+<section class="section hero" id="top">
+	<div class="container hero-inner" bind:this={heroInner}>
+		<p class="pill" use:reveal><span class="dot"></span>Available for work · Bicol, PH</p>
+		<h1>
+			<span class="mask"><span>{personalInfo.name}</span></span>
+			<span class="mask"><span class="thin">Full-stack developer.</span></span>
+		</h1>
+		<div class="hero-sub">
+			<div>
+				<p use:reveal={80}>
+					Since 2020 across Java, modern frontend stacks, and desktop tooling. Security,
+					maintainability, clear APIs, shipped value.
+				</p>
+				<div class="hero-cta" use:reveal={120}>
+					<a class="btn btn-primary" use:magnetic href="#contact">Start a project</a>
+					<a
+						class="btn btn-secondary"
+						href="https://github.com/pitzzahh"
+						target="_blank"
+						rel="noopener">GitHub ↗</a
+					>
+				</div>
+			</div>
+			<div class="meta status" use:reveal={200}>
+				<div class="num">CURRENT: POWERTRACKR</div>
+				<div>SvelteKit · Cloudflare D1 · Drizzle</div>
+				<div>BASED: Legazpi, Bicol · UTC+8</div>
+			</div>
+		</div>
+		<div class="scrollline" use:reveal={280}>
+			<span class="meta">SCROLL</span><span class="track"><i></i></span>
+		</div>
 	</div>
 </section>
 
 <style>
 	.hero {
 		min-height: 100svh;
-		height: 100svh;
 		display: flex;
 		align-items: flex-end;
-		padding: 8rem 3rem;
+		padding: 9rem 0 4.5rem;
+		overflow: clip;
 	}
-
 	.hero-inner {
-		max-width: 960px;
-		margin: 0 auto;
-		padding-left: 0;
-	}
-
-	.availability {
-		display: inline-flex;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-		font-size: 0.75rem;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--fg-muted);
-		margin-bottom: 2.5rem;
-	}
-
-	.dot {
-		width: 6px;
-		height: 6px;
-		margin-bottom: 0.1rem;
-		border-radius: 50%;
-		background: #4ade80;
-		flex-shrink: 0;
-		animation: pulse 2.5s ease-in-out infinite;
-	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			opacity: 1;
-		}
-		50% {
-			opacity: 0.35;
-		}
-	}
-
-	.name {
-		font-size: clamp(3rem, 8vw, 6.5rem);
-		font-weight: 500;
-		letter-spacing: -0.035em;
-		line-height: 1;
-		color: var(--fg);
-		margin: 0 0 1.5rem;
-	}
-
-	.role {
-		font-size: clamp(0.9rem, 1.5vw, 1.05rem);
-		color: var(--fg-muted);
-		letter-spacing: 0.01em;
-		margin: 0 0 2rem;
-	}
-
-	.bio {
-		font-size: clamp(0.95rem, 1.5vw, 1.1rem);
-		color: var(--fg-subtle);
-		line-height: 1.75;
-		margin: 0 0 3.5rem;
-		word-break: break-word;
+		position: relative;
 		width: 100%;
 	}
-
-	.scroll-cue {
-		display: inline-flex;
+	.mask {
+		overflow: hidden;
+		display: block;
+		padding-bottom: 0.09em;
+		margin-bottom: -0.09em;
+	}
+	.mask > span {
+		display: block;
+		transform: translateY(115%);
+		animation: rise 1s var(--ease-out) forwards;
+	}
+	.mask:nth-child(2) > span {
+		animation-delay: 0.08s;
+	}
+	@keyframes rise {
+		to {
+			transform: translateY(0);
+		}
+	}
+	.hero h1 {
+		font-size: var(--fs-h1);
+		line-height: 1.04;
+		letter-spacing: -0.022em;
+		margin: 22px 0 18px;
+		font-weight: 700;
+	}
+	.hero h1 .thin {
+		color: var(--muted);
+		font-weight: 400;
+		font-style: italic;
+	}
+	.hero-sub {
+		display: grid;
+		grid-template-columns: 1.2fr 1fr;
+		gap: var(--gap-xl);
+		align-items: end;
+		margin-top: 8px;
+	}
+	.hero-sub p {
+		margin: 0;
+		color: var(--muted);
+		font-size: clamp(15px, 1.6vw, 18px);
+		line-height: 1.65;
+		max-width: 52ch;
+	}
+	.status div + div {
+		margin-top: 10px;
+	}
+	.hero-cta {
+		display: flex;
+		gap: var(--gap-sm);
+		margin-top: 30px;
+		flex-wrap: wrap;
+	}
+	.scrollline {
+		display: flex;
 		align-items: center;
-		gap: 0.625rem;
-		font-size: 0.8rem;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--fg-muted);
-		text-decoration: none;
-		transition:
-			color 0.2s,
-			gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+		gap: 12px;
+		margin-top: 56px;
+		color: var(--muted);
 	}
-
-	.scroll-cue:hover {
-		color: var(--fg);
+	.scrollline .track {
+		width: 72px;
+		height: 1px;
+		background: var(--border);
+		position: relative;
+		overflow: hidden;
 	}
-
-	.arrow {
-		transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-		display: inline-block;
+	.scrollline .track i {
+		position: absolute;
+		inset: 0;
+		background: var(--fg);
+		transform-origin: 0 50%;
+		animation: cue 1.8s var(--ease-cue) infinite;
 	}
-
-	.scroll-cue:hover .arrow {
-		transform: translateY(4px);
+	@keyframes cue {
+		0% {
+			transform: scaleX(0);
+			transform-origin: 0 50%;
+		}
+		55% {
+			transform: scaleX(1);
+			transform-origin: 0 50%;
+		}
+		56% {
+			transform-origin: 100% 50%;
+		}
+		100% {
+			transform: scaleX(0);
+			transform-origin: 100% 50%;
+		}
 	}
-
-	@media (max-width: 768px) {
+	@media (max-width: 920px) {
+		.hero-sub {
+			grid-template-columns: 1fr;
+		}
 		.hero {
-			padding: 6rem 1.5rem;
-			min-height: 100svh;
-			height: 100svh;
-			overflow: auto;
+			padding-top: 7rem;
 		}
-		.hero-inner {
-			max-width: 100%;
-			margin: 0 auto;
-			text-align: left;
-			padding-top: 0;
-		}
-		.bio {
-			max-width: 100%;
-			margin: 0 0 1.25rem;
-			font-size: 0.92rem;
-			line-height: 1.4;
-			display: block;
-			overflow: visible;
-			-webkit-box-orient: initial;
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.mask > span {
+			transform: none;
+			animation: none;
 		}
 	}
 </style>

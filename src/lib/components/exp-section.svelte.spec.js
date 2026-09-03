@@ -15,13 +15,6 @@ import { render } from 'vitest-browser-svelte';
  * @property {string[]} skills
  */
 
-/*
- * Mock the data module BEFORE importing the Svelte component so the component
- * picks up deterministic test data at import-time.
- *
- * Inlined the mock data into the factory to avoid top-level variables that
- * cause issues when `vi.mock` is hoisted.
- */
 vi.mock('$lib/data.js', () => {
 	return {
 		experiences: [
@@ -42,15 +35,12 @@ vi.mock('$lib/data.js', () => {
 import ExpSection from './exp-section.svelte';
 
 describe('exp-section.svelte', () => {
-	it('renders the section header and the provided experience', async () => {
-		// Render the component
+	it('renders the sticky rail and the provided experience', async () => {
 		render(ExpSection);
 
-		// Section title (h2)
-		await expect.element(page.getByRole('heading', { level: 2 })).toHaveTextContent('Experience');
-
-		// The section index shows the number of experiences. Our mock has 1.
-		await expect.element(page.getByText(/\(1\)/)).toBeInTheDocument();
+		// Sticky rail display line
+		await expect.element(page.getByText('Four')).toBeInTheDocument();
+		await expect.element(page.getByText('roles.')).toBeInTheDocument();
 
 		// Role text should be rendered
 		await expect.element(page.getByText('Engineer')).toBeInTheDocument();
@@ -58,7 +48,7 @@ describe('exp-section.svelte', () => {
 		// Company name (the component links to the company when url is present)
 		await expect.element(page.getByText('TestCo')).toBeInTheDocument();
 
-		// Skills are rendered as a comma-separated list when present
-		await expect.element(page.getByText('JS, Svelte')).toBeInTheDocument();
+		// Skills are rendered as a middle-dot-separated mono line
+		await expect.element(page.getByText('JS · Svelte')).toBeInTheDocument();
 	});
 });

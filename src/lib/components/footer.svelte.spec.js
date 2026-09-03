@@ -10,10 +10,6 @@ import Footer from './footer.svelte';
  * @typedef {{ mockClear?: () => void; mockReset?: () => void; mock?: unknown[] }} VitestMockLike
  */
 
-/*
- * Mock the data module so tests are deterministic.
- * Keep the factory hoist-safe by creating values inside the factory.
- */
 vi.mock('$lib/data.js', () => {
 	return {
 		personalInfo: {
@@ -23,10 +19,6 @@ vi.mock('$lib/data.js', () => {
 	};
 });
 
-/*
- * Mock the scroll controller module. Expose the mock on globalThis safely so tests can access it
- * at runtime without relying on module-initialization order.
- */
 /** @returns {{ scrollTo: VitestMock }} */
 vi.mock('$lib/hooks/controller.svelte', () => {
 	const scrollToMock = vi.fn();
@@ -48,13 +40,11 @@ describe('Footer.svelte', () => {
 		if (scrollToMock && typeof scrollToMock.mockReset === 'function') scrollToMock.mockReset();
 	});
 
-	it('renders monogram and copyright with name and current year', async () => {
+	it('renders copyright with name and current year', async () => {
 		render(Footer);
 
-		await expect.element(page.getByText('P.J.A.')).toBeInTheDocument();
-
 		const year = new Date().getFullYear();
-		await expect.element(page.getByText(new RegExp(`Test User.*${year}`))).toBeInTheDocument();
+		await expect.element(page.getByText(new RegExp(`${year}.*Test User`))).toBeInTheDocument();
 	});
 
 	it('calls scrollTo with #top when "Back to top" is clicked', async () => {

@@ -13,13 +13,12 @@ describe('ContactSection.svelte', () => {
 		 */
 		const p = /** @type {any} */ (page);
 
-		// Render the component (uses real `$lib/data` values for hrefs)
 		render(ContactSection);
 
 		// Heading
-		await expect.element(p.getByRole('heading', { level: 2 })).toHaveTextContent('Contact');
+		await expect.element(p.getByRole('heading', { level: 2 })).toHaveTextContent('Get in touch');
 
-		// CTA paragraph (full text from the component)
+		// CTA paragraph
 		await expect
 			.element(
 				p.getByText(
@@ -28,20 +27,23 @@ describe('ContactSection.svelte', () => {
 			)
 			.toBeInTheDocument();
 
-		// Static link labels present
-		await expect.element(p.getByText('Email')).toBeInTheDocument();
+		// Email CTA button uses a mailto: link
+		await expect
+			.element(p.getByRole('link', { name: /hello@peterjohnarao.com/ }))
+			.toHaveAttribute('href', 'mailto:hello@peterjohnarao.com');
+
+		// Serif text links open in a new tab
 		await expect.element(p.getByText('GitHub')).toBeInTheDocument();
 		await expect.element(p.getByText('GitRoll')).toBeInTheDocument();
-
-		// Ensure the contact links open in a new tab (component sets target="_blank")
+		await expect.element(p.getByText('dev.to')).toBeInTheDocument();
 		await expect
-			.element(p.getByRole('link', { name: /Email/i }))
+			.element(p.getByRole('link', { name: /GitHub/ }))
 			.toHaveAttribute('target', '_blank');
 		await expect
-			.element(p.getByRole('link', { name: /GitHub/i }))
+			.element(p.getByRole('link', { name: /GitRoll/ }))
 			.toHaveAttribute('target', '_blank');
 		await expect
-			.element(p.getByRole('link', { name: /GitRoll/i }))
+			.element(p.getByRole('link', { name: /dev.to/ }))
 			.toHaveAttribute('target', '_blank');
 	});
 });

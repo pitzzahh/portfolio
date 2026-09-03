@@ -1,192 +1,91 @@
 <script lang="ts">
-	import { personalInfo, skills } from '$lib/data.js';
-	import { reveal, scrollProgress, stagger } from '$lib/hooks/actions.js';
+	import { experiences, personalInfo } from '$lib/data.js';
+	import { reveal } from '$lib/hooks/actions.js';
 
-	const categories = [
-		{ key: 'language', label: 'Languages' },
-		{ key: 'framework', label: 'Frameworks' },
-		{ key: 'tool', label: 'Tools' },
-		{ key: 'database', label: 'Data' }
-	] as const;
-
-	type CategoryKey = (typeof categories)[number]['key'];
-
-	const grouped = $derived(
-		Object.fromEntries(
-			categories.map((cat) => [cat.key, skills.filter((s) => s.category === cat.key)])
-		) as Record<CategoryKey, typeof skills>
-	);
+	const years = new Date().getFullYear() - 2020;
 </script>
 
-<section class="about" id="about">
-	<div class="about-inner">
-		<header class="section-header" use:reveal={0}>
-			<h2 class="section-title">About</h2>
-		</header>
-
+<section class="section" id="about">
+	<div class="container">
+		<p class="eyebrow num" use:reveal>04</p>
+		<h2 class="h2" use:reveal={60}>About</h2>
 		<div class="about-grid">
-			<div class="about-text" use:scrollProgress>
+			<div use:reveal={120}>
 				<p>
-					Hi, I'm <strong>{personalInfo.name}</strong> — full-stack developer based in {personalInfo.location}.
-					You can find me as <span class="handle">@{personalInfo.handle}</span> online.
+					Hi, I'm <strong>{personalInfo.name}</strong> (<strong>@{personalInfo.handle}</strong>
+					online), based in Legazpi, Bicol.
 				</p>
 				<p>
-					I write clean, maintainable code and care about good developer experience. My daily stack
-					is TypeScript + SvelteKit + modern web, but I also have strong Java knowledge (not
-					currently used at work, will pursue this more) and I'm comfortable across the stack — REST
-					APIs, desktop apps (Tauri), you name it.
+					Daily stack is <strong>TypeScript + SvelteKit</strong>, strong Java underneath,
+					comfortable across REST APIs and Tauri desktops. Right now I am building
+					<strong>{personalInfo.currentProject}</strong>, an electricity usage and payment tracker.
 				</p>
-				<p>
-					Right now building
-					<a
-						href="https://github.com/pitzzahh/powertrackr"
-						target="_blank"
-						rel="noopener noreferrer"
-						class="text-link"
-					>
-						{personalInfo.currentProject}
-					</a>
-					— an electricity usage & payment tracker.
-				</p>
+				<p>I contribute to open source and enjoy production problems end to end.</p>
 			</div>
-
-			<div class="about-skills" use:stagger>
-				{#each categories as cat (cat.key)}
-					<div class="skill-group">
-						<span class="skill-group-label">{cat.label}</span>
-						<ul class="skill-list">
-							{#each grouped[cat.key] as skill (skill.name)}
-								<li>{skill.name}</li>
-							{/each}
-						</ul>
-					</div>
-				{/each}
+			<div>
+				<div class="stat" use:reveal={140}>
+					<b class="num">98<span class="u">+</span></b><span>public repos on GitHub</span>
+				</div>
+				<div class="stat" use:reveal={200}>
+					<b class="num">{years}<span class="u">yrs</span></b><span>building since 2020</span>
+				</div>
+				<div class="stat" use:reveal={260}>
+					<b class="num">{String(experiences.length).padStart(2, '0')}</b><span
+						>roles across product & internships</span
+					>
+				</div>
 			</div>
 		</div>
 	</div>
 </section>
 
 <style>
-	.about {
-		padding: 8rem 3rem;
-	}
-
-	.about-inner {
-		max-width: 960px;
-		margin: 0 auto;
-	}
-
-	.section-header {
-		margin-bottom: 4rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.section-header:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	.section-title {
-		font-size: clamp(1.1rem, 2vw, 1.3rem);
-		font-weight: 500;
-		letter-spacing: -0.01em;
-		color: var(--fg);
-		margin: 0;
-	}
-
 	.about-grid {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 5rem;
+		grid-template-columns: 1.3fr 1fr;
+		gap: var(--gap-xl);
 		align-items: start;
+		margin-top: 30px;
 	}
-
-	/* ── Text — slides in from left with its own scroll progress ── */
-	.about-text {
-		display: flex;
-		flex-direction: column;
-		gap: 1.25rem;
-		opacity: var(--sp, 1);
-		transform: translateY(calc((1 - var(--sp, 1)) * 30px));
+	.about-grid p {
+		color: var(--muted);
+		line-height: 1.75;
+		margin: 0 0 18px;
 	}
-
-	.about-text p {
-		font-size: clamp(0.95rem, 1.4vw, 1.05rem);
-		color: var(--fg-subtle);
-		line-height: 1.8;
-		margin: 0;
-	}
-
-	.about-text strong {
+	.about-grid strong {
 		color: var(--fg);
+		font-weight: 600;
+	}
+	.stat {
+		border-top: 1px solid var(--border);
+		padding: 20px 0;
+		display: flex;
+		align-items: baseline;
+		justify-content: space-between;
+		gap: 12px;
+	}
+	.stat b {
+		font-family: var(--font-display);
+		font-size: clamp(46px, 5vw, 66px);
+		font-weight: 700;
+		letter-spacing: -0.02em;
+		line-height: 1;
+		font-variant-numeric: lining-nums;
+	}
+	.stat b .u {
+		font-size: 0.45em;
+		color: var(--muted);
 		font-weight: 500;
 	}
-
-	.handle {
-		color: var(--fg-muted);
-		font-size: 0.9em;
+	.stat span {
+		color: var(--muted);
+		font-size: 13.5px;
+		max-width: 22ch;
+		text-align: right;
 	}
-
-	.text-link {
-		color: var(--fg);
-		text-decoration: none;
-		border-bottom: 1px solid var(--border);
-		transition: border-color 0.2s;
-	}
-
-	.text-link:hover {
-		border-color: var(--fg-muted);
-	}
-
-	/* ── Skills — stagger drives each group independently ── */
-	.about-skills {
-		display: flex;
-		flex-direction: column;
-		gap: 2rem;
-	}
-
-	.skill-group {
-		display: grid;
-		grid-template-columns: 6rem 1fr;
-		gap: 0.5rem 1.5rem;
-		align-items: start;
-		opacity: var(--sp, 1);
-		transform: scale(calc(0.93 + 0.07 * var(--sp, 1))) translateY(calc((1 - var(--sp, 1)) * 15px));
-	}
-
-	.skill-group-label {
-		font-size: 0.72rem;
-		font-weight: 500;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
-		color: var(--fg-muted);
-		padding-top: 0.15em;
-	}
-
-	.skill-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		flex-wrap: wrap;
-		gap: 0.25rem 1rem;
-	}
-
-	.skill-list li {
-		font-size: 0.875rem;
-		color: var(--fg-subtle);
-		line-height: 1.6;
-	}
-
-	@media (max-width: 768px) {
-		.about {
-			padding: 6rem 1.5rem;
-		}
-
+	@media (max-width: 920px) {
 		.about-grid {
 			grid-template-columns: 1fr;
-			gap: 3rem;
 		}
 	}
 </style>

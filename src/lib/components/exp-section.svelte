@@ -1,292 +1,126 @@
 <script module lang="ts">
-	/**
-	 * Format date to "Mon YYYY" or "Present"
-	 */
-	function formatDate(iso?: string | null): string {
-		if (!iso) return 'Present';
-		const d = new Date(iso);
-		// Using 'short' month name + year
-		return d.toLocaleDateString(undefined, {
-			month: 'short',
-			year: 'numeric'
-		});
-	}
-
-	function formatElapsedTime(startDate: string | Date, endDate?: string | Date): string {
-		const start = new Date(startDate);
-		const end = endDate ? new Date(endDate) : new Date();
-
-		let years = end.getFullYear() - start.getFullYear();
-		let months = end.getMonth() - start.getMonth();
-		let days = end.getDate() - start.getDate();
-
-		if (days < 0) {
-			months--;
-			const prevMonthLastDay = new Date(end.getFullYear(), end.getMonth(), 0).getDate();
-			days += prevMonthLastDay;
-		}
-
-		if (months < 0) {
-			years--;
-			months += 12;
-		}
-
-		const parts: string[] = [];
-		if (years > 0) parts.push(`${years} year${years === 1 ? '' : 's'}`);
-		if (months > 0) parts.push(`${months} month${months === 1 ? '' : 's'}`);
-		if (days > 0) parts.push(`${days} day${days === 1 ? '' : 's'}`);
-
-		if (parts.length === 0) return '0 days';
-		if (parts.length === 1) return parts[0];
-		return parts.slice(0, -1).join(', ') + ' and ' + parts[parts.length - 1];
-	}
-
-	function getHref(url?: string): string | undefined {
-		if (!url) return undefined;
-		// You can enhance this later with import.meta.env.BASE_URL if needed
-		return url;
+	function range(start: string, end?: string | null): string {
+		const s = new Date(start).toLocaleDateString(undefined, { month: 'short', year: 'numeric' });
+		const e = end
+			? new Date(end).toLocaleDateString(undefined, { month: 'short', year: 'numeric' })
+			: 'Present';
+		return `${s} to ${e}`;
 	}
 </script>
 
-<script>
+<script lang="ts">
 	import { experiences } from '$lib/data';
-	import { reveal, stagger } from '$lib/hooks/actions.js';
+	import { reveal } from '$lib/hooks/actions.js';
 </script>
 
-<section class="experience" id="exp">
-	<div class="experience-inner">
-		<header class="section-header" use:reveal={0}>
-			<span class="section-index">({experiences.length})</span>
-			<h2 class="section-title">Experience</h2>
-		</header>
-
-		<ol class="experience-list" use:stagger>
-			{#each experiences as exp (exp.company + exp.start)}
-				<li class="experience-row">
-					<div class="exp-main">
-						<div class="exp-meta" use:reveal={40}>
-							<h3 class="exp-role">{exp.role}</h3>
-							<p class="exp-company">
-								{#if getHref(exp.url)}
-									<a href={getHref(exp.url)} target="_blank" rel="noopener noreferrer">
-										{exp.company}
-									</a>
-								{:else}
-									{exp.company}
-								{/if}
-							</p>
-						</div>
-
-						<div class="exp-side" use:reveal={80}>
-							<p class="exp-type">{exp.type}</p>
-							<p class="exp-dates">
-								{formatDate(exp.start)} – {formatDate(exp.end)} · {formatElapsedTime(
-									exp.start,
-									exp.end || undefined
-								)}
-							</p>
-							<p class="exp-location">{exp.location}</p>
-						</div>
+<section class="section" id="exp">
+	<div class="container split">
+		<div class="sticky">
+			<p class="eyebrow num" use:reveal>03</p>
+			<div class="big" use:reveal={80}>Four<br /><em>roles.</em></div>
+			<p class="lead" use:reveal={140}>Part time, apprenticeship, and internships.</p>
+		</div>
+		<ol class="xplist">
+			{#each experiences as exp, i (exp.company + exp.start)}
+				<li class="xp" use:reveal={i * 60}>
+					<h3 class="xp-role">{exp.role}</h3>
+					<p class="xp-co">
+						{#if exp.url}
+							<a href={exp.url} target="_blank" rel="noopener noreferrer">{exp.company}</a>
+						{:else}
+							{exp.company}
+						{/if}
+						· {exp.type}
+					</p>
+					<div class="xp-meta">
+						<span class="meta num">{range(exp.start, exp.end)}</span>
+						{#if exp.location}<span class="meta">{exp.location}</span>{/if}
 					</div>
-
 					{#if exp.skills?.length}
-						<p class="exp-skills">
-							{exp.skills.join(', ')}
-						</p>
+						<p class="xp-skills">{exp.skills.join(' · ')}</p>
 					{/if}
 				</li>
 			{/each}
 		</ol>
-
-		<div class="experience-footer" use:reveal={120}>
-			<p class="disclaimer">Dates and durations are calculated based on provided ISO dates.</p>
-		</div>
 	</div>
 </section>
 
 <style>
-	.experience {
-		padding: 8rem 3rem;
+	.split {
+		display: grid;
+		grid-template-columns: 1fr 1.6fr;
+		gap: var(--gap-xl);
+		align-items: start;
 	}
-
-	.experience-inner {
-		max-width: 960px;
-		margin: 0 auto;
+	.sticky {
+		position: sticky;
+		top: 110px;
 	}
-
-	/* ── Section header ── */
-	.section-header {
-		display: flex;
-		justify-content: right;
-		align-items: center;
-		gap: 1rem;
-		margin-bottom: 4rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+	.sticky .big {
+		font-family: var(--font-display);
+		font-size: clamp(58px, 6.6vw, 104px);
+		font-weight: 700;
+		letter-spacing: -0.025em;
+		line-height: 1;
+		margin: 14px 0;
 	}
-	.section-header:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
+	.sticky .big em {
+		font-style: italic;
+		font-weight: 400;
+		color: var(--muted);
 	}
-
-	.section-index {
-		font-size: 0.75rem;
-		font-weight: 500;
-		letter-spacing: 0.08em;
-		color: var(--fg-muted);
-	}
-
-	.section-title {
-		font-size: clamp(1.1rem, 2vw, 1.3rem);
-		font-weight: 500;
-		letter-spacing: -0.01em;
-		color: var(--fg);
-		margin: 0;
-	}
-
-	/* ── List ── */
-	.experience-list {
+	.xplist {
 		list-style: none;
 		margin: 0;
 		padding: 0;
 	}
-
-	.experience-row {
+	.xp {
 		border-top: 1px solid var(--border);
-		padding: 1.25rem 0;
-		opacity: var(--sp, 1);
-		transform: translateY(calc((1 - var(--sp, 1)) * 30px));
+		padding: 24px 0;
+		transition: opacity 0.25s ease;
 	}
-
-	.experience-row:last-child {
+	.xplist li:last-child {
 		border-bottom: 1px solid var(--border);
 	}
-
-	.exp-main {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		align-items: start;
+	.xplist:has(.xp:hover) .xp:not(:hover) {
+		opacity: 0.45;
 	}
-
-	.exp-meta {
-		max-width: 66%;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.exp-meta:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-
-	.exp-role {
-		font-size: clamp(1.05rem, 2.5vw, 1.25rem);
+	.xp-role {
 		margin: 0;
+		font-size: 22px;
 		font-weight: 600;
+		letter-spacing: -0.01em;
+	}
+	.xp-co {
+		margin: 6px 0 0;
+		color: var(--muted);
+		font-size: 14.5px;
+	}
+	.xp-co a {
+		border-bottom: 1px solid var(--border);
+	}
+	.xp-co a:hover {
 		color: var(--fg);
+		border-color: var(--fg);
 	}
-
-	.exp-company {
-		margin: 0.35rem 0 0;
-		color: var(--fg-muted);
-		font-size: 0.9rem;
-	}
-
-	.exp-company a {
-		color: inherit;
-		text-decoration: none;
-		border-bottom: 1px dotted transparent;
-		transition:
-			color 0.15s,
-			border-color 0.15s;
-	}
-
-	.exp-company a:hover {
-		color: var(--fg);
-		border-color: var(--fg-muted);
-	}
-
-	.exp-side {
-		text-align: right;
-		min-width: 220px;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.exp-side:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(30px);
-	}
-
-	.exp-type {
-		color: var(--fg-muted);
-		font-size: 0.8rem;
-		margin: 0 0 0.25rem;
-	}
-
-	.exp-dates {
-		color: var(--fg);
-		font-weight: 500;
-		margin: 0;
-		font-size: 0.85rem;
-	}
-
-	.exp-location {
-		color: var(--fg-muted);
-		font-size: 0.85rem;
-		margin-top: 0.25rem;
-	}
-
-	.exp-skills {
-		color: var(--fg-subtle);
-		margin: 0.75rem 0 0;
-		font-size: 0.85rem;
-	}
-
-	.experience-footer {
-		margin-top: 2rem;
+	.xp-meta {
 		display: flex;
-		justify-content: flex-end;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
+		flex-wrap: wrap;
+		gap: 8px 18px;
+		margin-top: 12px;
 	}
-	.experience-footer:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(30px);
+	.xp-skills {
+		margin: 12px 0 0;
+		color: var(--muted);
+		font-size: 13.5px;
+		font-family: var(--font-mono);
 	}
-
-	.disclaimer {
-		font-size: 0.8rem;
-		color: var(--fg-muted);
-		margin: 0;
-	}
-
-	@media (max-width: 768px) {
-		.experience {
-			padding: 6rem 1.5rem;
+	@media (max-width: 920px) {
+		.split {
+			grid-template-columns: 1fr;
 		}
-
-		.exp-main {
-			flex-direction: column;
-			gap: 0.5rem;
-		}
-
-		.exp-side {
-			text-align: left;
-			min-width: 0;
-		}
-	}
-
-	@media (max-width: 480px) {
-		.experience {
-			padding: 4rem 1.4rem;
-		}
-
-		.exp-meta {
-			max-width: 100%;
+		.sticky {
+			position: static;
 		}
 	}
 </style>

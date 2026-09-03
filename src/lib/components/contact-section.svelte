@@ -1,151 +1,77 @@
-<script>
-	import { socialLinks } from '$lib/data.js';
-	import { reveal } from '$lib/hooks/actions.js';
+<script lang="ts">
+	import { personalInfo } from '$lib/data.js';
+	import { magnetic, reveal } from '$lib/hooks/actions.js';
 </script>
 
-<section class="contact" id="contact">
-	<div class="contact-inner">
-		<header class="section-header" use:reveal={0}>
-			<h2 class="section-title">Contact</h2>
-		</header>
-
-		<div class="contact-body">
-			<p class="cta" use:reveal={60}>
-				Have a project in mind or just want to say hi? I'm always open to a conversation.
-			</p>
-
-			<ul class="link-list" use:reveal={120}>
-				{#each socialLinks as link (link.label)}
-					<li>
-						<a href={link.href} target="_blank" rel="noopener noreferrer" class="contact-link">
-							<span class="link-label">{link.label}</span>
-							<span class="link-arrow" aria-hidden="true">↗</span>
-						</a>
-					</li>
-				{/each}
-			</ul>
+<section class="section" id="contact">
+	<div class="container cta-wrap">
+		<p class="eyebrow num" use:reveal>05</p>
+		<h2 use:reveal={60}>Get in touch</h2>
+		<p class="lead" use:reveal={120}>
+			Have a project in mind or just want to say hi? I'm always open to a conversation.
+		</p>
+		<div use:reveal={180} style="margin-top:30px">
+			<a class="btn btn-primary" use:magnetic href="mailto:{personalInfo.email}"
+				>{personalInfo.email}</a
+			>
+		</div>
+		<div class="cta-links" use:reveal={240}>
+			<a href="https://github.com/pitzzahh" target="_blank" rel="noopener noreferrer"
+				>GitHub <span>↗</span></a
+			>
+			<a href={personalInfo.gitroll} target="_blank" rel="noopener noreferrer"
+				>GitRoll <span>↗</span></a
+			>
+			<a href={personalInfo.devTo} target="_blank" rel="noopener noreferrer"
+				>dev.to <span>↗</span></a
+			>
 		</div>
 	</div>
 </section>
 
 <style>
-	.contact {
-		padding: 8rem 3rem 10rem;
+	.cta-wrap {
+		text-align: center;
+		max-width: 640px;
+		margin-inline: auto;
 	}
-
-	.contact-inner {
-		max-width: 960px;
+	.cta-wrap .lead {
 		margin: 0 auto;
 	}
-
-	.section-header {
-		margin-bottom: 4rem;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.section-header:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	.section-title {
-		font-size: clamp(1.1rem, 2vw, 1.3rem);
-		font-weight: 500;
-		letter-spacing: -0.01em;
-		color: var(--fg);
-		margin: 0;
-	}
-
-	.contact-body {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 5rem;
-		align-items: start;
-	}
-
-	.cta {
-		font-size: clamp(0.95rem, 1.4vw, 1.05rem);
-		color: var(--fg-subtle);
-		line-height: 1.8;
-		margin: 0;
-		max-width: 380px;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.cta:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	/* ── Link list ── */
-	.link-list {
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		transition:
-			opacity 800ms cubic-bezier(0.16, 1, 0.3, 1),
-			transform 800ms cubic-bezier(0.16, 1, 0.3, 1);
-	}
-	.link-list:not(.is-revealed) {
-		opacity: 0;
-		transform: translateY(48px);
-	}
-
-	.link-list li {
-		border-top: 1px solid var(--border);
-	}
-
-	.link-list li:last-child {
-		border-bottom: 1px solid var(--border);
-	}
-
-	.contact-link {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: 1.125rem 0;
-		text-decoration: none;
-		color: var(--fg);
-		transition: opacity 0.2s;
-	}
-
-	.link-list:has(.contact-link:hover) .contact-link:not(:hover) {
-		opacity: 0.35;
-	}
-
-	.link-label {
-		font-size: clamp(1rem, 2vw, 1.35rem);
-		font-weight: 500;
+	.cta-wrap h2 {
+		font-size: clamp(42px, 6vw, 76px);
+		font-weight: 600;
 		letter-spacing: -0.02em;
+		line-height: 1.04;
+		margin: 18px 0 16px;
 	}
-
-	.link-arrow {
-		font-size: 1rem;
-		color: var(--fg-muted);
+	.cta-links {
+		display: flex;
+		justify-content: center;
+		gap: 10px 28px;
+		flex-wrap: wrap;
+		margin-top: 34px;
+	}
+	.cta-links a {
+		font-family: var(--font-display);
+		font-size: clamp(18px, 2.4vw, 25px);
+		font-weight: 650;
+		letter-spacing: -0.02em;
+		display: inline-flex;
+		gap: 8px;
+		align-items: baseline;
+		padding: 10px 4px;
+	}
+	.cta-links a span {
+		color: var(--muted);
+		font-weight: 400;
+		display: inline-block;
 		transition:
-			transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+			transform 0.3s var(--ease-out),
 			color 0.2s;
 	}
-
-	.contact-link:hover .link-arrow {
+	.cta-links a:hover span {
 		transform: translate(3px, -3px);
-		color: var(--fg);
-	}
-
-	@media (max-width: 768px) {
-		.contact {
-			padding: 6rem 1.5rem 7rem;
-		}
-
-		.contact-body {
-			grid-template-columns: 1fr;
-			gap: 3rem;
-		}
-
-		.cta {
-			max-width: 100%;
-		}
+		color: var(--accent);
 	}
 </style>

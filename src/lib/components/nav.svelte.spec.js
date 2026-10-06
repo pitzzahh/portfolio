@@ -45,6 +45,22 @@ describe('Nav.svelte', () => {
 		await expect.element(toggle).toBeInTheDocument();
 	});
 
+	it('toggles theme when the d key is pressed', async () => {
+		render(Nav);
+
+		const before = await page
+			.getByRole('button', { name: /Switch to (light|dark) theme/ })
+			.getAttribute('aria-label');
+
+		await page.keyboard.press('d');
+
+		const after = await page
+			.getByRole('button', { name: /Switch to (light|dark) theme/ })
+			.getAttribute('aria-label');
+
+		expect(after).not.toBe(before);
+	});
+
 	it('calls scrollTo with DS offset when the wordmark is clicked', async () => {
 		render(Nav);
 

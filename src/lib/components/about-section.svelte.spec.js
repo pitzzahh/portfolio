@@ -9,7 +9,6 @@ vi.mock('#lib/data.js', () => {
 			name: 'Peter John Arao',
 			location: 'Testland',
 			handle: 'testhandle',
-			currentProject: 'TestProject',
 			email: 'mailto:test@example.com'
 		},
 		projects: [{ title: 'a' }],
@@ -22,12 +21,10 @@ describe('AboutSection component', () => {
 		render(About);
 	});
 
-	it('renders the section title and intro text with the personal name and current project', async () => {
+	it('renders the section title and intro text with the personal name', async () => {
 		await expect.element(page.getByRole('heading', { level: 2 })).toHaveTextContent('About');
 
 		await expect.element(page.getByText(/Peter John Arao/)).toBeInTheDocument();
-
-		await expect.element(page.getByText('TestProject')).toBeInTheDocument();
 	});
 
 	it('renders stat rows derived from data', async () => {

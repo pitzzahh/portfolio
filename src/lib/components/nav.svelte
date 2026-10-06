@@ -41,6 +41,13 @@
 	});
 
 	const ids = ['work', 'stack', 'exp', 'about'];
+	function onKeydown(e: KeyboardEvent) {
+		if (e.key !== 'd' && e.key !== 'D') return;
+		if (e.ctrlKey || e.metaKey || e.altKey) return;
+		const t = e.target as HTMLElement | null;
+		if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.isContentEditable)) return;
+		toggleTheme();
+	}
 	function onScroll() {
 		const max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
 		progress = window.scrollY / max;
@@ -53,7 +60,7 @@
 	}
 </script>
 
-<svelte:window onscroll={onScroll} />
+<svelte:window onscroll={onScroll} onkeydown={onKeydown} />
 
 <div class="progress" aria-hidden="true">
 	<i style:transform={`scaleX(${progress.toFixed(4)})`}></i>

@@ -17,8 +17,7 @@
 				</p>
 				<p>
 					Daily stack is <strong>TypeScript + SvelteKit</strong>, strong Java underneath,
-					comfortable across REST APIs and Tauri desktops. Right now I am building
-					<strong>{personalInfo.currentProject}</strong>, an electricity usage and payment tracker.
+					comfortable across REST APIs and Tauri desktops.
 				</p>
 				<p>I contribute to open source and enjoy production problems end to end.</p>
 			</div>

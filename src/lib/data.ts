@@ -3,7 +3,6 @@ import type { Experience, Project, Skill, SocialLink } from './types.js';
 export const personalInfo = {
 	name: 'Peter John Arao',
 	handle: 'pitzzahh',
-	currentProject: 'powertrackr',
 	devTo: 'https://dev.to/pitzzahh',
 	gitroll: 'https://gitroll.io/profile/ufyicvm5WrIUMuzZsw0oDLpexgwf1',
 	email: 'hello@peterjohnarao.com'
@@ -148,6 +147,7 @@ export const skills: Skill[] = [
 	{ name: 'Cloudflare Workers', category: 'tool' },
 	{ name: 'Cloudflare Pages', category: 'tool' },
 	{ name: 'Cloudflare D1', category: 'database' },
+	{ name: 'AWS', category: 'tool' },
 	{ name: 'Tauri', category: 'framework' },
 	{ name: 'Hono', category: 'framework' },
 	{ name: 'Drizzle ORM', category: 'tool' },
@@ -185,7 +185,10 @@ export const experiences: Experience[] = [
 			'Desktop Development',
 			'Web Application Development',
 			'Spring Boot',
-			'Flutter Development'
+			'Flutter Development',
+			'SvelteKit',
+			'AWS',
+			'GitHub Actions'
 		],
 		url: 'https://hsjtechnologies.com'
 	},

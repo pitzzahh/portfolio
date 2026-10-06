@@ -41,8 +41,6 @@
 				</div>
 			</div>
 			<div class="meta status" use:reveal={200}>
-				<div class="num">CURRENT: POWERTRACKR</div>
-				<div>SvelteKit · Cloudflare D1 · Drizzle</div>
 				<div>BASED: Legazpi, Bicol · UTC+8</div>
 			</div>
 		</div>

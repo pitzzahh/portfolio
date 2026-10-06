@@ -33,9 +33,9 @@ describe('ContactSection.svelte', () => {
 			.toHaveAttribute('href', 'mailto:hello@peterjohnarao.com');
 
 		// Serif text links open in a new tab
-		await expect.element(p.getByText('GitHub')).toBeInTheDocument();
-		await expect.element(p.getByText('GitRoll')).toBeInTheDocument();
-		await expect.element(p.getByText('dev.to')).toBeInTheDocument();
+		await expect.element(p.getByText(/GitHub/)).toBeInTheDocument();
+		await expect.element(p.getByText(/GitRoll/)).toBeInTheDocument();
+		await expect.element(p.getByText(/dev\.to/)).toBeInTheDocument();
 		await expect
 			.element(p.getByRole('link', { name: /GitHub/ }))
 			.toHaveAttribute('target', '_blank');

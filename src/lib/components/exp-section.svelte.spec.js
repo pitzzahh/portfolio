@@ -39,8 +39,8 @@ describe('exp-section.svelte', () => {
 		render(ExpSection);
 
 		// Sticky rail display line
-		await expect.element(page.getByText('Four')).toBeInTheDocument();
-		await expect.element(page.getByText('roles.')).toBeInTheDocument();
+		await expect.element(page.getByText(/Four/)).toBeInTheDocument();
+		await expect.element(page.getByText(/roles\./)).toBeInTheDocument();
 
 		// Role text should be rendered
 		await expect.element(page.getByText('Engineer')).toBeInTheDocument();

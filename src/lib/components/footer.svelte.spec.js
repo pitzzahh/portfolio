@@ -50,7 +50,7 @@ describe('Footer.svelte', () => {
 	it('calls scrollTo with #top when "Back to top" is clicked', async () => {
 		render(Footer);
 
-		await page.getByRole('link', { name: 'Back to top' }).click();
+		await page.getByRole('link', { name: /Back to top/ }).click();
 
 		/** @type {{ __scrollToMock?: VitestMockLike }} */
 		const g2 = /** @type {{ __scrollToMock?: VitestMockLike }} */ (globalThis);

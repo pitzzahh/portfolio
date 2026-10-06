@@ -68,11 +68,11 @@ describe('project-section.svelte', () => {
 		render(ProjectSection);
 
 		for (const proj of mockProjects) {
-			const link = page.getByRole('link', { name: `View ${proj.title}` });
+			const link = page.getByRole('link', { name: new RegExp(`View ${proj.title}`) });
 			await expect.element(link).toBeInTheDocument();
 			await expect.element(link).toHaveAttribute('href', proj.url);
 
-			await expect.element(page.getByText(proj.title)).toBeInTheDocument();
+			await expect.element(page.getByText(new RegExp(proj.title))).toBeInTheDocument();
 			await expect.element(page.getByText(proj.description)).toBeInTheDocument();
 			await expect.element(page.getByText(proj.tech.join(' · '))).toBeInTheDocument();
 		}

@@ -16,8 +16,8 @@ describe('Hero section', () => {
 	it('renders name, display line, status pill and CTAs', async () => {
 		render(Hero);
 
-		await expect.element(page.getByRole('heading', { level: 1 })).toHaveTextContent('Test Name');
-		await expect.element(page.getByText('Full-stack developer.')).toBeInTheDocument();
+		await expect.element(page.getByRole('heading', { level: 1 })).toMatchTextContent(/Test Name/);
+		await expect.element(page.getByText(/Full-stack developer\./)).toBeInTheDocument();
 		await expect.element(page.getByText(/Available for work/)).toBeInTheDocument();
 		await expect
 			.element(page.getByRole('link', { name: 'Start a project' }))

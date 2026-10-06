@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="robots" content="noindex, nofollow" />
+		<title>%sveltekit.error.message% · Peter John Arao</title>
+		<style>
+			:root {
+				--bg: oklch(99% 0.002 240);
+				--surface: oklch(100% 0 0);
+				--fg: oklch(18% 0.012 250);
+				--muted: oklch(54% 0.012 250);
+				--border: oklch(92% 0.005 250);
+				--accent: oklch(58% 0.18 255);
+			}
+			html[data-theme='dark'] {
+				--bg: oklch(17% 0.008 250);
+				--surface: oklch(21% 0.01 250);
+				--fg: oklch(93% 0.006 250);
+				--muted: oklch(68% 0.014 250);
+				--border: oklch(30% 0.012 250);
+				--accent: oklch(72% 0.16 255);
+			}
+			@media (prefers-color-scheme: light) {
+				html:not([data-theme='dark']) {
+					--bg: oklch(99% 0.002 240);
+					--surface: oklch(100% 0 0);
+					--fg: oklch(18% 0.012 250);
+					--muted: oklch(54% 0.012 250);
+					--border: oklch(92% 0.005 250);
+					--accent: oklch(58% 0.18 255);
+				}
+			}
+			* {
+				box-sizing: border-box;
+			}
+			body {
+				margin: 0;
+				min-height: 100svh;
+				display: grid;
+				place-items: center;
+				padding: 32px;
+				background: var(--bg);
+				color: var(--fg);
+				font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', system-ui, sans-serif;
+				-webkit-font-smoothing: antialiased;
+			}
+			main {
+				max-width: 560px;
+				width: 100%;
+				text-align: left;
+			}
+			.pill {
+				display: inline-flex;
+				align-items: center;
+				gap: 8px;
+				padding: 6px 14px;
+				border-radius: 999px;
+				background: color-mix(in oklch, var(--accent) 14%, transparent);
+				color: var(--accent);
+				font-family: ui-monospace, Menlo, monospace;
+				font-size: 12px;
+				letter-spacing: 0.08em;
+				text-transform: uppercase;
+			}
+			h1 {
+				font-family: 'Iowan Old Style', Charter, Georgia, serif;
+				font-size: clamp(56px, 10vw, 110px);
+				line-height: 1;
+				letter-spacing: -0.02em;
+				margin: 20px 0 8px;
+			}
+			h1 em {
+				display: block;
+				font-size: clamp(28px, 5vw, 44px);
+				font-weight: 400;
+				font-style: italic;
+				color: var(--muted);
+				letter-spacing: -0.02em;
+			}
+			p {
+				color: var(--muted);
+				line-height: 1.6;
+			}
+			.card {
+				margin-top: 24px;
+				border: 1px solid var(--border);
+				border-radius: 16px;
+				background: var(--surface);
+				padding: 12px 18px;
+				font-family: ui-monospace, Menlo, monospace;
+				font-size: 13px;
+				color: var(--muted);
+				display: flex;
+				justify-content: space-between;
+				gap: 12px;
+			}
+			a {
+				display: inline-block;
+				margin-top: 24px;
+				padding: 12px 22px;
+				border-radius: 10px;
+				background: var(--accent);
+				color: var(--bg);
+				font-weight: 600;
+				text-decoration: none;
+			}
+		</style>
+		<script>
+			try {
+				var s = localStorage.getItem('pja-theme');
+				if (s === 'light' || s === 'dark') document.documentElement.setAttribute('data-theme', s);
+				else if (window.matchMedia('(prefers-color-scheme: light)').matches)
+					document.documentElement.setAttribute('data-theme', 'light');
+			} catch (e) {}
+		</script>
+	</head>
+	<body>
+		<main>
+			<span class="pill">Error %sveltekit.status%</span>
+			<h1>%sveltekit.status% <em>Something broke.</em></h1>
+			<p>%sveltekit.error.message%</p>
+			<div class="card"><span>STATUS</span><span>%sveltekit.status%</span></div>
+			<a href="/">Back to home</a>
+		</main>
+	</body>
+</html>

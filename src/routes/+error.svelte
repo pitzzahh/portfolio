@@ -16,25 +16,25 @@
 			return {
 				kicker: '404 · Not found',
 				title: 'Lost in transit.',
-				lead: 'The page you asked for drifted off the map — moved, renamed, or never existed. The good news: everything else is still one click away.'
+				lead: 'That page is gone. It moved or never existed. Go home and start over.'
 			};
 		if (status === 403)
 			return {
 				kicker: '403 · Forbidden',
 				title: 'Off limits.',
-				lead: 'You knocked, but this route does not want visitors. If you think this is a mistake, head back and try another way in.'
+				lead: "You can't open this route. If that seems wrong, go back and try another link."
 			};
 		if (status === 429)
 			return {
 				kicker: '429 · Too many requests',
 				title: 'Slow down a touch.',
-				lead: 'Rate limiting kicked in. Wait a moment, then retry — the site is not going anywhere.'
+				lead: 'Rate limiting kicked in. Wait a moment, then retry. The site is not going anywhere.'
 			};
 		if (status >= 500)
 			return {
 				kicker: `${status} · Server hiccup`,
 				title: 'Something broke.',
-				lead: 'This one is on me, not you. Try reloading — and if it persists, ping me so I can fix it.'
+				lead: 'My code broke here. Reload the page. If it still fails, ping me and I will fix it.'
 			};
 		return {
 			kicker: `${status} · Something went sideways`,
@@ -57,12 +57,12 @@
 </script>
 
 <svelte:head>
-	<title>{status} — {is404 ? 'Page not found' : 'Something went wrong'} · {site.title}</title>
+	<title>{status} - {is404 ? 'Page not found' : 'Something went wrong'} · {site.title}</title>
 	<meta
 		name="description"
 		content={is404
-			? 'The page you requested could not be found. Return to the homepage or explore selected work.'
-			: `An error occurred (${status}). Return to the homepage.`}
+			? 'That page does not exist. Go to the homepage or browse selected work.'
+			: `Something failed (${status}). Go to the homepage.`}
 	/>
 	<meta name="robots" content="noindex, nofollow" />
 	<meta name="theme-color" content="#0d1013" />

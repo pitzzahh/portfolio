@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { personalInfo } from '$lib/data.js';
-	import { scrollTo } from '$lib/hooks/controller.svelte';
+	import { personalInfo } from '#lib/data.js';
+	import { scrollTo } from '#lib/hooks/controller.svelte.js';
 
 	const year = new Date().getFullYear();
 

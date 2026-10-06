@@ -15,7 +15,7 @@ import { render } from 'vitest-browser-svelte';
  * @property {string[]} skills
  */
 
-vi.mock('$lib/data.js', () => {
+vi.mock('#lib/data.js', () => {
 	return {
 		experiences: [
 			{

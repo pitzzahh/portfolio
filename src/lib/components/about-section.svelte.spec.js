@@ -3,7 +3,7 @@ import { describe, expect, it, vi, beforeEach } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import About from './about-section.svelte';
 
-vi.mock('$lib/data.js', () => {
+vi.mock('#lib/data.js', () => {
 	return {
 		personalInfo: {
 			name: 'Peter John Arao',

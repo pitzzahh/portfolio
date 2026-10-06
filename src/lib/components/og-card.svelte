@@ -8,7 +8,7 @@
 </script>
 
 <script lang="ts">
-	import { personalInfo } from '$lib/data';
+	import { personalInfo } from '#lib/data.js';
 	let { title, subtitle }: OgCardType = $props();
 </script>
 

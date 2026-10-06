@@ -1,8 +1,8 @@
 import type { EntryGenerator, RequestHandler } from './$types';
 import { ImageResponse } from '@ethercorps/sveltekit-og';
 import { GoogleFont, resolveFonts } from '@ethercorps/sveltekit-og/fonts';
-import OgCard from '$lib/components/og-card.svelte';
-import { ogEntries, ogEntriesBySlug } from '$lib/og-entries';
+import OgCard from '#lib/components/og-card.svelte';
+import { ogEntries, ogEntriesBySlug } from '#lib/og-entries.js';
 
 export const prerender = true;
 

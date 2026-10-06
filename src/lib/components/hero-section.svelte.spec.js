@@ -3,7 +3,7 @@ import { describe, it, expect, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import Hero from './hero-section.svelte';
 
-vi.mock('$lib/data.js', () => ({
+vi.mock('#lib/data.js', () => ({
 	personalInfo: {
 		name: 'Test Name',
 		role: 'Tester',

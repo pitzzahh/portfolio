@@ -3,7 +3,7 @@ import { describe, expect, it, beforeEach, vi } from 'vitest';
 import { render } from 'vitest-browser-svelte';
 import Nav from './nav.svelte';
 
-vi.mock('$lib/hooks/controller.svelte', () => {
+vi.mock('#lib/hooks/controller.svelte.js', () => {
 	const scrollToMock = vi.fn();
 	Object.defineProperty(globalThis, '__scrollToMock', {
 		value: scrollToMock,

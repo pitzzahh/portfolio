@@ -1,5 +1,5 @@
 import type { AppTypes } from '$app/types';
-import site from '$lib/site';
+import site from '#lib/site.js';
 import type { RequestHandler } from './$types';
 
 export const prerender = true;

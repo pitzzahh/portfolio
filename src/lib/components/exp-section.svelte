@@ -9,8 +9,8 @@
 </script>
 
 <script lang="ts">
-	import { experiences } from '$lib/data';
-	import { reveal } from '$lib/hooks/actions.js';
+	import { experiences } from '#lib/data.js';
+	import { reveal } from '#lib/hooks/actions.js';
 </script>
 
 <section class="section" id="exp">

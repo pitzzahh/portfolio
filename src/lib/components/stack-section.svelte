@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { skills } from '$lib/data.js';
-	import type { Skill } from '$lib/types.js';
-	import { reveal } from '$lib/hooks/actions.js';
+	import { skills } from '#lib/data.js';
+	import type { Skill } from '#lib/types.js';
+	import { reveal } from '#lib/hooks/actions.js';
 
 	const groups = [
 		{

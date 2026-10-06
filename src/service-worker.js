@@ -4,23 +4,20 @@
 /// <reference lib="esnext" />
 /// <reference lib="webworker" />
 
-// Ensures that the `$service-worker` import has proper type definitions
-/// <reference types="@sveltejs/kit" />
-
-// Only necessary if you have an import from `$env/static/public`
-/// <reference types="../.svelte-kit/ambient.d.ts" />
-
-import { build, files, version } from '$service-worker';
-
-// This gives `self` the correct types
-const self = /** @type {ServiceWorkerGlobalScope} */ (/** @type {unknown} */ (globalThis.self));
+import { self } from '$app/service-worker';
+import { version } from '$app/env';
+import { assets, immutable } from '$app/manifest';
+import { resolve } from '$app/paths';
 
 // Create a unique cache name for this deployment
 const CACHE = `cache-${version}`;
 
+// `immutable`/`assets` paths from `$app/manifest` are relative to the
+// base path, so resolve them to absolute pathnames that can be matched
+// against `url.pathname` in the `fetch` handler
 const ASSETS = [
-	...build, // the app itself
-	...files // everything in `static`
+	...immutable.map((entry) => resolve(entry.path)), // the app itself
+	...assets.map((entry) => resolve(entry.path)) // everything in `static`
 ];
 
 self.addEventListener('install', (event) => {

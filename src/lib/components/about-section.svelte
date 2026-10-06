@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { experiences, personalInfo } from '$lib/data.js';
-	import { reveal } from '$lib/hooks/actions.js';
+	import { experiences, personalInfo } from '#lib/data.js';
+	import { reveal } from '#lib/hooks/actions.js';
 
 	const years = new Date().getFullYear() - 2020;
 </script>

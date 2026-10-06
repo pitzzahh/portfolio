@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { personalInfo } from '$lib/data.js';
-	import { magnetic, reveal } from '$lib/hooks/actions.js';
+	import { personalInfo } from '#lib/data.js';
+	import { magnetic, reveal } from '#lib/hooks/actions.js';
 </script>
 
 <section class="section" id="contact">

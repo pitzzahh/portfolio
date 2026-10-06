@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { projects } from '$lib/data.js';
-	import { reveal } from '$lib/hooks/actions.js';
+	import { projects } from '#lib/data.js';
+	import { reveal } from '#lib/hooks/actions.js';
 
 	// ponytail: featured slice keeps the DS 6-row index list; hrms stays out (private repo, no public URL).
 	const featured = [0, 7, 10, 1, 3, 8].map((i) => projects[i]).filter(Boolean);

@@ -10,7 +10,7 @@ import Footer from './footer.svelte';
  * @typedef {{ mockClear?: () => void; mockReset?: () => void; mock?: unknown[] }} VitestMockLike
  */
 
-vi.mock('$lib/data.js', () => {
+vi.mock('#lib/data.js', () => {
 	return {
 		personalInfo: {
 			name: 'Test User',
@@ -20,7 +20,7 @@ vi.mock('$lib/data.js', () => {
 });
 
 /** @returns {{ scrollTo: VitestMock }} */
-vi.mock('$lib/hooks/controller.svelte', () => {
+vi.mock('#lib/hooks/controller.svelte.js', () => {
 	const scrollToMock = vi.fn();
 	Object.defineProperty(globalThis, '__scrollToMock', {
 		value: scrollToMock,

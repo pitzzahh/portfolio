@@ -1,12 +1,12 @@
 <script lang="ts">
-	import HeroSection from '$lib/components/hero-section.svelte';
-	import ProjectSection from '$lib/components/project-section.svelte';
-	import StackSection from '$lib/components/stack-section.svelte';
-	import ExperienceSection from '$lib/components/exp-section.svelte';
-	import AboutSection from '$lib/components/about-section.svelte';
-	import ContactSection from '$lib/components/contact-section.svelte';
-	import Footer from '$lib/components/footer.svelte';
-	import site from '$lib/site';
+	import HeroSection from '#lib/components/hero-section.svelte';
+	import ProjectSection from '#lib/components/project-section.svelte';
+	import StackSection from '#lib/components/stack-section.svelte';
+	import ExperienceSection from '#lib/components/exp-section.svelte';
+	import AboutSection from '#lib/components/about-section.svelte';
+	import ContactSection from '#lib/components/contact-section.svelte';
+	import Footer from '#lib/components/footer.svelte';
+	import site from '#lib/site.js';
 </script>
 
 <svelte:head>

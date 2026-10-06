@@ -1,8 +1,8 @@
 <script lang="ts">
 	import './layout.css';
-	import Nav from '$lib/components/nav.svelte';
-	import { initLenis } from '$lib/hooks/controller.svelte';
-	import site from '$lib/site';
+	import Nav from '#lib/components/nav.svelte';
+	import { initLenis } from '#lib/hooks/controller.svelte.js';
+	import site from '#lib/site.js';
 
 	let { children } = $props();
 

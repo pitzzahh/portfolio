@@ -1,12 +1,14 @@
+import { env } from 'cloudflare:workers';
+
 /**
  * SvelteKit handle hook that adds the Strict-Transport-Security header to all responses.
  *
- * @type {import('@sveltejs/kit').Handle}
+ * @type {import('@sveltejs/kit/hooks').Handle}
  */
 export const handle = async ({ event, resolve }) => {
 	try {
-		if (event.platform?.env?.RATE_LIMITER) {
-			const { success } = await event.platform.env.RATE_LIMITER.limit({
+		if (env.RATE_LIMITER) {
+			const { success } = await env.RATE_LIMITER.limit({
 				key: event.getClientAddress()
 			});
 			if (!success) {

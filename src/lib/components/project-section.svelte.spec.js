@@ -33,7 +33,7 @@ const mockProjects = [
 	}
 ];
 
-vi.mock('$lib/data.js', () => ({
+vi.mock('#lib/data.js', () => ({
 	projects: [
 		{
 			title: 'Project Alpha',

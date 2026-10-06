@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { scrollTo } from '$lib/hooks/controller.svelte';
+	import { scrollTo } from '#lib/hooks/controller.svelte.js';
 
 	const links = [
 		{ label: 'Work', href: '#work' },

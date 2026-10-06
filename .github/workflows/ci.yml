@@ -12,7 +12,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run gen
       - run: pnpm run lint
   check:
     name: 'Svelte Check'
@@ -20,7 +28,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run gen
       - run: pnpm run check
 
   test:
@@ -29,7 +45,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Use Node.js 24.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run gen
       - name: Install Playwright browsers
         # Ensure Playwright downloads required browser binaries on the runner
         run: pnpm exec playwright install --with-deps
@@ -44,7 +68,13 @@ jobs:
         node-version: [22.x, '24.x']
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/setup
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run gen
       - run: pnpm run build

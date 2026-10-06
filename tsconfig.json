@@ -1,7 +1,7 @@
 {
 	"extends": "$app/tsconfig",
 	"include": ["src", "test", "*"],
-	"exclude": ["src/service-worker", "src/service-worker.js"],
+	"exclude": ["src/service-worker", "src/service-worker.js", "eslint.config.js", "eslint-rules"],
 	"compilerOptions": {
 		"rewriteRelativeImportExtensions": true,
 		"allowJs": true,

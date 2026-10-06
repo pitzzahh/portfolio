@@ -36,8 +36,9 @@ describe('OgCard.svelte', () => {
 
 		// The branded heading (role=heading level=1) is present and should contain the contact label.
 		// Use the accessible name filter to disambiguate from other level-1 headings (the H1 with the title).
+		// toMatchTextContent (not toHaveTextContent) supports RegExp/partial matching.
 		await expect
 			.element(page.getByRole('heading', { name: /Contact/, level: 1 }))
-			.toHaveTextContent(/Contact/);
+			.toMatchTextContent(/Contact/);
 	});
 });

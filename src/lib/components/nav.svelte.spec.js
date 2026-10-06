@@ -48,17 +48,16 @@ describe('Nav.svelte', () => {
 	it('toggles theme when the d key is pressed', async () => {
 		render(Nav);
 
-		const before = await page
-			.getByRole('button', { name: /Switch to (light|dark) theme/ })
-			.getAttribute('aria-label');
+		const toggle = page.getByRole('button', { name: /Switch to (light|dark) theme/ });
+		await expect.element(toggle).toBeInTheDocument();
 
-		await page.keyboard.press('d');
+		// vitest browser Locators expose the DOM node via .element();
+		// dispatch a bubbling keydown so the <svelte:window> listener fires.
+		// The aria-label assertion polls, covering the async Svelte update.
+		const before = toggle.element().getAttribute('aria-label');
+		toggle.element().dispatchEvent(new KeyboardEvent('keydown', { key: 'd', bubbles: true }));
 
-		const after = await page
-			.getByRole('button', { name: /Switch to (light|dark) theme/ })
-			.getAttribute('aria-label');
-
-		expect(after).not.toBe(before);
+		await expect.element(toggle).not.toHaveAttribute('aria-label', before ?? '');
 	});
 
 	it('calls scrollTo with DS offset when the wordmark is clicked', async () => {

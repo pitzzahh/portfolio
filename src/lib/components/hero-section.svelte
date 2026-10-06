@@ -107,9 +107,6 @@
 		line-height: 1.65;
 		max-width: 52ch;
 	}
-	.status div + div {
-		margin-top: 10px;
-	}
 	.hero-cta {
 		display: flex;
 		gap: var(--gap-sm);
